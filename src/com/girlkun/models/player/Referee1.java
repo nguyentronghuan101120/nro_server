@@ -44,12 +44,12 @@ public class Referee1 extends Player {
     public void update() {
         if (Util.canDoWithTime(lastTimeChat, 5000)) {
            
-            Service.getInstance().chat(this, "|3|Xin Chào Các Cư Dân Đã Đến Với Ngọc Rồng Toman");
-         Service.getInstance().chat(this, "|4|Xin Chào Các Cư Dân Đã Đến Với Ngọc Rồng Toman");
-          Service.getInstance().chat(this, "|6|Xin Chào Các Cư Dân Đã Đến Với Ngọc Rồng Toman"); 
-            Service.getInstance().chat(this, "|5|Xin Chào Các Cư Dân Đã Đến Với Ngọc Rồng Toman");
-       Service.getInstance().chat(this, "|8|Xin Chào Các Cư Dân Đã Đến Với Ngọc Rồng Toman"); 
-       Service.getInstance().chat(this, "|9|Xin Chào Các Cư Dân Đã Đến Với Ngọc Rồng Toman");
+            Service.getInstance().chat(this, "|3|Xin Chào Các Cư Dân Đã Đến Với Ngọc Rồng online");
+         Service.getInstance().chat(this, "|4|Xin Chào Các Cư Dân Đã Đến Với Ngọc Rồng online");
+          Service.getInstance().chat(this, "|6|Xin Chào Các Cư Dân Đã Đến Với Ngọc Rồng online"); 
+            Service.getInstance().chat(this, "|5|Xin Chào Các Cư Dân Đã Đến Với Ngọc Rồng online");
+       Service.getInstance().chat(this, "|8|Xin Chào Các Cư Dân Đã Đến Với Ngọc Rồng online"); 
+       Service.getInstance().chat(this, "|9|Xin Chào Các Cư Dân Đã Đến Với Ngọc Rồng online");
             lastTimeChat = System.currentTimeMillis();
             
         }

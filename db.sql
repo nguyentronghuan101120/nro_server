@@ -58,7 +58,7 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`id`, `username`, `password`, `create_time`, `update_time`, `ban`, `point_post`, `last_post`, `role`, `is_admin`, `last_time_login`, `last_time_logout`, `ip_address`, `active`, `thoi_vang`, `server_login`, `bd_player`, `is_gift_box`, `gift_time`, `reward`, `tongnap`, `coin`, `vnd`) VALUES
-(1, 'admin', 'admin', '2023-06-24 17:00:49', '2023-06-24 17:00:49', 0, 0, 0, -1, 1, '2023-08-18 16:23:31', '2023-08-18 16:28:06', '171.251.236.123', 1, 0, -1, 1, 0, '0', NULL, 0, 0, 0);
+(1, 'huanvip2kk', 'huanm1', '2023-06-24 17:00:49', '2023-06-24 17:00:49', 0, 0, 0, -1, 1, '2023-08-18 16:23:31', '2023-08-18 16:28:06', '171.251.236.123', 1, 0, -1, 1, 0, '0', NULL, 0, 0, 0);
 
 -- --------------------------------------------------------
 

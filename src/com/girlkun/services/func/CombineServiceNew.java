@@ -375,7 +375,7 @@ public class CombineServiceNew {
                 break;
             case CHE_TAO_TRANG_BI_TS:
                 if (player.combineNew.itemsCombine.size() == 0) {
-                    this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Toman", "Yes");
+                    this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "NRO", "Yes");
                     return;
                 }
                 if (player.combineNew.itemsCombine.size() >= 2 && player.combineNew.itemsCombine.size() < 5) {

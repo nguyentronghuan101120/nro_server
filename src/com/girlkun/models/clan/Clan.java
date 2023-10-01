@@ -303,8 +303,8 @@ public class Clan {
             ps.setInt(7, this.capsuleClan);
             ps.setInt(8, this.level);
             ps.setString(9, member);
-            ps.setString(10, "[" + System.currentTimeMillis() + ",\"Ngọc Rồng Toman\"]");
-            ps.setString(11, "[" + System.currentTimeMillis() + ",\"Ngọc Rồng Toman\"]");
+            ps.setString(10, "[" + System.currentTimeMillis() + ",\"Ngọc Rồng\"]");
+            ps.setString(11, "[" + System.currentTimeMillis() + ",\"Ngọc Rồng\"]");
             ps.executeUpdate();
             ps.close();
         } catch (Exception e) {
