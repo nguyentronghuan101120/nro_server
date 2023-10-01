@@ -39,11 +39,13 @@ public class PlayerDAO {
 
             String inventory = dataArray.toJSONString();
             dataArray.clear();
+
             dataArray.add(39 + gender); // map
             dataArray.add(100); // x
             dataArray.add(384); // y
             String location = dataArray.toJSONString();
             dataArray.clear();
+
             dataArray.add(0); // giới hạn sức mạnh
             dataArray.add(2000); // sức mạnh
             dataArray.add(2000); // tiềm năng

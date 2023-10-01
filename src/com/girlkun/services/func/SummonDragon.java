@@ -169,38 +169,49 @@ public class SummonDragon {
     }
 
     public void summonShenron(Player pl) {
+        if (pl.zone.map.mapId == 0 || pl.zone.map.mapId == 7 || pl.zone.map.mapId == 14) {
             if (checkShenronBall(pl)) {
                 if (isShenronAppear) {
                     Service.gI().sendThongBao(pl, "Không thể thực hiện");
                     return;
                 }
 
-                // gọi rồng
-                playerSummonShenron = pl;
-                playerSummonShenronId = (int) pl.id;
-                mapShenronAppear = pl.zone;
-                byte dragonStar = (byte) pl_dragonStar.get(playerSummonShenron);
-                int begin = NGOC_RONG_1_SAO;
-                switch (dragonStar) {
-                    case 2:
-                        begin = NGOC_RONG_2_SAO;
-                        break;
-                    case 3:
-                        begin = NGOC_RONG_3_SAO;
-                        break;
-                }
-                for (int i = begin; i <= NGOC_RONG_7_SAO; i++) {
-                    try {
-                        InventoryServiceNew.gI().subQuantityItemsBag(pl,
-                                InventoryServiceNew.gI().findItemBag(pl, i), 1);
-                    } catch (Exception ex) {
+                if (Util.canDoWithTime(lastTimeShenronAppeared, timeResummonShenron)) {
+                    // gọi rồng
+                    playerSummonShenron = pl;
+                    playerSummonShenronId = (int) pl.id;
+                    mapShenronAppear = pl.zone;
+                    byte dragonStar = (byte) pl_dragonStar.get(playerSummonShenron);
+                    int begin = NGOC_RONG_1_SAO;
+                    switch (dragonStar) {
+                        case 2:
+                            begin = NGOC_RONG_2_SAO;
+                            break;
+                        case 3:
+                            begin = NGOC_RONG_3_SAO;
+                            break;
                     }
+                    for (int i = begin; i <= NGOC_RONG_7_SAO; i++) {
+                        try {
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl,
+                                    InventoryServiceNew.gI().findItemBag(pl, i), 1);
+                        } catch (Exception ex) {
+                        }
+                    }
+                    InventoryServiceNew.gI().sendItemBags(pl);
+                    sendNotifyShenronAppear();
+                    activeShenron(pl, true, SummonDragon.DRAGON_SHENRON);
+                    sendWhishesShenron(pl);
+                } else {
+                    int timeLeft = (int) ((timeResummonShenron - (System.currentTimeMillis() - lastTimeShenronAppeared))
+                            / 1000);
+                    Service.gI().sendThongBao(pl, "Vui lòng đợi "
+                            + (timeLeft < 7200 ? timeLeft + " giây" : timeLeft / 60 + " phút") + " nữa");
                 }
-                InventoryServiceNew.gI().sendItemBags(pl);
-                sendNotifyShenronAppear();
-                activeShenron(pl, true, SummonDragon.DRAGON_SHENRON);
-                sendWhishesShenron(pl);
             }
+        } else {
+            Service.gI().sendThongBao(pl, "Chỉ được gọi rồng thần ở ngôi làng trước nhà");
+        }
     }
 
     public void openMenuSummonShenronTRB(Player pl, byte dragonBallStar) {

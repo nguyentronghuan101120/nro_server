@@ -1337,7 +1337,7 @@ public class CombineServiceNew {
         player.combineNew.itemsCombine.clear();
         reOpenItemCombine(player);
     }
-
+    
     // Code phần đổi đồ thiên sứ bonus thêm chỉ số
     public void openCreateItemAngel(Player player) {
         // Công thức vip + x999 Mảnh thiên sứ + đá nâng cấp + đá may mắn
@@ -2155,7 +2155,7 @@ public class CombineServiceNew {
                     }
 
                     InventoryServiceNew.gI().subQuantityItemsBag(player, daPhaLe, 1);
-                    // sendEffectSuccessCombine(player);
+                    sendEffectSuccessCombine(player);
                 }
                 InventoryServiceNew.gI().sendItemBags(player);
                 Service.gI().sendMoney(player);
@@ -2196,13 +2196,13 @@ public class CombineServiceNew {
                         } else {
                             optionStar.param++;
                         }
-                        // sendEffectSuccessCombine(player);
+                        sendEffectSuccessCombine(player);
                         if (optionStar != null && optionStar.param >= 7) {
                             ServerNotify.gI().notify("Chúc mừng " + player.name + " vừa pha lê hóa "
                                     + "thành công " + item.template.name + " lên " + optionStar.param + " sao pha lê");
                         }
                     } else {
-                        // sendEffectFailCombine(player);
+                        sendEffectFailCombine(player);
                     }
                 }
                 InventoryServiceNew.gI().sendItemBags(player);
@@ -2523,7 +2523,7 @@ public class CombineServiceNew {
             case 7:
                 return 80;
             // case 8:
-            // return 90;
+            //     return 90;
             // case 9:
             // return 50;
             // case 10:
@@ -2555,7 +2555,7 @@ public class CombineServiceNew {
             case 7:
                 return 50;
             // case 8:
-            // return 50;
+            //     return 50;        
         }
         return 0;
     }
@@ -2563,16 +2563,23 @@ public class CombineServiceNew {
     private double getTileNangCapDo(int level) {
         switch (level) {
             case 0: // tại lúc đồ 0 có cấp khi nâng lên +1 thì tỉ lệ 100%
-            case 1:
-            case 2: // tại lúc đồ có cấp là +2 thì khi nâng lên +3 thì tỉ lệ là 50%
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
                 return 100;
+            case 1: 
+                return 70;
+            case 2: // tại lúc đồ có cấp là +2 thì khi nâng lên +3 thì tỉ lệ là 50%
+                return 50;
+            case 3:
+                return 40;
+            case 4:
+                return 20;
+            case 5:
+                return 10;
+            case 6:
+                return 5;
+            case 7:
+                return 3;
             // case 8:
-            // return 1;
+            //     return 1;
             // case 9:
             // return 1;
             // case 10: // 7 sao
@@ -2604,7 +2611,7 @@ public class CombineServiceNew {
             case 7:
                 return 70;
             // case 8:
-            // return 99;
+            //     return 99;    
         }
         return 0;
     }
@@ -2632,7 +2639,7 @@ public class CombineServiceNew {
             case 7:
                 return 250000000;
             // case 8:
-            // return 300000000;
+            //     return 300000000;    
         }
         return 0;
     }

@@ -322,19 +322,24 @@ public class InventoryServiceNew {
             case 21:
                 break;
             default:
-                // Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
-                // return sItem;
+                Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
+                return sItem;
         }
-        // if (item.template.gender < 3 && item.template.gender != player.gender) {
-        //     Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
-        //     return sItem;
-        // }
+        if (item.template.gender < 3 && item.template.gender != player.gender) {
+            Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Trang bị không phù hợp!");
+            return sItem;
+        }
+        long powerRequire = item.template.strRequire;
         for (Item.ItemOption io : item.itemOptions) {
             if (io.optionTemplate.id == 21) {
+                powerRequire = io.param * 1000000000L;
                 break;
             }
         }
-
+        if (player.nPoint.power < powerRequire) {
+            Service.gI().sendThongBaoOK(player.isPet ? ((Pet) player).master : player, "Sức mạnh không đủ yêu cầu!");
+            return sItem;
+        }
         int index = -1;
         switch (item.template.type) {
             case 0:
@@ -431,20 +436,23 @@ public class InventoryServiceNew {
     }
 
     public void itemBagToPetBody(Player player, int index) {
-        Item item = player.inventory.itemsBag.get(index);
-        if (item.isNotNullItem()) {
-            Item itemSwap = putItemBody(player.pet, item);
-            player.inventory.itemsBag.set(index, itemSwap);
-            sendItemBags(player);
-            sendItemBody(player);
-            Service.getInstance().Send_Caitrang(player.pet);
-            Service.getInstance().Send_Caitrang(player);
-            if (!itemSwap.equals(item)) {
-                Service.getInstance().point(player);
-                Service.getInstance().showInfoPet(player);
+        if (player.pet != null && player.pet.nPoint.power >= 1500000) {
+            Item item = player.inventory.itemsBag.get(index);
+            if (item.isNotNullItem()) {
+                Item itemSwap = putItemBody(player.pet, item);
+                player.inventory.itemsBag.set(index, itemSwap);
+                sendItemBags(player);
+                sendItemBody(player);
+                Service.getInstance().Send_Caitrang(player.pet);
+                Service.getInstance().Send_Caitrang(player);
+                if (!itemSwap.equals(item)) {
+                    Service.getInstance().point(player);
+                    Service.getInstance().showInfoPet(player);
+                }
             }
+        } else {
+            Service.getInstance().sendThongBaoOK(player, "Đệ tử phải đạt 1tr5 sức mạnh mới có thể mặc");
         }
-
     }
 
     public void itemPetBodyToBag(Player player, int index) {

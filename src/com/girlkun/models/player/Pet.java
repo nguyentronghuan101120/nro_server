@@ -789,7 +789,7 @@ import com.girlkun.utils.TimeUtil;
 public class Pet extends Player {
 
     private static final short ARANGE_CAN_ATTACK = 300;
-    private static final short ARANGE_ATT_SKILL1 = 30;
+    private static final short ARANGE_ATT_SKILL1 = 100;
 
     private static final short[][] PET_ID = { { 285, 286, 287 }, { 288, 289, 290 }, { 282, 283, 284 },
             { 304, 305, 303 } };
@@ -869,13 +869,13 @@ public class Pet extends Player {
     private String getTextStatus(byte status) {
         switch (status) {
             case FOLLOW:
-                return "Dạ vâng, con theo sư phụ ạ!";
+                return "Ok con theo sư phụ";
             case PROTECT:
-                return "Á..À!!MÀY GIÁM ĐÁNH SƯ PHỤ TAO À, CON SẼ BẢO VỆ SƯ PHỤ!!!";
+                return "Á..À!!Mày Dám Đánh Sư Phụ Tao À, con sẽ bảo vệ sư phụ";
             case ATTACK:
-                return "Dạ vâng thưa sư phụ!";
+                return "Ok sư phụ, Thích Thì Đấm, Đụng Thì Chạm";
             case GOHOME:
-                return "Dạ vâng con về ạ, bibi sư phụ";
+                return "Ok con về, bibi sư phụ";
             default:
                 return "";
         }
@@ -1062,7 +1062,7 @@ public class Pet extends Player {
             moveIdle();
             switch (status) {
                 case FOLLOW:
-                    followMaster(30);
+                    followMaster(60);
                     break;
                 case PROTECT:
                     if (useSkill3() || useSkill4() || useSkill5()) {
@@ -1192,7 +1192,7 @@ public class Pet extends Player {
 
     public void askPea() {
         if (Util.canDoWithTime(lastTimeAskPea, 10000)) {
-            Service.gI().chatJustForMe(master, this, "Sư phụ ơi cho con xin đậu thần với ạ !!");
+            Service.gI().chatJustForMe(master, this, "Sư phụ ơi cho con đậu thần đi, con đói sắp chết rồi !!");
             lastTimeAskPea = System.currentTimeMillis();
         }
     }
@@ -1210,19 +1210,17 @@ public class Pet extends Player {
                     if (SkillService.gI().canUseSkillWithCooldown(this)
                             && SkillService.gI().canUseSkillWithMana(this)) {
                         SkillService.gI().useSkill(this, null, null, null);
-                        Service.gI().chatJustForMe(master, this, "Ghê chưa, ghê chưa sư phụ :))");
+                        Service.gI().chatJustForMe(master, this, "Bất ngờ chưa ông già");
                         return true;
                     }
                     return false;
                 case Skill.TAI_TAO_NANG_LUONG:
-                    Service.gI().chatJustForMe(master, this, "TÁI TẠO NĂNG LƯỢNG !!!");
                     if (this.effectSkill.isCharging && this.countTTNL < Util.nextInt(3, 5)) {
                         this.countTTNL++;
                         return true;
                     }
                     if (SkillService.gI().canUseSkillWithCooldown(this) && SkillService.gI().canUseSkillWithMana(this)
                             && (this.nPoint.getCurrPercentHP() <= 20 || this.nPoint.getCurrPercentMP() <= 20)) {
-
                         SkillService.gI().useSkill(this, null, null, null);
                         this.countTTNL = 0;
                         return true;
@@ -1266,7 +1264,6 @@ public class Pet extends Player {
             }
             switch (this.playerSkill.skillSelect.template.id) {
                 case Skill.BIEN_KHI:
-                    Service.gI().chatJustForMe(master, this, "BIẾN HÌNH !!!");
                     if (!this.effectSkill.isMonkey && SkillService.gI().canUseSkillWithCooldown(this)
                             && SkillService.gI().canUseSkillWithMana(this)) {
                         SkillService.gI().useSkill(this, null, null, null);
@@ -1281,7 +1278,6 @@ public class Pet extends Player {
                     }
                     return false;
                 case Skill.DE_TRUNG:
-                    Service.gI().chatJustForMe(master, this, "PHẸT :V");
                     if (this.mobMe == null && SkillService.gI().canUseSkillWithCooldown(this)
                             && SkillService.gI().canUseSkillWithMana(this)) {
                         SkillService.gI().useSkill(this, null, null, null);
@@ -1305,7 +1301,6 @@ public class Pet extends Player {
             }
             switch (this.playerSkill.skillSelect.template.id) {
                 case Skill.THOI_MIEN:
-                    Service.gI().chatJustForMe(master, this, "Ngủ đi, ngủ đi nào! zzz");
                     if (!this.effectSkill.isThoiMien && SkillService.gI().canUseSkillWithCooldown(this)
                             && SkillService.gI().canUseSkillWithMana(this)) {
                         SkillService.gI().useSkill(this, null, null, null);
@@ -1313,7 +1308,6 @@ public class Pet extends Player {
                     }
                     return false;
                 case Skill.DICH_CHUYEN_TUC_THOI:
-                    Service.gI().chatJustForMe(master, this, "Bất ngờ chưa ông già :))");
                     if (!this.effectSkill.isBlindDCTT && SkillService.gI().canUseSkillWithCooldown(this)
                             && SkillService.gI().canUseSkillWithMana(this)) {
                         SkillService.gI().useSkill(this, null, null, null);
@@ -1321,7 +1315,6 @@ public class Pet extends Player {
                     }
                     return false;
                 case Skill.SOCOLA:
-                    Service.gI().chatJustForMe(master, this, "Piu !!!");
                     if (this.effectSkill.isSocola && SkillService.gI().canUseSkillWithCooldown(this)
                             && SkillService.gI().canUseSkillWithMana(this)) {
                         SkillService.gI().useSkill(this, null, null, null);
@@ -1363,7 +1356,7 @@ public class Pet extends Player {
                 }
             case FOLLOW:
             case PROTECT:
-                followMaster(300);
+                followMaster(600);
                 break;
         }
     }
@@ -1538,13 +1531,13 @@ public class Pet extends Player {
                     }
                     break;
                 case 3:
-                    if (this.nPoint.power >= 10000000000L) {
+                    if (this.nPoint.power >= 20000000000L) {
                         openSkill4();
                     }
                     break;
 
                 case 4:
-                    if (this.nPoint.power >= 20000000000L) {
+                    if (this.nPoint.power >= 60000000000L) {
                         openSkill5();
                     }
                     break;

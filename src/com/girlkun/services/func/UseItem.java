@@ -200,7 +200,8 @@ public class UseItem {
     }
 
     private void useItem(Player pl, Item item, int indexBag) {
-          switch (item.template.type) {
+        if (item.template.strRequire <= pl.nPoint.power) {
+            switch (item.template.type) {
                 case 21:
                     if (pl.newpet != null) {
                         ChangeMapService.gI().exitMap(pl.newpet);
@@ -497,6 +498,9 @@ public class UseItem {
                     break;
             }
             InventoryServiceNew.gI().sendItemBags(pl);
+        } else {
+            Service.gI().sendThongBaoOK(pl, "Sức mạnh không đủ yêu cầu");
+        }
     }
 
     private void openWoodChest(Player pl, Item item) {

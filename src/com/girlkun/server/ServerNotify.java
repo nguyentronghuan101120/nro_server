@@ -43,7 +43,7 @@ public class ServerNotify extends Thread {
                     sendThongBaoBenDuoi(notifies.remove(0));
                 }
                 if (Util.canDoWithTime(this.lastTimeGK, 32000)) {
-                    sendThongBaoBenDuoi("Server của Huân đại ca :))");
+                    sendThongBaoBenDuoi("Xin chúc các bạn chơi game thật vui vẻ!");
                     this.lastTimeGK = System.currentTimeMillis();
                 }
             } catch (Exception ignored) {

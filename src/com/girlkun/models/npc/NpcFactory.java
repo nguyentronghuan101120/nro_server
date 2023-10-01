@@ -17,7 +17,6 @@ import com.girlkun.models.boss.BossData;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.boss.list_boss.NhanBan;
-import com.girlkun.models.boss.list_boss.Mabu12h.MabuBoss;
 import com.girlkun.models.clan.Clan;
 import com.girlkun.models.clan.ClanMember;
 
@@ -33,15 +32,12 @@ import static com.girlkun.services.func.SummonDragon.SHENRON_SAY;
 
 import com.girlkun.models.player.Player;
 import com.girlkun.models.item.Item;
-import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.map.Map;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.map.blackball.BlackBallWar;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
 import com.girlkun.models.map.doanhtrai.DoanhTrai;
 import com.girlkun.models.map.doanhtrai.DoanhTraiService;
-import com.girlkun.models.player.IDMark;
-import com.girlkun.models.player.Inventory;
 import com.girlkun.models.player.NPoint;
 import com.girlkun.models.matches.PVPService;
 import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
@@ -51,22 +47,15 @@ import com.girlkun.models.skill.Skill;
 import com.girlkun.server.Client;
 import com.girlkun.server.Maintenance;
 import com.girlkun.server.Manager;
-import com.girlkun.server.io.MySession;
 import com.girlkun.services.func.CombineServiceNew;
 import com.girlkun.services.func.Input;
 import com.girlkun.services.func.LuckyRound;
-import com.girlkun.services.func.TopService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 import java.util.ArrayList;
 import com.girlkun.services.func.ChonAiDay;
-import static com.girlkun.services.func.CombineServiceNew.CHE_TAO_TRANG_BI_TS;
-import com.kygui.ItemKyGui;
 import com.kygui.ShopKyGuiService;
-import com.kygui.ShopKyGuiManager;
-import java.util.logging.Level;
-
 import java.util.logging.Level;
 
 public class NpcFactory {
@@ -394,7 +383,6 @@ public class NpcFactory {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
             public void openBaseMenu(Player player) {
-
                 if (canOpenNpc(player)) {
                     if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
                         this.createOtherMenu(player, ConstNpc.BASE_MENU,
@@ -422,25 +410,28 @@ public class NpcFactory {
                             case 0:
                                 Input.gI().createFormChangePassword(player);
                                 break;
+                            // case 1:
+                            // int amountToAdd = 2000000;
+                            // player.inventory.gem += amountToAdd;
+                            // Service.gI().sendMoney(player);
+                            // Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd + " Ngọc
+                            // Xanh");
+                            // break;
+                            // case 2:
+                            // int amountToAdd1 = 2000000;
+                            // player.inventory.ruby += amountToAdd1;
+                            // Service.gI().sendMoney(player);
+                            // Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd1 + "
+                            // Ngọc Hồng");
+                            // break;
+                            // case 3:
+                            // int amountToAdd2 = 2000000000;
+                            // player.inventory.gold += amountToAdd2;
+                            // Service.gI().sendMoney(player);
+                            // Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd2 + "
+                            // Vàng");
+                            // break;
                             case 1:
-                                int amountToAdd = 2000000;
-                                player.inventory.gem += amountToAdd;
-                                Service.gI().sendMoney(player);
-                                Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd + " Ngọc Xanh");
-                                break;
-                            case 2:
-                                int amountToAdd1 = 2000000;
-                                player.inventory.ruby += amountToAdd1;
-                                Service.gI().sendMoney(player);
-                                Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd1 + " Ngọc Hồng");
-                                break;
-                            case 3:
-                                int amountToAdd2 = 2000000000;
-                                player.inventory.gold += amountToAdd2;
-                                Service.gI().sendMoney(player);
-                                Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd2 + " Vàng");
-                                break;
-                            case 4:
                                 if (player.pet == null) {
                                     PetService.gI().createNormalPet(player);
                                     Service.gI().sendThongBao(player, "Bạn vừa nhận được đệ tử");
@@ -449,7 +440,7 @@ public class NpcFactory {
                                 }
                                 break;
 
-                            case 5:
+                            case 2:
                                 if (!player.getSession().actived) {
                                     if (player.getSession().coinBar >= 20000) {
                                         player.getSession().actived = true;
@@ -2363,36 +2354,34 @@ public class NpcFactory {
                                 OpenPowerService.gI().openPowerBasic(player);
                                 break;
                             case 1:
-                                // if (player.inventory.gold >= OpenPowerService.COST_SPEED_OPEN_LIMIT_POWER) {
-                                if (OpenPowerService.gI().openPowerSpeed(player)) {
-                                    player.inventory.gold -= OpenPowerService.COST_SPEED_OPEN_LIMIT_POWER;
-                                    Service.gI().sendMoney(player);
+                                if (player.inventory.gold >= OpenPowerService.COST_SPEED_OPEN_LIMIT_POWER) {
+                                    if (OpenPowerService.gI().openPowerSpeed(player)) {
+                                        player.inventory.gold -= OpenPowerService.COST_SPEED_OPEN_LIMIT_POWER;
+                                        Service.gI().sendMoney(player);
+                                    }
+                                } else {
+                                    Service.gI().sendThongBao(player,
+                                            "Bạn không đủ vàng để mở, còn thiếu "
+                                                    + Util.numberToMoney((OpenPowerService.COST_SPEED_OPEN_LIMIT_POWER
+                                                            - player.inventory.gold))
+                                                    + " vàng");
                                 }
-                                // }
-                                // else {
-                                // Service.gI().sendThongBao(player,
-                                // "Bạn không đủ vàng để mở, còn thiếu "
-                                // + Util.numberToMoney((OpenPowerService.COST_SPEED_OPEN_LIMIT_POWER
-                                // - player.inventory.gold))
-                                // + " vàng");
-                                // }
                                 break;
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.OPEN_POWER_PET) {
                         if (select == 0) {
-                            // if (player.inventory.gold >= OpenPowerService.COST_SPEED_OPEN_LIMIT_POWER) {
-                            if (OpenPowerService.gI().openPowerSpeed(player.pet)) {
-                                player.inventory.gold -= OpenPowerService.COST_SPEED_OPEN_LIMIT_POWER;
-                                Service.gI().sendMoney(player);
+                            if (player.inventory.gold >= OpenPowerService.COST_SPEED_OPEN_LIMIT_POWER) {
+                                if (OpenPowerService.gI().openPowerSpeed(player.pet)) {
+                                    player.inventory.gold -= OpenPowerService.COST_SPEED_OPEN_LIMIT_POWER;
+                                    Service.gI().sendMoney(player);
+                                }
+                            } else {
+                                Service.gI().sendThongBao(player,
+                                        "Bạn không đủ vàng để mở, còn thiếu "
+                                                + Util.numberToMoney((OpenPowerService.COST_SPEED_OPEN_LIMIT_POWER
+                                                        - player.inventory.gold))
+                                                + " vàng");
                             }
-                            // }
-                            // else {
-                            // Service.gI().sendThongBao(player,
-                            // "Bạn không đủ vàng để mở, còn thiếu "
-                            // + Util.numberToMoney((OpenPowerService.COST_SPEED_OPEN_LIMIT_POWER
-                            // - player.inventory.gold))
-                            // + " vàng");
-                            // }
                         }
                     }
                 }

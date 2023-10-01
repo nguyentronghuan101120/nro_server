@@ -670,7 +670,7 @@ public class GodGK {
                                         case Skill.KAMEJOKO:
                                         case Skill.MASENKO:
                                         case Skill.ANTOMIC:
-                                            skill.coolDown = 300;
+                                            skill.coolDown = 1000;
                                             break;
                                     }
                                     pet.playerSkill.skills.add(skill);
@@ -1528,7 +1528,7 @@ public class GodGK {
                             case Skill.KAMEJOKO:
                             case Skill.MASENKO:
                             case Skill.ANTOMIC:
-                                skill.coolDown = 300;
+                                skill.coolDown = 1000;
                                 break;
                         }
                         pet.playerSkill.skills.add(skill);

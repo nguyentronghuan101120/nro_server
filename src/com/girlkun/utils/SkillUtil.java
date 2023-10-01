@@ -162,7 +162,7 @@ public class SkillUtil {
         }
         skill = new Skill(skill);
         if(index == 1){
-            skill.coolDown = 300;
+            skill.coolDown = 1000;
         }
         skills.set(index, skill);
         return true;

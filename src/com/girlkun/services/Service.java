@@ -864,7 +864,7 @@ public class Service {
             ///lenhandmin
             if (text.equals("admin")) {
                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1,
-                        "Huanvip2kk: " + Client.gI().getPlayers().size() + "\n",
+                        "Admin menu",
                         "Ngọc rồng", "Đệ tử", "Bảo trì", "Tìm kiếm\nngười chơi", "Boss", "Giftcode", "Đóng");
                 return;
 

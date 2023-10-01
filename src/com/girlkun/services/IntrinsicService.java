@@ -109,7 +109,6 @@ public class IntrinsicService {
 
     private void changeIntrinsic(Player player) {
         List<Intrinsic> listIntrinsic = getIntrinsics(player.gender);
-        
         player.playerIntrinsic.intrinsic = new Intrinsic(listIntrinsic.get(Util.nextInt(1, listIntrinsic.size() - 1)));
         player.playerIntrinsic.intrinsic.param1 = (short) Util.nextInt(player.playerIntrinsic.intrinsic.paramFrom1, player.playerIntrinsic.intrinsic.paramTo1);
         player.playerIntrinsic.intrinsic.param2 = (short) Util.nextInt(player.playerIntrinsic.intrinsic.paramFrom2, player.playerIntrinsic.intrinsic.paramTo2);
@@ -135,7 +134,8 @@ public class IntrinsicService {
     }
 
     public void openVip(Player player) {
-        int gemRequire = 100;
+        if (player.nPoint.power >= 10000000000L) {
+            int gemRequire = 100;
             if (player.inventory.gem >= 100) {
                 player.inventory.gem -= gemRequire;
                 PlayerService.gI().sendInfoHpMpMoney(player);
@@ -145,6 +145,9 @@ public class IntrinsicService {
                 Service.gI().sendThongBao(player, "Bạn không có đủ ngọc, còn thiếu "
                         + (gemRequire - player.inventory.gem) + " ngọc nữa");
             }
+        } else {
+            Service.gI().sendThongBao(player, "Yêu cầu sức mạnh tối thiểu 10 tỷ");
+        }
     }
 
 }
