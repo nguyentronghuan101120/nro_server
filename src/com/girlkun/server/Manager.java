@@ -5,6 +5,7 @@ import com.arriety.card.RadarCard;
 import com.arriety.card.RadarService;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.consts.ConstPlayer;
+import com.girlkun.Log;
 import com.girlkun.consts.ConstMap;
 import com.girlkun.data.DataGame;
 import com.girlkun.jdbc.daos.GodGK;
@@ -1012,6 +1013,14 @@ public class Manager {
         if ((value = properties.get("server.girlkun.local")) != null) {
             LOCAL = String.valueOf(value).toLowerCase().equals("true");
         }
+        Logger.log(Logger.CYAN, "--------------------------------------------\n");
+        Logger.log(Logger.CYAN, "Port: " + ServerManager.PORT + '\n');
+        Logger.log(Logger.CYAN, "Name: " + ServerManager.NAME + '\n');
+        Logger.log(Logger.CYAN, "Server: " + SERVER + '\n');
+        Logger.log(Logger.CYAN, "Link IP Port: " + DataGame.LINK_IP_PORT + '\n');
+        Logger.log(Logger.CYAN, "RATE_EXP_SERVER: " + RATE_EXP_SERVER + '\n');
+        Logger.log(Logger.CYAN, "--------------------------------------------\n");
+
     }
 
     /**

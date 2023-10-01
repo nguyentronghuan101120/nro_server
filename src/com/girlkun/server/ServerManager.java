@@ -38,7 +38,7 @@ public class ServerManager {
 
     public static final Map CLIENTS = new HashMap();
 
-    public static String NAME = "nrotoman";
+    public static String NAME = "nroonline";
     public static int PORT = 14445;
 
     private static ServerManager instance;
@@ -213,7 +213,7 @@ public class ServerManager {
                 if (line.equals("baotri")) {
                     Maintenance.gI().start(60 * 2);
                 } else if (line.equals("athread")) {
-                    ServerNotify.gI().notify("Nro Toman debug server: " + Thread.activeCount());
+                    ServerNotify.gI().notify("Nro online debug server: " + Thread.activeCount());
                 } else if (line.equals("nplayer")) {
                     Logger.error("Player in game: " + Client.gI().getPlayers().size() + "\n");
                 } else if (line.equals("admin")) {
