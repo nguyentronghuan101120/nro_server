@@ -778,7 +778,7 @@ public class Controller implements IMessageHandler {
 
         if (TaskService.gI().getIdTask(player) == ConstTask.TASK_0_0) {
             NpcService.gI().createTutorial(player, -1,
-                    "Chào mừng " + player.name + " đến với ngọc rồng online server Toman\n"
+                    "Chào mừng " + player.name + " đến với ngọc rồng online\n"
                             + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
                             + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
         }
@@ -798,7 +798,7 @@ public class Controller implements IMessageHandler {
 
     private void sendThongBaoServer(Player player) {
         Service.gI().sendThongBaoFromAdmin(player,
-                "Update Sự Kiện Hè Anh Em Click Npc Rồng Thiêng Để Xem Hướng Dẫn.\nChúc AE online vv...");
+                "Ngọc Rồng Online chúc bạn chơi game vui vẻ");
     }
 
     private void clearVTSK(Player player) {

@@ -292,7 +292,7 @@ public class ClanService {
                     Service.gI().sendFlagBag(player);
 
                     ItemTimeService.gI().sendTextDoanhTrai(player);
-                    checkDoneTaskJoinClan(clan);
+                    // checkDoneTaskJoinClan(clan);
                 } else {
                     Service.gI().sendThongBao(player, "Bang hội đã đủ người");
                 }
@@ -339,7 +339,7 @@ public class ClanService {
                             Service.gI().sendFlagBag(pl);
                             ItemTimeService.gI().sendTextDoanhTrai(pl);
                             Service.gI().sendThongBao(pl, "Bạn vừa được nhận vào bang " + clan.name);
-                            checkDoneTaskJoinClan(clan);
+                            // checkDoneTaskJoinClan(clan);
                         } else {
                             cmg.text = "Bang hội đã đủ người";
                         }
@@ -911,13 +911,13 @@ public class ClanService {
         }
     }
 
-    private void checkDoneTaskJoinClan(Clan clan) {
-        if (clan.getMembers().size() >= 2) {
-            for (Player player : clan.membersInGame) {
-                TaskService.gI().checkDoneTaskJoinClan(player);
-            }
-        }
-    }
+    // private void checkDoneTaskJoinClan(Clan clan) {
+    //     if (clan.getMembers().size() >= 2) {
+    //         for (Player player : clan.membersInGame) {
+    //             TaskService.gI().checkDoneTaskJoinClan(player);
+    //         }
+    //     }
+    // }
 
     public void close() {
         PreparedStatement ps = null;

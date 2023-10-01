@@ -385,19 +385,35 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU,
-                                "|7| Chào mừng bạn đến với ngọc rồng Toman!"
-                                        .replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê"
-                                                : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru"
-                                                        : "Vua Vegeta"),
-                                "Đổi mật khẩu",
-                                // "Nhận Ngọc Xanh",
-                                // "Nhận Hồng Ngọc",
-                                // "Nhận Vàng",
-                                "Nhận Đệ Tử",
+                        if (player.isAdmin()) {
+                            this.createOtherMenu(player, ConstNpc.BASE_MENU,
+                                    "|7| Chào mừng bạn đến với ngọc rồng online"
+                                            .replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê"
+                                                    : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru"
+                                                            : "Vua Vegeta"),
 
-                                // "Kích hoạt\n Tài khoản",
-                                "GiftCode");
+                                    "Nhận Đệ Tử",
+
+                                    "GiftCode",
+                                    "Nhận Ngọc Xanh",
+                                    "Nhận Hồng Ngọc",
+                                    "Nhận Vàng");
+
+                        } else {
+                            this.createOtherMenu(player, ConstNpc.BASE_MENU,
+                                    "|7| Chào mừng bạn đến với ngọc rồng online"
+                                            .replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê"
+                                                    : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru"
+                                                            : "Vua Vegeta"),
+
+                                    // "Nhận Ngọc Xanh",
+                                    // "Nhận Hồng Ngọc",
+                                    // "Nhận Vàng",
+                                    "Nhận Đệ Tử",
+
+                                    // "Kích hoạt\n Tài khoản",
+                                    "GiftCode");
+                        }
                     }
                 }
             }
@@ -407,31 +423,11 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     if (player.iDMark.isBaseMenu()) {
                         switch (select) {
+                            // case 0:
+                            // Input.gI().createFormChangePassword(player);
+                            // break;
+
                             case 0:
-                                Input.gI().createFormChangePassword(player);
-                                break;
-                            // case 1:
-                            // int amountToAdd = 2000000;
-                            // player.inventory.gem += amountToAdd;
-                            // Service.gI().sendMoney(player);
-                            // Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd + " Ngọc
-                            // Xanh");
-                            // break;
-                            // case 2:
-                            // int amountToAdd1 = 2000000;
-                            // player.inventory.ruby += amountToAdd1;
-                            // Service.gI().sendMoney(player);
-                            // Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd1 + "
-                            // Ngọc Hồng");
-                            // break;
-                            // case 3:
-                            // int amountToAdd2 = 2000000000;
-                            // player.inventory.gold += amountToAdd2;
-                            // Service.gI().sendMoney(player);
-                            // Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd2 + "
-                            // Vàng");
-                            // break;
-                            case 1:
                                 if (player.pet == null) {
                                     PetService.gI().createNormalPet(player);
                                     Service.gI().sendThongBao(player, "Bạn vừa nhận được đệ tử");
@@ -440,23 +436,26 @@ public class NpcFactory {
                                 }
                                 break;
 
-                            case 2:
-                                if (!player.getSession().actived) {
-                                    if (player.getSession().coinBar >= 20000) {
-                                        player.getSession().actived = true;
-                                        if (PlayerDAO.subcoinBar(player, 20000))
-                                            ;
-                                        this.npcChat(player, "Kích hoạt thành viên thành công!");
-                                    } else {
-                                        this.npcChat(player, "Số dư tài khoản không đủ để mở thành viên...!");
-                                    }
-                                } else {
-                                    this.npcChat(player, "Bạn đã kích hoạt thành viên rồi!");
-
-                                }
-                                break;
-                            case 6:
+                            case 1:
                                 Input.gI().createFormGiftCode(player);
+                                break;
+                            case 2:
+                                int amountToAdd = 2000000;
+                                player.inventory.gem += amountToAdd;
+                                Service.gI().sendMoney(player);
+                                Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd + " Ngọc Xanh");
+                                break;
+                            case 3:
+                                int amountToAdd1 = 2000000;
+                                player.inventory.ruby += amountToAdd1;
+                                Service.gI().sendMoney(player);
+                                Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd1 + " Ngọc Hồng");
+                                break;
+                            case 4:
+                                int amountToAdd2 = 2000000000;
+                                player.inventory.gold += amountToAdd2;
+                                Service.gI().sendMoney(player);
+                                Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd2 + " Vàng");
                                 break;
 
                         }

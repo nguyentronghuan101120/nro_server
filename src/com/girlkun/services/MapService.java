@@ -1,14 +1,10 @@
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstMap;
-import com.girlkun.models.boss.Boss;
 import com.girlkun.models.map.Map;
 import com.girlkun.models.map.WayPoint;
 import com.girlkun.models.map.Zone;
-import com.girlkun.models.map.blackball.BlackBallWar;
-import com.girlkun.models.map.doanhtrai.DoanhTraiService;
 import com.girlkun.models.mob.Mob;
-import com.girlkun.models.player.Pet;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Manager;
 import com.girlkun.network.io.Message;
@@ -18,7 +14,6 @@ import com.girlkun.utils.Util;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class MapService {

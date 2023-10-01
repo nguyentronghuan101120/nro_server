@@ -288,46 +288,6 @@ public class CombineServiceNew {
                             "Cần 1 Bông tai Porata cấp 3, X99 Đá Gellery và 10 Đá xanh lam", "Đóng");
                 }
                 break;
-            /*
-             * case NANG_CAP_BONG_TAI_CAP4:
-             * if (player.combineNew.itemsCombine.size() == 2) {
-             * Item bongTai = null;
-             * Item mvbt = null;
-             * for (Item item : player.combineNew.itemsCombine) {
-             * if (item.template.id == 2074) {
-             * bongTai = item;
-             * } else if (item.template.id == 2077) {
-             * mvbt = item;
-             * }
-             * }
-             * if (bongTai != null && mvbt != null && mvbt.quantity >= 999) {
-             * 
-             * player.combineNew.goldCombine = GOLD_BONG_TAI;
-             * player.combineNew.gemCombine = GEM_BONG_TAI;
-             * player.combineNew.ratioCombine = RATIO_BONG_TAI;
-             * 
-             * String npcSay = "Bông tai Porata cấp 4" + "\n|2|";
-             * for (Item.ItemOption io : bongTai.itemOptions) {
-             * npcSay += io.getOptionString() + "\n";
-             * }
-             * npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" +
-             * "\n";
-             * if (player.combineNew.goldCombine <= player.inventory.gold) {
-             * npcSay += "|1|Cần " + Util.numberToMoney(player.combineNew.goldCombine) +
-             * " vàng";
-             * baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, npcSay,
-             * "Nâng cấp\ncần " + player.combineNew.gemCombine + " ngọc");
-             * } else {
-             * npcSay += "Còn thiếu " + Util.numberToMoney(player.combineNew.goldCombine -
-             * player.inventory.gold) + " vàng";
-             * baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, npcSay, "Đóng");
-             * }
-             * } else {
-             * this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-             * "Cần 1 Bông tai Porata cấp 3, X999 MVBT C4 ", "Đóng");
-             * }
-             * break;
-             */
             case NANG_CAP_BONG_TAI_CAP4:
                 if (player.combineNew.itemsCombine.size() == 2) {
                     Item bongTai = null;
@@ -640,9 +600,9 @@ public class CombineServiceNew {
                             }
                         }
                         if (star < MAX_STAR_ITEM) {
-                            player.combineNew.goldCombine = getGoldPhaLeHoa(star);
+                            player.combineNew.goldCombine = getGoldPhaLeHoa(star,player.isAdmin());
                             player.combineNew.gemCombine = getGemPhaLeHoa(star);
-                            player.combineNew.ratioCombine = getRatioPhaLeHoa(star);
+                            player.combineNew.ratioCombine = getRatioPhaLeHoa(star,player.isAdmin());
 
                             String npcSay = item.template.name + "\n|2|";
                             for (Item.ItemOption io : item.itemOptions) {
@@ -743,8 +703,8 @@ public class CombineServiceNew {
                             }
                         }
                         if (level < MAX_LEVEL_ITEM) {
-                            player.combineNew.goldCombine = getGoldNangCapDo(level);
-                            player.combineNew.ratioCombine = (float) getTileNangCapDo(level);
+                            player.combineNew.goldCombine = getGoldNangCapDo(level,player.isAdmin());
+                            player.combineNew.ratioCombine = (float) getTileNangCapDo(level,player.isAdmin());
                             player.combineNew.countDaNangCap = getCountDaNangCapDo(level);
                             player.combineNew.countDaBaoVe = (short) getCountDaBaoVe(level);
                             String npcSay = "|2|Hiện tại " + itemDo.template.name + " (+" + level + ")\n|0|";
@@ -1337,7 +1297,7 @@ public class CombineServiceNew {
         player.combineNew.itemsCombine.clear();
         reOpenItemCombine(player);
     }
-    
+
     // Code phần đổi đồ thiên sứ bonus thêm chỉ số
     public void openCreateItemAngel(Player player) {
         // Công thức vip + x999 Mảnh thiên sứ + đá nâng cấp + đá may mắn
@@ -2368,12 +2328,8 @@ public class CombineServiceNew {
      * @param player
      */
     private void sendEffectSuccessCombine(Player player) {
-        Message msg;
         try {
-            msg = new Message(-81);
-            msg.writer().writeByte(COMBINE_SUCCESS);
-            player.sendMessage(msg);
-            msg.cleanup();
+            Service.gI().sendThongBao(player, "Lên");
         } catch (Exception e) {
         }
     }
@@ -2384,12 +2340,9 @@ public class CombineServiceNew {
      * @param player
      */
     private void sendEffectFailCombine(Player player) {
-        Message msg;
         try {
-            msg = new Message(-81);
-            msg.writer().writeByte(COMBINE_FAIL);
-            player.sendMessage(msg);
-            msg.cleanup();
+            Service.gI().sendThongBao(player, "Xịt :))");
+
         } catch (Exception e) {
         }
     }
@@ -2438,67 +2391,115 @@ public class CombineServiceNew {
 
     // --------------------------------------------------------------------------Ratio,
     // cost combine
-    private int getGoldPhaLeHoa(int star) {
-        switch (star) {
-            case 0:
-                return 5000000;
-            case 1:
-                return 10000000;
-            case 2:
-                return 20000000;
-            case 3:
-                return 40000000;
-            case 4:
-                return 60000000;
-            case 5:
-                return 120000000;
-            case 6:
-                return 500000000;
-            case 7:
-                return 2000000000;
-            // case 8:
-            // return 100000000;
-            // case 9:
-            // return 120000000;
-            // case 10:
-            // return 150000000;
-            // case 11:
-            // return 200000000;
-            // case 12:
-            // return 220000000;
+    private int getGoldPhaLeHoa(int star, boolean isAdmin) {
+        if (isAdmin) {
+            switch (star) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    return 0;
+                // case 8:
+                // return 100000000;
+                // case 9:
+                // return 120000000;
+                // case 10:
+                // return 150000000;
+                // case 11:
+                // return 200000000;
+                // case 12:
+                // return 220000000;
+            }
+        } else {
+            switch (star) {
+                case 0:
+                    return 5000000;
+                case 1:
+                    return 10000000;
+                case 2:
+                    return 20000000;
+                case 3:
+                    return 40000000;
+                case 4:
+                    return 60000000;
+                case 5:
+                    return 120000000;
+                case 6:
+                    return 500000000;
+                case 7:
+                    return 2000000000;
+                // case 8:
+                // return 100000000;
+                // case 9:
+                // return 120000000;
+                // case 10:
+                // return 150000000;
+                // case 11:
+                // return 200000000;
+                // case 12:
+                // return 220000000;
+            }
         }
         return 0;
     }
 
-    private float getRatioPhaLeHoa(int star) { // Tỉ lệ đập độ bà hạt mít
-        switch (star) {
-            case 0:
-                return 100;
-            case 1:
-                return 95;
-            case 2:
-                return 90;
-            case 3:
-                return 85;
-            case 4:
-                return 80;
-            case 5:
-                return 75;
-            case 6:
-                return 70;
-            case 7:
+    private float getRatioPhaLeHoa(int star, boolean isAdmin) { // Tỉ lệ đập độ bà hạt mít
+        if (isAdmin) {
+            switch (star) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    return 200;
+                // case 8:
+                // return 40f;
+                // case 9:
+                // return 100f;
+                // case 10:
+                // return 100f;
+                // case 11:
+                // return 100f;
+                // case 12:
+                // return 100f;
+            }
+        } else {
+            switch (star) {
+                case 0:
+                    return 100;
+                case 1:
+                    return 95;
+                case 2:
+                    return 90;
+                case 3:
+                    return 85;
+                case 4:
+                    return 80;
+                case 5:
+                    return 75;
+                case 6:
+                    return 70;
+                case 7:
 
-                return 60;
-            // case 8:
-            // return 40f;
-            // case 9:
-            // return 100f;
-            // case 10:
-            // return 100f;
-            // case 11:
-            // return 100f;
-            // case 12:
-            // return 100f;
+                    return 60;
+                // case 8:
+                // return 40f;
+                // case 9:
+                // return 100f;
+                // case 10:
+                // return 100f;
+                // case 11:
+                // return 100f;
+                // case 12:
+                // return 100f;
+            }
         }
 
         return 0;
@@ -2523,7 +2524,7 @@ public class CombineServiceNew {
             case 7:
                 return 80;
             // case 8:
-            //     return 90;
+            // return 90;
             // case 9:
             // return 50;
             // case 10:
@@ -2555,39 +2556,63 @@ public class CombineServiceNew {
             case 7:
                 return 50;
             // case 8:
-            //     return 50;        
+            // return 50;
         }
         return 0;
     }
 
-    private double getTileNangCapDo(int level) {
-        switch (level) {
-            case 0: // tại lúc đồ 0 có cấp khi nâng lên +1 thì tỉ lệ 100%
-                return 100;
-            case 1: 
-                return 70;
-            case 2: // tại lúc đồ có cấp là +2 thì khi nâng lên +3 thì tỉ lệ là 50%
-                return 50;
-            case 3:
-                return 40;
-            case 4:
-                return 20;
-            case 5:
-                return 10;
-            case 6:
-                return 5;
-            case 7:
-                return 3;
-            // case 8:
-            //     return 1;
-            // case 9:
-            // return 1;
-            // case 10: // 7 sao
-            // return 0.3;
-            // case 11: // 7 sao
-            // return 1;
-            // case 12: // 7 sao
-            // return 1;
+    private double getTileNangCapDo(int level, boolean isAdmin) {
+        if (isAdmin) {
+            switch (level) {
+                case 0: // tại lúc đồ 0 có cấp khi nâng lên +1 thì tỉ lệ 100%
+                case 1:
+                case 2: // tại lúc đồ có cấp là +2 thì khi nâng lên +3 thì tỉ lệ là 50%
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    return 200;
+                // case 8:
+                // return 1;
+                // case 9:
+                // return 1;
+                // case 10: // 7 sao
+                // return 0.3;
+                // case 11: // 7 sao
+                // return 1;
+                // case 12: // 7 sao
+                // return 1;
+            }
+        } else {
+            switch (level) {
+                case 0: // tại lúc đồ 0 có cấp khi nâng lên +1 thì tỉ lệ 100%
+                    return 100;
+                case 1:
+                    return 70;
+                case 2: // tại lúc đồ có cấp là +2 thì khi nâng lên +3 thì tỉ lệ là 50%
+                    return 50;
+                case 3:
+                    return 40;
+                case 4:
+                    return 20;
+                case 5:
+                    return 10;
+                case 6:
+                    return 5;
+                case 7:
+                    return 3;
+                // case 8:
+                // return 1;
+                // case 9:
+                // return 1;
+                // case 10: // 7 sao
+                // return 0.3;
+                // case 11: // 7 sao
+                // return 1;
+                // case 12: // 7 sao
+                // return 1;
+            }
         }
         return 0;
     }
@@ -2611,7 +2636,7 @@ public class CombineServiceNew {
             case 7:
                 return 70;
             // case 8:
-            //     return 99;    
+            // return 99;
         }
         return 0;
     }
@@ -2620,26 +2645,42 @@ public class CombineServiceNew {
         return level + 1;
     }
 
-    private int getGoldNangCapDo(int level) {
-        switch (level) {
-            case 0:
-                return 10000;
-            case 1:
-                return 70000;
-            case 2:
-                return 300000;
-            case 3:
-                return 1500000;
-            case 4:
-                return 7000000;
-            case 5:
-                return 23000000;
-            case 6:
-                return 100000000;
-            case 7:
-                return 250000000;
-            // case 8:
-            //     return 300000000;    
+    private int getGoldNangCapDo(int level, boolean isAdmin) {
+        if (isAdmin) {
+            switch (level) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    return 0;
+                // case 8:
+                // return 300000000;
+            }
+        } else {
+            switch (level) {
+                case 0:
+                    return 10000;
+                case 1:
+                    return 70000;
+                case 2:
+                    return 300000;
+                case 3:
+                    return 1500000;
+                case 4:
+                    return 7000000;
+                case 5:
+                    return 23000000;
+                case 6:
+                    return 100000000;
+                case 7:
+                    return 250000000;
+                // case 8:
+                // return 300000000;
+            }
         }
         return 0;
     }

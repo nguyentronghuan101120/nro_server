@@ -256,7 +256,6 @@ public class FriendAndEnemyService {
             player.friends.add(friend);
             Service.gI().sendThongBao(player, "Kết bạn thành công");
             Service.gI().chatPrivate(player, pl, player.name + " vừa mới kết bạn với " + pl.name);
-            TaskService.gI().checkDoneTaskMakeFriend(player, pl);
         } else {
             Service.gI().sendThongBao(player, "Không tìm thấy hoặc đang Offline, vui lòng thử lại sau");
         }

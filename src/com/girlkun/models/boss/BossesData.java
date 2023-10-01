@@ -88,7 +88,7 @@ public class BossesData {
                         new short[] { 165, 166, 167, -1, -1, -1 }, // outfit {head, body, leg, bag, aura, eff}
                         2000, // dame
                         new int[] { 13000000 }, // hp
-                        new int[] { 63, 64, 65, 66, 67, 9, 10, 11, 12 }, // map join
+                        new int[] { 63, 64, 65, 66, 67 }, // map join
                         new int[][] {
                                         { Skill.GALICK, 7, 700 },
                                         { Skill.ANTOMIC, 7, 900 }, }, // skill //skill
@@ -114,7 +114,7 @@ public class BossesData {
                         new short[] { 162, 163, 164, 87, -1, -1 }, // outfit {head, body, leg, bag, aura, eff}
                         3000, // dame
                         new int[] { 15000000 }, // hp
-                        new int[] { 7, 8, 25, 43, 74, 75, 76, 77 }, // map join
+                        new int[] {  74, 75, 76, 77 }, // map join
                         new int[][] {
                                         { Skill.KAMEJOKO, 7, 700 },
                                         { Skill.KAMEJOKO, 1, 1000 }, }, // skill //skill

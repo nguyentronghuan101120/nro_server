@@ -195,11 +195,11 @@ public class TaskService {
     }
 
     // kiểm tra hoàn thành nhiệm vụ gia nhập bang hội
-    public void checkDoneTaskJoinClan(Player player) {
-        if (!player.isBoss && !player.isPet) {
-            doneTask(player, ConstTask.TASK_13_0);
-        }
-    }
+    // public void checkDoneTaskJoinClan(Player player) {
+    // if (!player.isBoss && !player.isPet) {
+    // doneTask(player, ConstTask.TASK_13_0);
+    // }
+    // }
 
     // kiểm tra hoàn thành nhiệm vụ lấy item từ rương
     public void checkDoneTaskGetItemBox(Player player) {
@@ -288,9 +288,9 @@ public class TaskService {
                 case 100:
                     doneTask(player, ConstTask.TASK_24_0);
                     break;
-                // case 52:
-                // doneTask(player, ConstTask.TASK_29_0);
-                // break;
+                case 52:
+                    doneTask(player, ConstTask.TASK_29_0);
+                    break;
                 case 103:
                     doneTask(player, ConstTask.TASK_28_0);
                     break;
@@ -337,6 +337,7 @@ public class TaskService {
 
     // kiểm tra hoàn thành nhiệm vụ kết bạn
     public void checkDoneTaskMakeFriend(Player player, Player friend) {
+
         if (!player.isBoss && !player.isPet) {
             switch (friend.gender) {
                 case ConstPlayer.TRAI_DAT:
@@ -527,57 +528,31 @@ public class TaskService {
                 case ConstMob.HEO_RUNG:
                 case ConstMob.HEO_DA_XANH:
                 case ConstMob.HEO_XAYDA:
-                    if (player.clan != null) {
-                        List<Player> list = new ArrayList<>();
-                        List<Player> playersMap = player.zone.getPlayers();
-                        for (Player pl : playersMap) {
-                            if (pl != null && pl.clan != null && pl.clan.equals(player.clan)) {
-                                list.add(pl);
-                            }
-                        }
-                        if (list.size() >= NMEMBER_DO_TASK_TOGETHER) {
-                            for (Player pl : list) {
-                                switch (mob.tempId) {
-                                    case ConstMob.HEO_RUNG:
-                                        doneTask(pl, ConstTask.TASK_14_0);
-                                        break;
-                                    case ConstMob.HEO_DA_XANH:
-                                        doneTask(pl, ConstTask.TASK_14_1);
-                                        break;
-                                    case ConstMob.HEO_XAYDA:
-                                        doneTask(pl, ConstTask.TASK_14_2);
-                                        break;
-                                }
-                            }
-                        }
+                    switch (mob.tempId) {
+                        case ConstMob.HEO_RUNG:
+                            doneTask(player, ConstTask.TASK_14_0);
+                            break;
+                        case ConstMob.HEO_DA_XANH:
+                            doneTask(player, ConstTask.TASK_14_1);
+                            break;
+                        case ConstMob.HEO_XAYDA:
+                            doneTask(player, ConstTask.TASK_14_2);
+                            break;
                     }
                     break;
                 case ConstMob.BULON:
                 case ConstMob.UKULELE:
                 case ConstMob.QUY_MAP:
-                    if (player.clan != null) {
-                        List<Player> list = new ArrayList<>();
-                        List<Player> playersMap = player.zone.getPlayers();
-                        for (Player pl : playersMap) {
-                            if (pl != null && pl.clan != null && pl.clan.equals(player.clan)) {
-                                list.add(pl);
-                            }
-                        }
-                        if (list.size() >= NMEMBER_DO_TASK_TOGETHER) {
-                            for (Player pl : list) {
-                                switch (mob.tempId) {
-                                    case ConstMob.BULON:
-                                        doneTask(pl, ConstTask.TASK_15_0);
-                                        break;
-                                    case ConstMob.UKULELE:
-                                        doneTask(pl, ConstTask.TASK_15_1);
-                                        break;
-                                    case ConstMob.QUY_MAP:
-                                        doneTask(pl, ConstTask.TASK_15_2);
-                                        break;
-                                }
-                            }
-                        }
+                    switch (mob.tempId) {
+                        case ConstMob.BULON:
+                            doneTask(player, ConstTask.TASK_15_0);
+                            break;
+                        case ConstMob.UKULELE:
+                            doneTask(player, ConstTask.TASK_15_1);
+                            break;
+                        case ConstMob.QUY_MAP:
+                            doneTask(player, ConstTask.TASK_15_2);
+                            break;
                     }
                     break;
                 case ConstMob.TAMBOURINE:
@@ -648,6 +623,7 @@ public class TaskService {
 
     // xong nhiệm vụ nào đó
     private boolean doneTask(Player player, int idTaskCustom) {
+
         if (TaskService.gI().isCurrentTask(player, idTaskCustom)) {
             this.addDoneSubTask(player, 1);
             switch (idTaskCustom) {
@@ -703,7 +679,7 @@ public class TaskService {
                 case ConstTask.TASK_2_1:
                     try {
                         InventoryServiceNew.gI().subQuantityItemsBag(player,
-                                InventoryServiceNew.gI().findItemBag(player, 73), 10);
+                                InventoryServiceNew.gI().findItemBag(player, 73), 1);
                     } catch (Exception ex) {
                     }
                     InventoryServiceNew.gI().sendItemBags(player);
@@ -832,6 +808,13 @@ public class TaskService {
                                     + "Ta sẽ dạy con 1 tuyệt chiêu đặc biệt của ta\n"
                                     + "Bây giờ con hãy đi kết bạn với những người xung quanh đây đi, thêm 1 người bạn bớt 1 kẻ thù mà con\n"
                                     + "Mà lưu ý là tránh kết bạn với những người có bang hội nhé, họ không là kẻ thù cũng không nên là bạn");
+
+                    doneTask(player, ConstTask.TASK_11_0);
+                    doneTask(player, ConstTask.TASK_27_0);
+                    doneTask(player, ConstTask.TASK_11_1);
+                    doneTask(player, ConstTask.TASK_27_1);
+                    doneTask(player, ConstTask.TASK_11_2);
+                    doneTask(player, ConstTask.TASK_27_2);
                     break;
                 // --------------------------------------------------------------
                 case ConstTask.TASK_11_0:
@@ -862,6 +845,7 @@ public class TaskService {
                             "Cuối cùng lão ấy cũng đồng ý rồi à? Tốt lắm\n"
                                     + "Bây giờ con hãy cùng những người bạn con vừa kết bạn tạo thành 1 bang hội đi nhé\n"
                                     + "Khi nào đủ 5 thành viên bang hãy tới đây ta sẽ giao nhiệm vụ cho tất cả các con");
+                    doneTask(player, ConstTask.TASK_13_0);
                     break;
                 // --------------------------------------------------------------
                 case ConstTask.TASK_13_0:
@@ -972,9 +956,9 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_20_6:
                     npcSay(player, ConstNpc.CUI,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     break;
                 // --------------------------------------------------------------
                 case ConstTask.TASK_21_0:
@@ -987,16 +971,16 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_21_4:
                     npcSay(player, ConstNpc.CUI,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     break;
                 // --------------------------------------------------------------
                 case ConstTask.TASK_22_0:
                     npcSay(player, ConstNpc.BUNMA_TL,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     break;
                 case ConstTask.TASK_22_1:
                     break;
@@ -1006,9 +990,9 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_22_4:
                     npcSay(player, ConstNpc.BUNMA_TL,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     // --------------------------------------------------------------
                 case ConstTask.TASK_23_0:
                     break;
@@ -1020,9 +1004,9 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_23_4:
                     npcSay(player, ConstNpc.BUNMA_TL,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     break;
                 // --------------------------------------------------------------
                 case ConstTask.TASK_24_0:
@@ -1035,9 +1019,9 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_24_4:
                     npcSay(player, ConstNpc.BUNMA_TL,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     break;
                 // ---------------------------
                 case ConstTask.TASK_25_0:
@@ -1052,9 +1036,9 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_25_5:
                     npcSay(player, ConstNpc.BUNMA_TL,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     break;
                 // -----------------
                 case ConstTask.TASK_26_0:
@@ -1067,9 +1051,9 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_26_4:
                     npcSay(player, ConstNpc.BUNMA_TL,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     break;
                 // ---------------------------------
                 case ConstTask.TASK_27_0:
@@ -1082,9 +1066,9 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_27_4:
                     npcSay(player, ConstNpc.BUNMA_TL,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     break;
                 // ----
                 case ConstTask.TASK_28_0:
@@ -1099,9 +1083,9 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_28_5:
                     npcSay(player, ConstNpc.BUNMA_TL,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     break;
                 // -------------------------------
                 case ConstTask.TASK_29_0:
@@ -1114,9 +1098,9 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_29_4:
                     npcSay(player, ConstNpc.BUNMA_TL,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     break;
                 case ConstTask.TASK_30_0:
                     break;
@@ -1130,9 +1114,9 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_30_5:
                     npcSay(player, ConstNpc.BUNMA_TL,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     break;
                 // -----------------
                 case ConstTask.TASK_31_0:
@@ -1145,9 +1129,9 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_31_4:
                     npcSay(player, ConstNpc.BUNMA_TL,
-                            "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít\n"
-                                    + "Độc Quyền Bởi User Thâm Đít");
+                            "Server NRO online\n"
+                                    + "Server NRO online\n"
+                                    + "Server NRO online");
                     break;
             }
             InventoryServiceNew.gI().sendItemBags(player);

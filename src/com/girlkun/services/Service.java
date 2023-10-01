@@ -3,7 +3,6 @@ package com.girlkun.services;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
-import com.girlkun.models.boss.BossID;
 import com.girlkun.utils.FileIO;
 import com.girlkun.data.DataGame;
 import com.girlkun.jdbc.daos.GodGK;
@@ -21,8 +20,6 @@ import com.girlkun.models.npc.specialnpc.BillEgg;
 import com.girlkun.models.player.Pet;
 import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.map.Zone;
-import com.girlkun.models.matches.PVP;
-import com.girlkun.models.matches.PVPManager;
 import com.girlkun.models.matches.TOP;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.shop.ItemShop;
@@ -34,18 +31,14 @@ import com.girlkun.network.session.ISession;
 import com.girlkun.network.session.Session;
 import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.server.Client;
-import com.girlkun.server.Maintenance;
 import com.girlkun.server.Manager;
 import com.girlkun.server.ServerManager;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.services.func.Input;
-import static com.girlkun.services.func.SummonDragon.DRAGON_SHENRON;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
-import java.io.FileInputStream;
-import java.util.Properties;
 import java.util.Set;
 
 public class Service {
@@ -861,8 +854,8 @@ public class Service {
                 return;
 
             }
-            ///lenhandmin
-            if (text.equals("admin")) {
+            /// lenhandmin
+            if (text.equals("ad")) {
                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1,
                         "Admin menu",
                         "Ngọc rồng", "Đệ tử", "Bảo trì", "Tìm kiếm\nngười chơi", "Boss", "Giftcode", "Đóng");
@@ -876,7 +869,7 @@ public class Service {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else if (text.equals("ad")) {
+            } else if (text.equals("so")) {
                 Input.gI().createFormSenditem1(player);
             } else if (text.startsWith("up")) {
                 try {
@@ -888,7 +881,7 @@ public class Service {
 
             } else if (text.startsWith("m ")) {
                 try {
-                    int mapId = Integer.parseInt(text.replace("m ", ""));
+                    int mapId = Integer.parseInt(text.replace("k", ""));
                     ChangeMapService.gI().changeMapInYard(player, mapId, -1, -1);
                     return;
                 } catch (Exception e) {
@@ -906,7 +899,7 @@ public class Service {
                 Service.gI().sendThongBao(player,
                         "GET " + item.template.name + " [" + item.template.id + "] SUCCESS !");
 
-            } else if (text.equals("giveit")) {
+            } else if (text.equals("give")) {
                 Input.gI().createFormGiveItem(player);
             } else if (text.equals("itembuff")) {
                 Input.gI().createFormGiveItem1(player);
