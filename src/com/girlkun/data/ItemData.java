@@ -79,7 +79,6 @@ public class ItemData {
             msg.writer().writeShort(start);
             msg.writer().writeShort(end);
             for (int i = start; i < end; i++) {
-//                System.out.println("start: " + start + " -> " + end + " id " + Manager.ITEM_TEMPLATES.get(i).id);
                 msg.writer().writeByte(Manager.ITEM_TEMPLATES.get(i).type);
                 msg.writer().writeByte(Manager.ITEM_TEMPLATES.get(i).gender);
                 msg.writer().writeUTF(Manager.ITEM_TEMPLATES.get(i).name);

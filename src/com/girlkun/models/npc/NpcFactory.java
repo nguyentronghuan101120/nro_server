@@ -1631,16 +1631,27 @@ public class NpcFactory {
                     } else if (player.iDMark.getIndexMenu() == 6) {
                         switch (select) {
                             case 0:
-                                if (player.gender == 2) {
-                                    SkillService.gI().learSkillSpecial(player, Skill.LIEN_HOAN_CHUONG);
+                                if (player.nPoint.power >= 60000000000L
+                                        && InventoryServiceNew.gI().findItemBag(player, 457).quantity < 60 ) {
+                                    if (player.gender == 2) {
+
+                                        SkillService.gI().learSkillSpecial(player, Skill.LIEN_HOAN_CHUONG);
+                                    }
+                                    if (player.gender == 0) {
+                                        SkillService.gI().learSkillSpecial(player, Skill.SUPER_KAME);
+                                    }
+                                    if (player.gender == 1) {
+                                        SkillService.gI().learSkillSpecial(player, Skill.MA_PHONG_BA);
+                                    }
+                                    InventoryServiceNew.gI().sendItemBags(player);
                                 }
-                                if (player.gender == 0) {
-                                    SkillService.gI().learSkillSpecial(player, Skill.SUPER_KAME);
+
+                                else {
+                                    Service.gI().sendThongBao(player,
+                                            "Bạn không có đủ 60 thỏi vàng hoặc 60 tỷ sức mạnh hoặc cả 2");
+
                                 }
-                                if (player.gender == 1) {
-                                    SkillService.gI().learSkillSpecial(player, Skill.MA_PHONG_BA);
-                                }
-                                InventoryServiceNew.gI().sendItemBags(player);
+
                                 break;
                         }
                     }
@@ -3241,7 +3252,7 @@ public class NpcFactory {
                                                 CombineServiceNew.gI().khilv3(player, 1139 + i);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, dns, 30);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, klv, 1);
-                                                this.npcChat(player, "Upgrede Thành Công!");
+                                                this.npcChat(player, "Upgrade Thành Công!");
 
                                                 break;
                                             } else {
@@ -3271,7 +3282,7 @@ public class NpcFactory {
                                                 CombineServiceNew.gI().khilv4(player, 1140 + i);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, dns, 40);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, klv, 1);
-                                                this.npcChat(player, "Upgrede Thành Công!");
+                                                this.npcChat(player, "Upgrade Thành Công!");
 
                                                 break;
                                             } else {
@@ -3301,7 +3312,7 @@ public class NpcFactory {
                                                 CombineServiceNew.gI().khilv5(player, 1136 + i);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, dns, 50);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, klv, 1);
-                                                this.npcChat(player, "Upgrede Thành Công!");
+                                                this.npcChat(player, "Upgrade Thành Công!");
 
                                                 break;
                                             } else {
@@ -4208,10 +4219,8 @@ public class NpcFactory {
                                 break;
                             case 2:
                                 if (player.isAdmin()) {
-                                    System.out.println(player.name);
                                     // PlayerService.gI().baoTri();
                                     Maintenance.gI().start(15);
-                                    System.out.println(player.name);
                                 }
                                 break;
                             case 3:

@@ -39,6 +39,9 @@ import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
+import helper.CustomLogger;
+import lombok.CustomLog;
+
 import java.util.Set;
 
 public class Service {
@@ -1263,14 +1266,21 @@ public class Service {
 
     public void addSMTN(Player player, byte type, long param, boolean isOri) {
         if (player.isPet) {
-            player.nPoint.powerUp(param);
-            player.nPoint.tiemNangUp(param);
+            if (player.nPoint.power <= 150000000) {
+                player.nPoint.powerUp(param * 50);
+                player.nPoint.tiemNangUp(param * 50);
+            } else if (player.nPoint.power <= 15000000000L) {
+                player.nPoint.powerUp(param * 20);
+                player.nPoint.tiemNangUp(param * 20);
+            }
             Player master = ((Pet) player).master;
 
             param = master.nPoint.calSubTNSM(param);
             master.nPoint.powerUp(param);
             master.nPoint.tiemNangUp(param);
             addSMTN(master, type, param, true);
+
+            CustomLogger.showPetInfo(player);
         } else {
             if (player.nPoint.power > player.nPoint.getPowerLimit()) {
                 return;

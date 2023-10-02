@@ -5,9 +5,14 @@ import com.girlkun.consts.ConstPlayer;
 import com.girlkun.services.MapService;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.skill.Skill;
+import com.girlkun.utils.Logger;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
+
+import helper.CustomLogger;
+import lombok.CustomLog;
+
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Manager;
 import com.girlkun.services.ItemTimeService;
@@ -581,12 +586,12 @@ public class Pet extends Player {
         }
         switch (this.status) {
             case ATTACK:
-                if ((mobAttack != null && Util.getDistance(this, master) <= 1500)) {
+                if ((mobAttack != null && Util.getDistance(this, master) <= 300)) {
                     break;
                 }
             case FOLLOW:
             case PROTECT:
-                followMaster(600);
+                followMaster(50);
                 break;
         }
     }
@@ -777,8 +782,8 @@ public class Pet extends Player {
 
     public void openSkill2() {
         Skill skill = null;
-        int tiLeKame = 40;
-        int tiLeMasenko = 30;
+        int tiLeKame = 50;
+        int tiLeMasenko = 20;
         int tiLeAntomic = 30;
 
         int rd = Util.nextInt(1, 100);
@@ -789,15 +794,15 @@ public class Pet extends Player {
         } else if (rd <= tiLeKame + tiLeMasenko + tiLeAntomic) {
             skill = SkillUtil.createSkill(Skill.ANTOMIC, 1);
         }
-        skill.coolDown = 1000;
+        skill.coolDown = 330;
         this.playerSkill.skills.set(1, skill);
     }
 
     public void openSkill3() {
         Skill skill = null;
-        int tiLeTDHS = 30;
-        int tiLeTTNL = 30;
-        int tiLeKOK = 40;
+        int tiLeTDHS = 40;
+        int tiLeTTNL = 40;
+        int tiLeKOK = 20;
 
         int rd = Util.nextInt(1, 100);
         if (rd <= tiLeTDHS) {
@@ -812,9 +817,9 @@ public class Pet extends Player {
 
     private void openSkill4() {
         Skill skill = null;
-        int tiLeBienKhi = 30;
+        int tiLeBienKhi = 40;
         int tiLeDeTrung = 30;
-        int tiLeKNL = 40;
+        int tiLeKNL = 30;
 
         int rd = Util.nextInt(1, 100);
         if (rd <= tiLeBienKhi) {

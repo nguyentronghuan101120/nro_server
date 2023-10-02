@@ -63,9 +63,7 @@ public class Controller implements IMessageHandler {
             // if (cmd != -29 && cmd != -107 && cmd != 29 && cmd != -30 && cmd != 74 && cmd
             // != -16 && cmd != -101 && cmd != 126 && cmd != -74 && cmd != 21 && cmd != -15
             // && cmd != -103) {
-            // System.out.println(cmd);
             // }
-            // System.out.println("***************************CMD receive: " + cmd);
             switch (cmd) {
                 case -100:
                     byte action = _msg.reader().readByte();
@@ -576,7 +574,6 @@ public class Controller implements IMessageHandler {
                         if (Manager.LOCAL) {
                             break;
                         }
-                        System.out.println("version: " + msg.readUTF());
                         break;
                     case 2:
                         Service.gI().setClientType(session, msg);
@@ -596,7 +593,6 @@ public class Controller implements IMessageHandler {
             try {
                 player = _session.player;
                 byte cmd = _msg.reader().readByte();
-                // System.out.println("CMD receive -28 / " + cmd);
                 switch (cmd) {
                     case 2:
                         createChar(_session, _msg);
@@ -711,6 +707,7 @@ public class Controller implements IMessageHandler {
             }
             if (created) {
                 session.login(session.uu, session.pp);
+                
             }
         }
     }

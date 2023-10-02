@@ -73,7 +73,6 @@ public class ImageUtil {
             oriImage = ImageIO.read(new ByteArrayInputStream(dataImage));
             saveImage(oriImage, "C:\\Users\\admin\\Desktop\\read mob\\x" + zoomlv, mob + "");
             if (typeRead != 0) {
-                System.out.println("boss: " + mob);
                 readDataNewBoss(data, typeRead, oriImage, zoomlv, mob);
             } else {
 //                System.out.println("mob: " + mob);
@@ -187,8 +186,6 @@ public class ImageUtil {
                 try {
                     imagesInfo[id] = image.getSubimage(x, y, w, h);
                 } catch (Exception e) {
-                    System.out.println(x + " - " + y + " - " + w + " - " + h);
-                    System.out.println("loi doc mob: " + mobId);
                     e.printStackTrace();
 //                    System.out.println("mob: " + mobId);
                 }
@@ -310,7 +307,6 @@ public class ImageUtil {
     public static void readEff(int id, int zoom) {
         try {
             DataInputStream dis = new DataInputStream(new FileInputStream("data/girlkun/effdata/x" + zoom + "/" + id));
-            System.out.println(dis.readShort());
             byte[] data = new byte[dis.readInt()];
             dis.read(data);
             byte[] dataImage = new byte[dis.readInt()];

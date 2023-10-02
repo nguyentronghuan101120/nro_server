@@ -42,13 +42,11 @@ public class HistoryTransactionDAO {
         for (Item item : doGD1) {
             if (item.isNotNullItem()) {
                 itemPlayer1 += item.template.name + " (x" + item.quantityGD + "),";
-//                System.out.println(item.template.name + " (x" + item.quantityGD + "),");
             }
         }
         for (Item item : doGD2) {
             if (item.isNotNullItem()) {
                 itemPlayer2 += item.template.name + " (x" + item.quantityGD + "),";
-//                System.out.println(item.template.name + " (x" + item.quantityGD + "),");
             }
         }
         String beforeTran1 = "";

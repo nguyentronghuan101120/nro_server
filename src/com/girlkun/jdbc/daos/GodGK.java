@@ -91,7 +91,7 @@ public class GodGK {
                 if (rs.getBoolean("ban")) {
                     Service.gI().sendThongBaoOK(session, "Tài khoản đã bị khóa, do liên tục thực hiện hành vi xấu!");
                 } else if (baotri && session.isAdmin) {
-                    Service.gI().sendThongBaoOK(session, "Máy chủ đang bảo trì, vào cc!");
+                    Service.gI().sendThongBaoOK(session, "Máy chủ đang bảo trì!");
                 } else if (secondsPass1 < Manager.SECOND_WAIT_LOGIN) {
                     if (secondsPass < secondsPass1) {
                         Service.gI().sendThongBaoOK(session,
@@ -928,7 +928,6 @@ public class GodGK {
 
             }
         } catch (Exception e) {
-            System.out.println(name);
             e.printStackTrace();
             Logger.logException(Manager.class, e, "Lỗi load database");
             System.exit(0);
@@ -1084,7 +1083,6 @@ public class GodGK {
             }
 
         } catch (Exception e) {
-            System.out.println(name);
             e.printStackTrace();
             Logger.logException(Manager.class, e, "Lỗi load database");
         }

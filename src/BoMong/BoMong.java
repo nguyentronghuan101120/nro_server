@@ -100,7 +100,6 @@ public class BoMong {
             this.player.inventory.ruby += temp.getGem();
             Service.getInstance().sendMoney(this.player);
             Service.getInstance().sendThongBao(this.player, "Nhận thành công " + temp.getGem() + " hồng ngọc");
-            // System.out.println("nhan dc" + temp.getGem());
         } else {
             Service.getInstance().sendThongBao(this.player, "Không có phần thưởng");
         }

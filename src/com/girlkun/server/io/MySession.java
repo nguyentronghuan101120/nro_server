@@ -1,6 +1,8 @@
 package com.girlkun.server.io;
 
 import java.net.Socket;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Controller;
@@ -21,6 +23,8 @@ import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
+import helper.CustomLogger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +40,7 @@ public class MySession extends Session {
     public boolean connected;
     public boolean sentKey;
 
-    public static final byte[] KEYS = {0};
+    public static final byte[] KEYS = { 0 };
     public byte curR, curW;
 
     public String ipAddress;
@@ -56,7 +60,7 @@ public class MySession extends Session {
     public boolean actived;
 
     public int goldBar;
-    
+
     public int coinBar;
     public List<Item> itemsReward;
     public String dataReward;
@@ -178,14 +182,17 @@ public class MySession extends Session {
                     player.setSession(this);
                     Client.gI().put(player);
                     this.player = player;
-                    //-28 -4 version data game
+                    // -28 -4 version data game
                     DataGame.sendVersionGame(this);
-                    //-31 data item background
+                    // -31 data item background
                     DataGame.sendDataItemBG(this);
                     Controller.getInstance().sendInfo(this);
 
- //                   Logger.warning("Login thành công player " + this.player.name + ": " + (System.currentTimeMillis() - st) + " ms\n");
-//                    Service.gI().sendThongBaoOK(this, "Ngọc rồng sao đen sẽ mở lúc 21h hôm nay");
+                    // Logger.warning("Login thành công player " + this.player.name + ": " +
+                    // (System.currentTimeMillis() - st) + " ms\n");
+                    // Service.gI().sendThongBaoOK(this, "Ngọc rồng sao đen sẽ mở lúc 21h hôm nay");
+
+                    CustomLogger.showUserLoginInfo(player);
                 }
             } catch (Exception e) {
                 if (player != null) {

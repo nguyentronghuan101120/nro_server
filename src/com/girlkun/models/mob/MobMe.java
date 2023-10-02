@@ -78,7 +78,7 @@ public final class MobMe extends Mob {
         }
     }
 
-    //tạo mobme
+    //tạo mob
     public void spawn() {
         Message msg;
         try {

@@ -12,6 +12,9 @@ import com.girlkun.server.Manager;
 import com.girlkun.services.MapService;
 import com.girlkun.utils.Logger;
 
+import helper.CustomLogger;
+import helper.Helper;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,9 +34,9 @@ public class PlayerDAO {
         try {
             JSONArray dataArray = new JSONArray();
 
-            dataArray.add(500000000); // vàng
-            dataArray.add(50000); // ngọc xanh
-            dataArray.add(10000); // hồng ngọc
+            // dataArray.add(500000000); // vàng
+            // dataArray.add(50000); // ngọc xanh
+            // dataArray.add(10000); // hồng ngọc
             dataArray.add(0); // point
             dataArray.add(0); // event
 
@@ -847,8 +850,8 @@ public class PlayerDAO {
                         info_phoban,
                         timeduoikhi,
                         player.id);
-                Logger.success("Total time save player " + player.name + " thành công! "
-                        + (System.currentTimeMillis() - st) + "\n");
+
+                CustomLogger.showUserLogoutInfo(player);
             } catch (Exception e) {
                 Logger.logException(PlayerDAO.class, e, "Lỗi save player " + player.name);
             }

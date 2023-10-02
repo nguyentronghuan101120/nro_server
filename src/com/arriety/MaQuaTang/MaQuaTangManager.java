@@ -62,7 +62,6 @@ public class MaQuaTangManager {
                 }
 
                 JSONArray option = (JSONArray) JSONValue.parse(rs.getString("itemoption"));
-                Logger.log("Done-------------------" + option.toString());
                 if (option != null) {
                     for (int u = 0; u < option.size(); u++) {
                         JSONObject jsonobject = (JSONObject) option.get(u);

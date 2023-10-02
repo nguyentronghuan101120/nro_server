@@ -78,7 +78,6 @@ public class DataGame {
 
     //vcData
     public static void updateData(MySession session) {
-        System.out.println("update data");
         byte[] dart = FileIO.readFile("data/girlkun/update_data/dart");
         byte[] arrow = FileIO.readFile("data/girlkun/update_data/arrow");
         byte[] effect = FileIO.readFile("data/girlkun/update_data/effect");
@@ -145,7 +144,6 @@ public class DataGame {
 
     //vcSkill
     public static void updateSkill(MySession session) {
-        System.out.println("update skill");
         Message msg;
         try {
             msg = new Message(-28);
@@ -327,7 +325,6 @@ public static void effData(MySession session, int id, int... idtemp) {
 
     public static void requestMobTemplate(MySession session, int id) {
 //        if (list.contains(id)) {
-//            System.out.println("send mob: " + id);
 //            return;
 //        } else {
 //            list.add(id);
@@ -365,9 +362,7 @@ public static void effData(MySession session, int id, int... idtemp) {
                     int h = dis.readByte();
                     for (int i = 0; i < h; i++) {
                         for (int j = 0; j < w; j++) {
-                            System.out.print(dis.readByte() + " ");
                         }
-                        System.out.println("");
                     }
                 }
             }
@@ -397,15 +392,12 @@ public static void effData(MySession session, int id, int... idtemp) {
                 dos.writeByte(w);
                 dos.writeByte(h);
                 for (int i = 0; i < data.length; i++) {
-                    System.out.print(data[i] + ",");
                     dos.writeByte(data[i]);
                 }
                 dos.flush();
                 dos.close();
             }
-            System.out.println("-----------------------------------------");
         }
-        System.out.println("done");
     }
 
     //data vẽ map

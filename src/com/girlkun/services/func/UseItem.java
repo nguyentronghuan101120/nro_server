@@ -124,12 +124,6 @@ public class UseItem {
         TransactionService.gI().cancelTrade(player);
         Message msg;
         try {
-            byte type = _msg.reader().readByte();
-            int where = _msg.reader().readByte();
-            int index = _msg.reader().readByte();
-            System.out.println("type: " + type);
-            System.out.println("where: " + where);
-            System.out.println("index: " + index);
         } catch (Exception e) {
             Logger.logException(UseItem.class, e);
         }

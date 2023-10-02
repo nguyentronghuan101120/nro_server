@@ -1,10 +1,5 @@
 package com.girlkun.models.player;
 
-/**
- *
- * @author ❤Girlkun75❤
- * @copyright ❤Trần Lại❤
- */
 
 public class CPoint {
     
@@ -36,30 +31,3 @@ public class CPoint {
     public int oriCrit;
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức
- * Hãy tôn trọng tác giả của mã nguồn này
- * Xin cảm ơn! - Girlkun75
- */

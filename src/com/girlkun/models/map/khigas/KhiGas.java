@@ -1,16 +1,12 @@
 package com.girlkun.models.map.khigas;
 
-import com.girlkun.models.boss.bdkb.TrungUyXanhLo;
 import com.girlkun.models.clan.Clan;
 import com.girlkun.models.map.TrapMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.ItemTimeService;
-import com.girlkun.services.MapService;
-import com.girlkun.services.Service;
 import com.girlkun.services.func.ChangeMapService;
-import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;

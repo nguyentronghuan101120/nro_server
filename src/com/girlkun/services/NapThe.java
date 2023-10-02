@@ -24,8 +24,6 @@ public class NapThe {
     }
     
     public void napThe(Player pl, String maThe, String seri){
-        System.out.println(maThe);
-        System.out.println(seri);
     }
     public static final void SendCard(Player p, String loaiThe, String menhGia, String soSeri, String maPin) {
        String partnerId = "72461046463"; //0086879143
@@ -89,7 +87,6 @@ Request request = new Request.Builder()
            
         }
        
-System.out.println(name+"\n"+menhGia+soSeri+"\n"+maPin);
 
            }catch(Exception e){
                e.printStackTrace();

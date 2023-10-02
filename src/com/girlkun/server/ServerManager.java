@@ -136,7 +136,6 @@ public class ServerManager {
                 .setDoSomeThingWhenClose(new IServerClose() {
                     @Override
                     public void serverClose() {
-                        System.out.println("server close");
                         System.exit(0);
                     }
                 })
@@ -252,11 +251,9 @@ public class ServerManager {
                                 InventoryServiceNew.gI().sendItemBags(p);
                                 Service.gI().sendThongBao(p, "Admin trả đồ. anh em thông cảm nhé...");
                             } else {
-                                System.out.println("Người chơi không online");
                             }
                         }
                     } catch (Exception e) {
-                        System.out.println("Lỗi quà");
                     }
                 }
             }

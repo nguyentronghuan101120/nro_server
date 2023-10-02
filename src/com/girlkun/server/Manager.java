@@ -20,7 +20,6 @@ import com.girlkun.models.matches.TOP;
 import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcFactory;
-import com.girlkun.models.player.Player;
 import com.girlkun.models.player.Referee;
 import com.girlkun.models.player.Referee1;
 import com.girlkun.models.reward.ItemMobReward;
@@ -57,6 +56,9 @@ import java.util.Properties;
 import com.girlkun.utils.Util;
 import com.kygui.ItemKyGui;
 import com.kygui.ShopKyGuiManager;
+
+import helper.Helper;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -160,6 +162,8 @@ public class Manager {
         NpcFactory.createNpcConMeo();
         NpcFactory.createNpcRongThieng();
         this.initMap();
+        Logger.success("\n\n ---------- Load done ---------- \n\n");
+
     }
 
     private void initMap() {
@@ -182,7 +186,6 @@ public class Manager {
 
         Referee1 r1 = new Referee1();
         r1.initReferee1();
-        Logger.success("Init map thành công!\n");
     }
 
     public static void loadPart() {
@@ -223,7 +226,6 @@ public class Manager {
             }
             dos.flush();
             dos.close();
-            Logger.success("Load part thành công (" + parts.size() + ")\n");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -268,7 +270,6 @@ public class Manager {
             }
             dos.flush();
             dos.close();
-            Logger.success("Load part thành công (" + parts.size() + ")\n");
 
             // load small version
             ps = con.prepareStatement("select count(id) from small_version");
@@ -349,8 +350,6 @@ public class Manager {
                 Clan.NEXT_ID = rs.getInt("id") + 1;
             }
 
-            Logger.success("Load clan thành công (" + CLANS.size() + "), clan next id: " + Clan.NEXT_ID + "\n");
-
             ps = con.prepareStatement("select * from dhvt_template");
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -364,8 +363,6 @@ public class Manager {
                 dhvt.min_limit = rs.getInt(7);
                 LIST_DHVT.add(dhvt);
             }
-
-            Logger.success("Load DHVT thành công (" + LIST_DHVT.size() + "), clan next id: " + Clan.NEXT_ID + "\n");
 
             // load skill
             ps = con.prepareStatement("select * from skill_template order by nclass_id, slot");
@@ -417,7 +414,6 @@ public class Manager {
                     skillTemplate.skillss.add(skill);
                 }
             }
-            Logger.success("Load skill thành công (" + NCLASS.size() + ")\n");
 
             // load head avatar
             ps = con.prepareStatement("select * from head_avatar");
@@ -426,7 +422,6 @@ public class Manager {
                 HeadAvatar headAvatar = new HeadAvatar(rs.getInt("head_id"), rs.getInt("avatar_id"));
                 HEAD_AVATARS.add(headAvatar);
             }
-            Logger.success("Load head avatar thành công (" + HEAD_AVATARS.size() + ")\n");
 
             // load flag bag
             ps = con.prepareStatement("select * from flag_bag");
@@ -445,7 +440,6 @@ public class Manager {
                 }
                 FLAGS_BAGS.add(flagBag);
             }
-            Logger.success("Load flag bag thành công (" + FLAGS_BAGS.size() + ")\n");
 
             // load intrinsic
             ps = con.prepareStatement("select * from intrinsic");
@@ -477,7 +471,6 @@ public class Manager {
                 }
                 INTRINSICS.add(intrinsic);
             }
-            Logger.success("Load intrinsic thành công (" + INTRINSICS.size() + ")\n");
 
             // load task
             ps = con.prepareStatement("SELECT id, task_main_template.name, detail, "
@@ -505,7 +498,6 @@ public class Manager {
                 subTask.mapId = rs.getShort("map");
                 task.subTasks.add(subTask);
             }
-            Logger.success("Load task thành công (" + TASKS.size() + ")\n");
 
             // load nhiem vu bo mong
             ps = con.prepareStatement("SELECT * FROM achievement");
@@ -519,7 +511,6 @@ public class Manager {
                         rs.getInt("gem"));
                 ACHIEVEMENTS.add(achi);
             }
-            Logger.success("Load achievement done (" + ACHIEVEMENTS.size() + ")");
 
             // load side task
             ps = con.prepareStatement("select * from side_task_template");
@@ -545,7 +536,6 @@ public class Manager {
                 sideTask.count[4][1] = Integer.parseInt(mc5[1]);
                 SIDE_TASKS_TEMPLATE.add(sideTask);
             }
-            Logger.success("Load side task thành công (" + SIDE_TASKS_TEMPLATE.size() + ")\n");
 
             // load item template
             ps = con.prepareStatement("select * from item_template");
@@ -568,7 +558,6 @@ public class Manager {
                 itemTemp.leg = rs.getInt("leg");
                 ITEM_TEMPLATES.add(itemTemp);
             }
-            Logger.success("Load map item template thành công (" + ITEM_TEMPLATES.size() + ")\n");
 
             // load item option template
             ps = con.prepareStatement("select id, name from item_option_template");
@@ -579,11 +568,9 @@ public class Manager {
                 optionTemp.name = rs.getString("name");
                 ITEM_OPTION_TEMPLATES.add(optionTemp);
             }
-            Logger.success("Load map item option template thành công (" + ITEM_OPTION_TEMPLATES.size() + ")\n");
 
             // load shop
             SHOPS = ShopDAO.getShops(con);
-            Logger.success("Load shop thành công (" + SHOPS.size() + ")\n");
 
             // load reward lucky round
             File folder = new File("data/girlkun/data_lucky_round_reward");
@@ -618,7 +605,6 @@ public class Manager {
                     }
                 }
             }
-            Logger.success("Load reward lucky round thành công (" + LUCKY_ROUND_REWARDS.size() + ")\n");
             // load reward mob
             folder = new File("data/girlkun/mob_reward");
             for (File fileEntry : folder.listFiles()) {
@@ -655,12 +641,6 @@ public class Manager {
                             item.setRatio(new int[] { Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1]) / 4 * 3 });
                         }
 
-                        // System.out.println(mobReward.getMobId());
-                        // System.out.println(item.getTemp().name);
-                        // System.out.println(item.getTemp().type);
-                        // System.out.println(item.getRatio()[0] + "/" + item.getRatio()[1]);
-                        // System.out.println(item.getQuantity()[0] + "/" + item.getQuantity()[1]);
-
                         if (item.getTemp().type == 9) { // vàng
                             mobReward.getGoldReward().add(item);
                         } else {
@@ -680,7 +660,6 @@ public class Manager {
 
                 }
             }
-            Logger.success("Load reward mob thành công (" + MOB_REWARDS.size() + ")\n");
 
             // load notify
             folder = new File("data/girlkun/notify");
@@ -696,7 +675,6 @@ public class Manager {
                     NOTIFY.add(notify.toString());
                 }
             }
-            Logger.success("Load notify thành công (" + NOTIFY.size() + ")\n");
 
             // load caption
             ps = con.prepareStatement("select * from caption");
@@ -704,7 +682,6 @@ public class Manager {
             while (rs.next()) {
                 CAPTIONS.add(rs.getString("name"));
             }
-            Logger.success("Load caption thành công (" + CAPTIONS.size() + ")\n");
 
             // load image by name
             ps = con.prepareStatement("select name, n_frame from img_by_name");
@@ -712,7 +689,6 @@ public class Manager {
             while (rs.next()) {
                 IMAGES_BY_NAME.put(rs.getString("name"), rs.getByte("n_frame"));
             }
-            Logger.success("Load images by name thành công (" + IMAGES_BY_NAME.size() + ")\n");
 
             // load mob template
             ps = con.prepareStatement("select * from mob_template");
@@ -730,7 +706,6 @@ public class Manager {
                 mobTemp.percentTiemNang = rs.getByte("percent_tiem_nang");
                 MOB_TEMPLATES.add(mobTemp);
             }
-            Logger.success("Load mob template thành công (" + MOB_TEMPLATES.size() + ")\n");
 
             // load npc template
             ps = con.prepareStatement("select * from npc_template");
@@ -745,7 +720,6 @@ public class Manager {
                 npcTemp.avatar = rs.getInt("avatar");
                 NPC_TEMPLATES.add(npcTemp);
             }
-            Logger.success("Load npc template thành công (" + NPC_TEMPLATES.size() + ")\n");
 
             // load map template
             ps = con.prepareStatement("select count(id) from map_template");
@@ -832,7 +806,6 @@ public class Manager {
                     dataArray.clear();
                     MAP_TEMPLATES[i++] = mapTemplate;
                 }
-                Logger.success("Load map template thành công (" + MAP_TEMPLATES.length + ")\n");
                 RUBY_REWARDS.add(Util.sendDo(861, 0, new ArrayList<>()));
             }
 
@@ -859,8 +832,6 @@ public class Manager {
                 ShopKyGuiManager.gI().listItem
                         .add(new ItemKyGui(i, itemId, idPl, tab, gold, gem, quantity, isUp, op, isBuy));
             }
-            Logger.log(Logger.YELLOW_BOLD_BRIGHT,
-                    "Finish load item ky gui [" + ShopKyGuiManager.gI().listItem.size() + "]!");
 
             ps = con.prepareStatement("select * from radar");
             rs = ps.executeQuery();
@@ -899,18 +870,12 @@ public class Manager {
                 rd.AuraId = rs.getShort("aura_id");
                 RadarService.gI().RADAR_TEMPLATE.add(rd);
             }
-            Logger.success("Load radar template thành công (" + RadarService.gI().RADAR_TEMPLATE.size() + ")\n");
 
             topSM = realTop(queryTopSM, con);
-            Logger.success("Load top sm thành công (" + topSM.size() + ")\n");
             topNV = realTop(queryTopNV, con);
-            Logger.success("Load top nv thành công (" + topNV.size() + ")\n");
             topSK = realTop(queryTopSK, con);
-            Logger.success("Load top sk thành công (" + topSK.size() + ")\n");
             topPVP = realTop(queryTopPVP, con);
-            Logger.success("Load top Hồng ngọc thành công (" + topSK.size() + ")\n");
             topSD = realTop(queryTopSD, con);
-            Logger.success("Load top Sức Đánh thành công (" + topSD.size() + ")\n");
             Manager.timeRealTop = System.currentTimeMillis();
             try {
                 if (rs != null) {
@@ -935,8 +900,7 @@ public class Manager {
             } catch (SQLException ex) {
             }
         }
-        Logger.log(Logger.GREEN_BOLD_BRIGHT,
-                "Tổng thời gian load database: " + (System.currentTimeMillis() - st) + "(ms)\n");
+
     }
 
     public static List<TOP> realTop(String query, Connection con) {

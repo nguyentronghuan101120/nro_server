@@ -1360,9 +1360,6 @@ public class TaskService {
     public static void main(String[] args) {
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j <= 10; j++) {
-                System.out.println("case ConstTask.TASK_" + i + "_" + j + ":");
-                System.out.println("return player.playerTask.taskMain.id == " + i
-                        + " && player.playerTask.taskMain.index == " + j + ";");
             }
         }
     }
@@ -1412,27 +1409,38 @@ public class TaskService {
         if (player.playerTask.sideTask.template != null) {
             if (player.playerTask.sideTask.isDone()) {
                 int goldReward = 0;
+                int gemReward = 0;
                 switch (player.playerTask.sideTask.level) {
                     case ConstTask.EASY:
                         goldReward = ConstTask.GOLD_EASY;
+                        gemReward = ConstTask.GEM_EASY;
                         break;
                     case ConstTask.NORMAL:
                         goldReward = ConstTask.GOLD_NORMAL;
+                        gemReward = ConstTask.GEM_NORMAL;
+
                         break;
                     case ConstTask.HARD:
                         goldReward = ConstTask.GOLD_HARD;
+                        goldReward = ConstTask.GEM_HARD;
+
                         break;
                     case ConstTask.VERY_HARD:
                         goldReward = ConstTask.GOLD_VERY_HARD;
+                        goldReward = ConstTask.GEM_VERY_HARD;
+
                         break;
                     case ConstTask.HELL:
                         goldReward = ConstTask.GOLD_HELL;
+                        goldReward = ConstTask.GEM_HELL;
+
                         break;
                 }
                 player.inventory.addGold(goldReward);
+                player.inventory.addGem(gemReward);
                 Service.gI().sendMoney(player);
                 Service.gI().sendThongBao(player, "Bạn nhận được "
-                        + Util.numberToMoney(goldReward) + " vàng");
+                        + Util.numberToMoney(goldReward) + " vàng và "+gemReward+" ngọc");
                 player.playerTask.sideTask.reset();
             } else {
                 Service.gI().sendThongBao(player, "Bạn chưa hoàn thành nhiệm vụ");

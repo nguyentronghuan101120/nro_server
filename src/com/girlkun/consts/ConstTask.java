@@ -14,11 +14,18 @@ public class ConstTask {
     public static final byte HELL = 4;
 
     //const gold reward side task
-    public static final int GOLD_EASY = 10000000;
-    public static final int GOLD_NORMAL = 30000000;
-    public static final int GOLD_HARD = 50000000;
-    public static final int GOLD_VERY_HARD = 80000000;
-    public static final int GOLD_HELL = 100000000;
+    public static final int GOLD_EASY = 20000000;
+    public static final int GOLD_NORMAL = 50000000;
+    public static final int GOLD_HARD = 100000000;
+    public static final int GOLD_VERY_HARD = 500000000;
+    public static final int GOLD_HELL = 1000000000;
+
+    //const gem reward side task
+    public static final int GEM_EASY = 100;
+    public static final int GEM_NORMAL = 200;
+    public static final int GEM_HARD = 300;
+    public static final int GEM_VERY_HARD = 500;
+    public static final int GEM_HELL = 1000;
 
     //const max side task of date
     public static final byte MAX_SIDE_TASK = 20;
@@ -59,12 +66,9 @@ public class ConstTask {
         for (int i = 0; i < 300; i++) {
             for (int j = 0; j <= 20; j++) {
                 int id = (i << 10) + j << 1;
-                System.out.println("public static final int TASK_" + i + "_" + j + " = " + id + ";");
                 if (!list.contains(id)) {
                     list.add(id);
-//                    System.out.println("id: " + id);
                 } else {
-                    System.out.println("**: " + id);
                 }
             }
         }
