@@ -1280,7 +1280,7 @@ public class Service {
             master.nPoint.tiemNangUp(param);
             addSMTN(master, type, param, true);
 
-            CustomLogger.showPetInfo(player);
+            // CustomLogger.showPetInfo(player);
         } else {
             if (player.nPoint.power > player.nPoint.getPowerLimit()) {
                 return;
