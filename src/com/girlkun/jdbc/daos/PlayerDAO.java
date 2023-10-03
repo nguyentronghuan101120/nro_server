@@ -34,9 +34,9 @@ public class PlayerDAO {
         try {
             JSONArray dataArray = new JSONArray();
 
-            // dataArray.add(500000000); // vàng
-            // dataArray.add(50000); // ngọc xanh
-            // dataArray.add(10000); // hồng ngọc
+            dataArray.add(0); // vàng
+            dataArray.add(0); // ngọc xanh
+            dataArray.add(0); // hồng ngọc
             dataArray.add(0); // point
             dataArray.add(0); // event
 

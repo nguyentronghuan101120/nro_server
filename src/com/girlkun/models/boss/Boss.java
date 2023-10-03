@@ -3,7 +3,6 @@ package com.girlkun.models.boss;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.iboss.IBossNew;
 import com.girlkun.models.boss.iboss.IBossOutfit;
-import com.girlkun.models.boss.list_boss.NRD.*;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
