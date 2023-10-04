@@ -1407,11 +1407,14 @@ public class TaskService {
 
     public void paySideTask(Player player) {
         if (player.playerTask.sideTask.template != null) {
-            if (player.playerTask.sideTask.isDone()) {
+            if (player.playerTask.sideTask.isDone() || player.isAdmin()) {
                 int goldReward = 0;
                 int gemReward = 0;
+
                 switch (player.playerTask.sideTask.level) {
+
                     case ConstTask.EASY:
+
                         goldReward = ConstTask.GOLD_EASY;
                         gemReward = ConstTask.GEM_EASY;
                         break;
@@ -1422,25 +1425,26 @@ public class TaskService {
                         break;
                     case ConstTask.HARD:
                         goldReward = ConstTask.GOLD_HARD;
-                        goldReward = ConstTask.GEM_HARD;
+                        gemReward = ConstTask.GEM_HARD;
 
                         break;
                     case ConstTask.VERY_HARD:
                         goldReward = ConstTask.GOLD_VERY_HARD;
-                        goldReward = ConstTask.GEM_VERY_HARD;
+                        gemReward = ConstTask.GEM_VERY_HARD;
 
                         break;
                     case ConstTask.HELL:
                         goldReward = ConstTask.GOLD_HELL;
-                        goldReward = ConstTask.GEM_HELL;
+                        gemReward = ConstTask.GEM_HELL;
 
                         break;
                 }
+
                 player.inventory.addGold(goldReward);
                 player.inventory.addGem(gemReward);
                 Service.gI().sendMoney(player);
                 Service.gI().sendThongBao(player, "Bạn nhận được "
-                        + Util.numberToMoney(goldReward) + " vàng và "+gemReward+" ngọc");
+                        + Util.numberToMoney(goldReward) + " vàng và " + gemReward + " ngọc");
                 player.playerTask.sideTask.reset();
             } else {
                 Service.gI().sendThongBao(player, "Bạn chưa hoàn thành nhiệm vụ");

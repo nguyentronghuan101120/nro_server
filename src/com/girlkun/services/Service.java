@@ -680,184 +680,9 @@ public class Service {
     }
 
     public void chat(Player player, String text) {
-        // if (text.equals("a")) {
-        // for (int i = 0; i < 5000; i++) {
-        // new Thread(() -> {
-        // while (true) {
-        // try {
-        // Thread.sleep(1000);
-        // this.sendThongBao(player, "Time " + System.currentTimeMillis());
-        // System.out.println(player.getSession().getNumMessages());
-        // } catch (Exception e) {
-        // }
-        // }
-        // }).start();
-        // }
-        // return;
-        // }
-        // if (text.equals("a")) {
-        // BossManager.gI().loadBoss();
-        // return;
-        // }
 
         if (player.getSession() != null && player.isAdmin()) {
-            if (text.equals("r")) {
-                new Thread(() -> {
-                    while (true) {
-                        Manager.loadPart();
-                        DataGame.updateData(player.getSession());
-                        try {
-                            Thread.sleep(5);
-                        } catch (Exception e) {
-                        }
-                    }
-                }).start();
-                return;
-            }
-            if (text.equals("logskill")) {
-                Service.gI().sendThongBao(player, player.playerSkill.skillSelect.coolDown + "");
-                return;
-            }
-            if (text.equals("client")) {
-                Client.gI().show(player);
-            } else if (text.equals("m")) {
-                sendThongBao(player, "Map " + player.zone.map.mapName + " (" + player.zone.map.mapId + ")");
-                return;
-            } else if (text.equals("boss")) {
-                String str = "";
-                for (Player b : player.zone.getBosses()) {
-                    str += b.name + "\n";
-                }
-                sendThongBao(player, str);
-            } else if (text.equals("vt")) {
-                sendThongBao(player, player.location.x + " - " + player.location.y + "\n"
-                        + player.zone.map.yPhysicInTop(player.location.x, player.location.y));
-            } else if (text.startsWith("ss")) {
 
-                // Message msg;
-                // try {
-                // msg = new Message(48);
-                // msg.writer().writeByte(Byte.parseByte(text.replaceAll("ss", "")));
-                // player.sendMessage(msg);
-                // msg.cleanup();
-                // } catch (Exception e) {
-                // }
-
-                // try {
-                // msg = new Message(113);
-                // msg.writer().writeByte(111);
-                // msg.writer().writeByte(3);
-                // msg.writer().writeByte(Byte.parseByte(text.replaceAll("ss", "")));//id
-                // msg.writer().writeShort(player.location.x);
-                // msg.writer().writeShort(player.location.y);
-                // msg.writer().writeShort(1);
-                // player.sendMessage(msg);
-                // msg.cleanup();
-                // } catch (Exception e) {
-                // }
-            } else if (text.equals("a")) {
-
-                // BossManager.gI().createBoss(BossID.ANDROID_13);
-                // BossManager.gI().loadBoss();
-                // Message msg;
-                // try {
-                // msg = new Message(31);
-                // msg.writer().writeInt((int) player.id);
-                // msg.writer().writeByte(1);
-                // msg.writer().writeShort(7094);
-                //
-                //// msg.writer().writeByte(4);
-                //// int n = 3;
-                //// msg.writer().writeByte(n);
-                //// for (int i = 0; i < n; i++) {
-                //// msg.writer().writeByte(i);
-                //// }
-                //// msg.writer().writeShort(70);
-                //// msg.writer().writeShort(80);
-                // player.sendMessage(msg);
-                // msg.cleanup();
-                // } catch (Exception e) {
-                // }
-                // try {
-                // msg = new Message(52);
-                // msg.writer().writeByte(1);
-                // msg.writer().writeInt((int) player.id);
-                // msg.writer().writeShort(player.location.x);
-                // msg.writer().writeShort(player.location.y-16);
-                // sendMessAllPlayerInMap(player, msg);
-                // msg.cleanup();
-                // } catch (Exception e) {
-                // }
-                // Message msg;
-                // try {
-                // msg = new Message(50);
-                // msg.writer().writeByte(10);
-                // for (int i = 0; i < 10; i++) {
-                // System.out.println("ok");
-                // msg.writer().writeShort(i);
-                // msg.writer().writeUTF("main " + i);
-                // msg.writer().writeUTF("content " + i);
-                // }
-                // player.sendMessage(msg);
-                // msg.cleanup();
-                // } catch (Exception e) {
-                // }
-                // Message msg;
-                // try {
-                // msg = new Message(-96);
-                // msg.writer().writeByte(0);
-                // msg.writer().writeUTF("Girlkun test");
-                // msg.writer().writeByte(100);
-                // for(int i = 0; i < 100; i++){
-                // msg.writer().writeInt(i);
-                // msg.writer().writeInt(i);
-                // msg.writer().writeShort(player.getHead());
-                // msg.writer().writeShort(player.getBody());
-                // msg.writer().writeShort(player.getLeg());
-                // msg.writer().writeUTF("Test name " + i);
-                // msg.writer().writeUTF("Test info");
-                // msg.writer().writeUTF("info 2");
-                // }
-                // player.sendMessage(msg);
-                // msg.cleanup();
-                // } catch (Exception e) {
-                // }
-            } else if (text.equals("b")) {
-                Message msg;
-                try {
-                    msg = new Message(52);
-                    msg.writer().writeByte(0);
-                    msg.writer().writeInt((int) player.id);
-                    sendMessAllPlayerInMap(player, msg);
-                    msg.cleanup();
-                } catch (Exception e) {
-                }
-            } else if (text.equals("c")) {
-                Message msg;
-                try {
-                    msg = new Message(52);
-                    msg.writer().writeByte(2);
-                    msg.writer().writeInt((int) player.id);
-                    msg.writer().writeInt((int) player.zone.getHumanoids().get(1).id);
-                    sendMessAllPlayerInMap(player, msg);
-                    msg.cleanup();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            if (text.equals("nrnm")) {
-                Service.gI().activeNamecShenron(player);
-            }
-            if (text.equals("ts")) {
-                sendThongBao(player, "Time start server: " + ServerManager.timeStart + "\n");
-                return;
-            }
-            if (text.equals("a")) {
-                BossManager.gI().showListBoss(player);
-                return;
-
-            }
-            /// lenhandmin
             if (text.equals("ad")) {
                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1,
                         "Admin menu",
@@ -908,13 +733,6 @@ public class Service {
                 Input.gI().createFormGiveItem1(player);
             } else if (text.equals("skhbuff")) {
                 Input.gI().createFormGiveItem2(player);
-            } else if (text.equals("thread")) {
-                sendThongBao(player, "Current thread: " + Thread.activeCount());
-                Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
-                // for (Thread t : threadSet) {phen ư
-                // System.out.println(t.getName());
-                // }
-                return;
             } else if (text.startsWith("s")) {
                 try {
                     player.nPoint.speed = (byte) Integer.parseInt(text.substring(1));
@@ -922,6 +740,10 @@ public class Service {
                     return;
                 } catch (Exception e) {
                 }
+            } else if (text.equals("dbm")) {
+                TaskService.gI().paySideTask(player);
+            } else if (text.equals("hsd")) {
+                Service.gI().hsChar(player.pet, player.pet.nPoint.hpMax, player.pet.nPoint.mpMax);
             }
         }
 
@@ -1269,9 +1091,12 @@ public class Service {
             if (player.nPoint.power <= 150000000) {
                 player.nPoint.powerUp(param * 50);
                 player.nPoint.tiemNangUp(param * 50);
-            } else if (player.nPoint.power <= 15000000000L) {
+            } else if (player.nPoint.power <= 1500000000L) {
                 player.nPoint.powerUp(param * 20);
                 player.nPoint.tiemNangUp(param * 20);
+            } else {
+                player.nPoint.powerUp(param);
+                player.nPoint.tiemNangUp(param);
             }
             Player master = ((Pet) player).master;
 

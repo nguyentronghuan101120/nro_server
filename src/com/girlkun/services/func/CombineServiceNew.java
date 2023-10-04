@@ -600,9 +600,9 @@ public class CombineServiceNew {
                             }
                         }
                         if (star < MAX_STAR_ITEM) {
-                            player.combineNew.goldCombine = getGoldPhaLeHoa(star,player.isAdmin());
+                            player.combineNew.goldCombine = getGoldPhaLeHoa(star, player.isAdmin());
                             player.combineNew.gemCombine = getGemPhaLeHoa(star);
-                            player.combineNew.ratioCombine = getRatioPhaLeHoa(star,player.isAdmin());
+                            player.combineNew.ratioCombine = getRatioPhaLeHoa(star, player.isAdmin());
 
                             String npcSay = item.template.name + "\n|2|";
                             for (Item.ItemOption io : item.itemOptions) {
@@ -703,8 +703,8 @@ public class CombineServiceNew {
                             }
                         }
                         if (level < MAX_LEVEL_ITEM) {
-                            player.combineNew.goldCombine = getGoldNangCapDo(level,player.isAdmin());
-                            player.combineNew.ratioCombine = (float) getTileNangCapDo(level,player.isAdmin());
+                            player.combineNew.goldCombine = getGoldNangCapDo(level, player.isAdmin());
+                            player.combineNew.ratioCombine = (float) getTileNangCapDo(level, player.isAdmin());
                             player.combineNew.countDaNangCap = getCountDaNangCapDo(level);
                             player.combineNew.countDaBaoVe = (short) getCountDaBaoVe(level);
                             String npcSay = "|2|Hiện tại " + itemDo.template.name + " (+" + level + ")\n|0|";
@@ -2475,20 +2475,20 @@ public class CombineServiceNew {
                 case 0:
                     return 100;
                 case 1:
-                    return 95;
-                case 2:
                     return 90;
-                case 3:
-                    return 85;
-                case 4:
+                case 2:
                     return 80;
+                case 3:
+                    return 60;
+                case 4:
+                    return 40;
                 case 5:
-                    return 75;
+                    return 20;
                 case 6:
-                    return 70;
+                    return 10;
                 case 7:
 
-                    return 60;
+                    return 5;
                 // case 8:
                 // return 40f;
                 // case 9:
