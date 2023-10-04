@@ -1632,7 +1632,7 @@ public class NpcFactory {
                         switch (select) {
                             case 0:
                                 if (player.nPoint.power >= 60000000000L
-                                        && InventoryServiceNew.gI().findItemBag(player, 457).quantity < 60 ) {
+                                        && InventoryServiceNew.gI().findItemBag(player, 457).quantity < 60) {
                                     if (player.gender == 2) {
 
                                         SkillService.gI().learSkillSpecial(player, Skill.LIEN_HOAN_CHUONG);
@@ -4220,7 +4220,14 @@ public class NpcFactory {
                             case 2:
                                 if (player.isAdmin()) {
                                     // PlayerService.gI().baoTri();
-                                    Maintenance.gI().start(15);
+                                    this.createOtherMenu(player, 1,
+                                            "Chắc chưa?",
+                                            "Chuẩn", "Thôi");
+
+                                    if (player.iDMark.getIndexMenu() == 1) {
+                                        Maintenance.gI().start(15);
+
+                                    }
                                 }
                                 break;
                             case 3:
@@ -4403,7 +4410,7 @@ public class NpcFactory {
 
                                 if (player.getSession().coinBar >= 200000) {
                                     if (player.pet == null) {
-                                        Service.getInstance().sendThongBao(player, "Bạn đéo có pet");
+                                        Service.getInstance().sendThongBao(player, "Bạn không có pet");
                                     } else {
                                         try {
 

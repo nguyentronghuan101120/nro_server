@@ -275,7 +275,7 @@ public class Util {
         it.options.add(new Item.ItemOption(209, 1)); // đồ rơi từ boss
         it.options.add(new Item.ItemOption(21, 18)); // ycsm 18 tỉ
         it.options.add(new Item.ItemOption(30, 1)); // ko thể gd
-        if (Util.isTrue(90, 100)) {// tỉ lệ ra spl
+        if (Util.isTrue(40, 100)) {// tỉ lệ ra spl
             it.options.add(new Item.ItemOption(107, new Random().nextInt(3) + 1));
         } else if (Util.isTrue(4, 100)) {
             it.options.add(new Item.ItemOption(107, new Random().nextInt(3) + 5));

@@ -111,7 +111,7 @@ public class BossesData {
         public static final BossData RAMBO = new BossData(
                         "Rambo", // name
                         ConstPlayer.XAYDA, // gender
-                        new short[] { 162, 163, 164, 87, -1, -1 }, // outfit {head, body, leg, bag, aura, eff}
+                        new short[] { 162, 163, 164,  -1, -1 }, // outfit {head, body, leg, bag, aura, eff}
                         9000, // dame
                         new int[] { 30000000 }, // hp
                         new int[] {  74, 75, 76, 77 }, // map join

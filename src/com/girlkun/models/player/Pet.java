@@ -24,7 +24,7 @@ import com.girlkun.utils.TimeUtil;
 public class Pet extends Player {
 
     private static final short ARANGE_CAN_ATTACK = 300;
-    private static final short ARANGE_ATT_SKILL1 = 100;
+    private static final short ARANGE_ATT_SKILL1 = 50;
 
     private static final short[][] PET_ID = { { 285, 286, 287 }, { 288, 289, 290 }, { 282, 283, 284 },
             { 304, 305, 303 } };
