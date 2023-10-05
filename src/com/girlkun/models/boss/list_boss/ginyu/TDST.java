@@ -44,7 +44,7 @@ public class TDST extends Boss {
     @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
-        if (Util.canDoWithTime(st, 300000)) {
+        if (Util.canDoWithTime(st, 600000)) {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }

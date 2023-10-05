@@ -86,7 +86,8 @@ public class Mob {
     }
 
     public void setTiemNang() {
-        this.maxTiemNang = (long) this.point.getHpFull() * (this.pTiemNang + Util.nextInt(-2, 2)) / 100;
+
+        this.maxTiemNang = (long) this.point.getHpFull() * (this.pTiemNang + Util.nextInt(1, 2)) / 100;
     }
 
     private long lastTimeAttackPlayer;
@@ -133,9 +134,11 @@ public class Mob {
         int n = levelPlayer - this.level;
         long pDameHit = dame * 100 / point.getHpFull();
         long tiemNang = pDameHit * maxTiemNang / 100;
+
         if (tiemNang <= 0) {
             tiemNang = 1;
         }
+
         if (n >= 0) {
             for (int i = 0; i < n; i++) {
                 long sub = tiemNang * 10 / 100;
@@ -144,6 +147,7 @@ public class Mob {
                 }
                 tiemNang -= sub;
             }
+
         } else {
             for (int i = 0; i < -n; i++) {
                 long add = tiemNang * 10 / 100;
@@ -152,14 +156,17 @@ public class Mob {
                 }
                 tiemNang += add;
             }
+
         }
         if (tiemNang <= 0) {
             tiemNang = 1;
         }
+
         tiemNang = (int) pl.nPoint.calSucManhTiemNang(tiemNang);
         if (pl.zone.map.mapId == 122 || pl.zone.map.mapId == 123 || pl.zone.map.mapId == 124) {
             tiemNang *= 20;
         }
+
         return tiemNang;
     }
 

@@ -563,12 +563,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     @Override
     public void wakeupAnotherBossWhenAppear() {
-        Logger.log(Logger.YELLOW, " ---------- " + this.name + ":" + this.zone.map.mapName + " khu vực "
-                + this.zone.zoneId + "(" + this.zone.map.mapId + ")" + '\n' + "\n");
-        if (!MapService.gI().isMapMaBu(this.zone.map.mapId) && MapService.gI().isMapBlackBallWar(this.zone.map.mapId)) {
-            Logger.log(Logger.YELLOW, " ---------- " + this.name + ":" + this.zone.map.mapName + " khu vực "
-                    + this.zone.zoneId + "(" + this.zone.map.mapId + ")" + '\n' + "\n");
-        }
+
         if (this.bossAppearTogether == null || this.bossAppearTogether[this.currentLevel] == null) {
             return;
         }

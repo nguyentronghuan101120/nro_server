@@ -116,56 +116,56 @@ public class PlayerDAO {
             String itemsBody = dataArray.toJSONString();
             dataArray.clear();
 
-            // for (int i = 0; i < 20; i++) { // item tạo player
-            //     if (i == 0) { // thỏi vàng
-            //         opt.add(30); // id option cấm giao dịch
-            //         opt.add(1); // param option
-            //         item.add(457); // id item
-            //         item.add(20); // số lượng
-            //         options.add(opt.toJSONString());
-            //         opt.clear();
-            //     } else {
-            //         item.add(-1); // id item
-            //         item.add(0); // số lượng
-            //     }
-            //     item.add(options.toJSONString()); // full option item
-            //     item.add(System.currentTimeMillis()); // thời gian item được tạo
-            //     dataArray.add(item.toJSONString());
-            //     options.clear();
-            //     item.clear();
-            // }
+            for (int i = 0; i < 20; i++) { // item tạo player
+                // if (i == 0) { // thỏi vàng
+                // opt.add(30); // id option cấm giao dịch
+                // opt.add(1); // param option
+                // item.add(457); // id item
+                // item.add(20); // số lượng
+                // options.add(opt.toJSONString());
+                // opt.clear();
+                // } else {
+                item.add(-1); // id item
+                item.add(0); // số lượng
+                // }
+                item.add(options.toJSONString()); // full option item
+                item.add(System.currentTimeMillis()); // thời gian item được tạo
+                dataArray.add(item.toJSONString());
+                options.clear();
+                item.clear();
+            }
             String itemsBag = dataArray.toJSONString();
             dataArray.clear();
 
-            // for (int i = 0; i < 20; i++) {
-            //     if (i == 0) { // rada
-            //         opt.add(14); // id option
-            //         opt.add(1); // param option
-            //         item.add(12); // id item
-            //         item.add(1); // số lượng
-            //         options.add(opt.toJSONString());
-            //         opt.clear();
-            //     } else {
-            //         item.add(-1); // id item
-            //         item.add(0); // số lượng
-            //     }
-            //     item.add(options.toJSONString()); // full option item
-            //     item.add(System.currentTimeMillis()); // thời gian item được tạo
-            //     dataArray.add(item.toJSONString());
-            //     options.clear();
-            //     item.clear();
-            // }
+            for (int i = 0; i < 20; i++) {
+                // if (i == 0) { // rada
+                // opt.add(14); // id option
+                // opt.add(1); // param option
+                // item.add(12); // id item
+                // item.add(1); // số lượng
+                // options.add(opt.toJSONString());
+                // opt.clear();
+                // } else {
+                item.add(-1); // id item
+                item.add(0); // số lượng
+                // }
+                item.add(options.toJSONString()); // full option item
+                item.add(System.currentTimeMillis()); // thời gian item được tạo
+                dataArray.add(item.toJSONString());
+                options.clear();
+                item.clear();
+            }
             String itemsBox = dataArray.toJSONString();
             dataArray.clear();
 
             // for (int i = 0; i < 110; i++) {
-            //     item.add(457); // id item
-            //     item.add(20); // số lượng
-            //     item.add(options.toJSONString()); // full option item
-            //     item.add(System.currentTimeMillis()); // thời gian item được tạo
-            //     dataArray.add(item.toJSONString());
-            //     options.clear();
-            //     item.clear();
+            // item.add(457); // id item
+            // item.add(20); // số lượng
+            // item.add(options.toJSONString()); // full option item
+            // item.add(System.currentTimeMillis()); // thời gian item được tạo
+            // dataArray.add(item.toJSONString());
+            // options.clear();
+            // item.clear();
             // }
 
             String itemsBoxLuckyRound = dataArray.toJSONString();

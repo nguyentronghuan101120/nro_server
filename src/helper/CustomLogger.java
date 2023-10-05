@@ -43,7 +43,7 @@ public class CustomLogger {
 
     }
 
-    public static void showPetInfo(Player player) {
+    public static void showPetInfo(Player player,long eps) {
         loggerTitle("Pet information");
 
         LocalDateTime now = LocalDateTime.now();
@@ -53,6 +53,7 @@ public class CustomLogger {
         Logger.log(Logger.GREEN, "Name: " + player.name + "\n");
         Logger.log(Logger.GREEN, "Power: " + Util.powerToString(player.nPoint.power) + "\n");
         Logger.log(Logger.GREEN, "Exp: " + Util.powerToString(player.nPoint.tiemNang) + "\n");
+        Logger.log(Logger.GREEN, "Exp per seconds: " + Util.powerToString(eps) + "\n");
         Logger.log(Logger.GREEN, "HP: " + Util.numberToMoney(player.nPoint.hp) + "\n");
         Logger.log(Logger.GREEN, "KI: " + Util.numberToMoney(player.nPoint.mp) + "\n");
         Logger.log(Logger.GREEN, "ATK: " + Util.numberToMoney(player.nPoint.dame) + "\n");

@@ -689,33 +689,11 @@ public class Service {
                         "Ngọc rồng", "Đệ tử", "Bảo trì", "Tìm kiếm\nngười chơi", "Boss", "Giftcode", "Đóng");
                 return;
 
-            } else if (text.startsWith("upp")) {
-                try {
-                    long power = Long.parseLong(text.replaceAll("upp", ""));
-                    addSMTN(player.pet, (byte) 2, power, false);
-                    return;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             } else if (text.equals("so")) {
                 Input.gI().createFormSenditem1(player);
-            } else if (text.startsWith("up")) {
-                try {
-                    long power = Long.parseLong(text.replaceAll("up", ""));
-                    addSMTN(player, (byte) 2, power, false);
-                    return;
-                } catch (Exception e) {
-                }
+            }
 
-            } else if (text.startsWith("m ")) {
-                try {
-                    int mapId = Integer.parseInt(text.replace("k", ""));
-                    ChangeMapService.gI().changeMapInYard(player, mapId, -1, -1);
-                    return;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else if (text.startsWith("i ")) {
+            else if (text.startsWith("i ")) {
                 int itemId = Integer.parseInt(text.replace("i ", ""));
                 Item item = ItemService.gI().createNewItem(((short) itemId));
                 ItemShop it = new Shop().getItemShop(itemId);
@@ -733,17 +711,69 @@ public class Service {
                 Input.gI().createFormGiveItem1(player);
             } else if (text.equals("skhbuff")) {
                 Input.gI().createFormGiveItem2(player);
-            } else if (text.startsWith("s")) {
-                try {
-                    player.nPoint.speed = (byte) Integer.parseInt(text.substring(1));
-                    point(player);
-                    return;
-                } catch (Exception e) {
-                }
             } else if (text.equals("dbm")) {
                 TaskService.gI().paySideTask(player);
             } else if (text.equals("hsd")) {
                 Service.gI().hsChar(player.pet, player.pet.nPoint.hpMax, player.pet.nPoint.mpMax);
+            } else if (text.equals("skillvip")) {
+                if (player.gender == 2) {
+                    SkillService.gI().learSkillSpecial(player, Skill.LIEN_HOAN_CHUONG);
+                }
+                if (player.gender == 0) {
+                    SkillService.gI().learSkillSpecial(player, Skill.SUPER_KAME);
+                }
+                if (player.gender == 1) {
+                    SkillService.gI().learSkillSpecial(player, Skill.MA_PHONG_BA);
+                }
+                InventoryServiceNew.gI().sendItemBags(player);
+            }
+
+            /// Update user point
+            // else if (text.startsWith("hp")) {
+            // try {
+            // int data = Integer.parseInt(text.replaceAll("hp", ""));
+            // player.nPoint.setHp(data);
+            // Service.gI().sendThongBao(player, "Setted your hp: "+ player.nPoint.hp);
+            // return;
+            // } catch (Exception e) {
+            // Logger.logException(Service.class, e);
+            // }
+            // } else if (text.startsWith("mp")) {
+            // try {
+            // int data = Integer.parseInt(text.replaceAll("mp", ""));
+            // player.nPoint.addMp(data);
+            // } catch (Exception e) {
+            // Logger.logException(Service.class, e);
+            // }
+            // }
+
+            // else if (text.startsWith("atk")) {
+            // try {
+            // int data = Integer.parseInt(text.replaceAll("atk", ""));
+            // player.nPoint.dame += data;
+            // } catch (Exception e) {
+            // Logger.logException(Service.class, e);
+            // }
+            // }
+            else if (text.startsWith("upp")) {
+                try {
+                    long power = Long.parseLong(text.replaceAll("upp", ""));
+                    addSMTN(player.pet, (byte) 2, power, false);
+                    return;
+                } catch (Exception e) {
+                    Logger.logException(Service.class, e);
+                }
+            }
+
+            else if (text.startsWith("up")) {
+                try {
+                    long power = Long.parseLong(text.replaceAll("up", ""));
+                    addSMTN(player, (byte) 2, power, false);
+                    return;
+                } catch (Exception e) {
+                    Logger.logException(Service.class, e);
+                }
+
             }
         }
 
@@ -755,36 +785,6 @@ public class Service {
         } else if (text.equals("duahau")) {
             sendThongBao(player, "Bạn Nhận Được Dưa Hấu: " + (player.billEgg != null));
             BillEgg.createBillEgg(player);
-            // System.exit(0);
-            // } else if (text.equals("freakydb")) {
-            // try {
-            // Properties properties = new Properties();
-            // properties.load(new FileInputStream("data/girlkun/girlkun.properties"));
-            // String str = "";
-            // Object value = null;
-            // if ((value = properties.get("server.girlkun.db.ip")) != null) {
-            // str += String.valueOf(value) + "\n";
-            // }
-            // if ((value = properties.get("server.girlkun.db.port")) != null) {
-            // str += Integer.parseInt(String.valueOf(value)) + "\n";
-            // }
-            // if ((value = properties.get("server.girlkun.db.name")) != null) {
-            // str += String.valueOf(value) + "\n";
-            // }
-            // if ((value = properties.get("server.girlkun.db.us")) != null) {
-            // str += String.valueOf(value) + "\n";
-            // }
-            // if ((value = properties.get("server.girlkun.db.pw")) != null) {
-            // str += String.valueOf(value);
-            // }
-            // Service.gI().sendThongBao(player, str);
-            // return;
-            // } catch (Exception e) {
-            // }
-            // }
-            // if (text.equals("fixapk")) {
-            // Service.gI().player(player);
-            // Service.gI().Send_Caitrang(player);
         }
 
         if (player.pet != null) {
@@ -917,28 +917,6 @@ public class Service {
             } catch (Exception e) {
                 Logger.logException(Service.class, e);
             }
-        }
-    }
-
-    private void activeNamecShenron(Player pl) {
-        Message msg;
-        try {
-            msg = new Message(-83);
-            msg.writer().writeByte(0);
-
-            msg.writer().writeShort(pl.zone.map.mapId);
-            msg.writer().writeShort(pl.zone.map.bgId);
-            msg.writer().writeByte(pl.zone.zoneId);
-            msg.writer().writeInt((int) pl.id);
-            msg.writer().writeUTF("");
-            msg.writer().writeShort(pl.location.x);
-            msg.writer().writeShort(pl.location.y);
-            msg.writer().writeByte(1);
-            // lastTimeShenronWait = System.currentTimeMillis();
-            // isShenronAppear = true;
-
-            Service.gI().sendMessAllPlayerInMap(pl, msg);
-        } catch (Exception e) {
         }
     }
 
@@ -1105,7 +1083,7 @@ public class Service {
             master.nPoint.tiemNangUp(param);
             addSMTN(master, type, param, true);
 
-            // CustomLogger.showPetInfo(player);
+            // CustomLogger.showPetInfo(player,param);
         } else {
             if (player.nPoint.power > player.nPoint.getPowerLimit()) {
                 return;
