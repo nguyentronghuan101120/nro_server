@@ -622,7 +622,7 @@ public class TaskService {
     }
 
     // xong nhiệm vụ nào đó
-    private boolean doneTask(Player player, int idTaskCustom) {
+    public boolean doneTask(Player player, int idTaskCustom) {
 
         if (TaskService.gI().isCurrentTask(player, idTaskCustom)) {
             this.addDoneSubTask(player, 1);
@@ -677,11 +677,9 @@ public class TaskService {
                 case ConstTask.TASK_2_0:
                     break;
                 case ConstTask.TASK_2_1:
-                    try {
-                        InventoryServiceNew.gI().subQuantityItemsBag(player,
-                                InventoryServiceNew.gI().findItemBag(player, 73), 1);
-                    } catch (Exception ex) {
-                    }
+                    InventoryServiceNew.gI().subQuantityItemsBag(player,
+                            InventoryServiceNew.gI().findItemBag(player, 73), 10);
+
                     InventoryServiceNew.gI().sendItemBags(player);
                     Service.gI().dropItemMapForMe(player, player.zone.getItemMapByTempId(74));
                     npcSay(player, ConstTask.NPC_NHA,
@@ -1149,49 +1147,66 @@ public class TaskService {
 
     // Thưởng nhiệm vụ
     private void rewardDoneTask(Player player) {
-        // Item item = ItemService.gI().createNewItem((short)55);
-        // item.itemOptions.add(new Item.ItemOption(17, 1235));
-        // InventoryServiceNew.gI().addItemBag(player, item);
-        // InventoryServiceNew.gI().sendItemBags(player);
 
-        // player.inventory.gold += 50;
-        // Service.gI().sendMoney(player);
-        // switch (player.playerTask.taskMain.id) {
-        // case 0:
-        // Service.gI().addSMTN(player, (byte) 0, 500, false);
-        // Service.gI().addSMTN(player, (byte) 1, 500, false);
-        // break;
-        // case 1:
-        // Service.gI().addSMTN(player, (byte) 0, 1000, false);
-        // Service.gI().addSMTN(player, (byte) 1, 1000, false);
-        // break;
-        // case 2:
-        // Service.gI().addSMTN(player, (byte) 0, 1200, false);
-        // Service.gI().addSMTN(player, (byte) 1, 1200, false);
-        // break;
-        // case 3:
-        // Service.gI().addSMTN(player, (byte) 0, 3000, false);
-        // Service.gI().addSMTN(player, (byte) 1, 3000, false);
-        // break;
-        // case 4:
-        // Service.gI().addSMTN(player, (byte) 0, 7000, false);
-        // Service.gI().addSMTN(player, (byte) 1, 7000, false);
-        // break;
-        // case 5:
-        // Service.gI().addSMTN(player, (byte) 0, 20000, false);
-        // Service.gI().addSMTN(player, (byte) 1, 20000, false);
-        // break;
-        // }
-        if (player.playerTask.taskMain.id > 0 && player.playerTask.taskMain.id < 25) {
-            Service.gI().addSMTN(player, (byte) 2, 500 * (player.playerTask.taskMain.id + 1), false);
-            player.inventory.gold += (player.playerTask.taskMain.id < 5 && player.playerTask.taskMain.id >= 0)
-                    ? 100000 * (player.playerTask.taskMain.id + 1)
-                    : 500000;
-            if (player.inventory.gold > 2000000000) {
-                player.inventory.gold = 2000000000;
-            }
-            Service.gI().sendMoney(player);
+        switch (player.playerTask.taskMain.id) {
+            case 0:
+                giveRewardWhenDoneTask(player, 500, 0, 0, 0);
+                break;
+            case 1:
+                giveRewardWhenDoneTask(player, 500, 0, 0, 0);
+                break;
+            case 2:
+                giveRewardWhenDoneTask(player, 1500, 5000000, 10, 10);
+                break;
+            case 3:
+                giveRewardWhenDoneTask(player, 2000, 0, 0, 0);
+                break;
+            case 4:
+                giveRewardWhenDoneTask(player, 3000, 5000000, 5, 5);
+                break;
+            case 5:
+                giveRewardWhenDoneTask(player, 50000, 5000000, 5, 5);
+                break;
+            case 7:
+                giveRewardWhenDoneTask(player, 100000, 10000000, 10, 10);
+                break;
+            case 10:
+                giveRewardWhenDoneTask(player, 200000, 20000000, 20, 20);
+                break;
+
+            case 14:
+            case 15:
+            case 16:
+                giveRewardWhenDoneTask(player, 500000, 20000000, 20, 20);
+                break;
+
+            case 18:
+                giveRewardWhenDoneTask(player, 50000000, 50000000, 50, 50);
+                break;
+            case 19:
+            case 20:
+                giveRewardWhenDoneTask(player, 500000000, 100000000, 100, 100);
+                break;
+            case 21:
+                giveRewardWhenDoneTask(player, 2000000000, 2000000, 200, 200);
+                break;
+            case 22:
+            case 23:
+                giveRewardWhenDoneTask(player, 5000000000L, 5000000, 500, 500);
+                break;
         }
+
+    }
+
+    private void giveRewardWhenDoneTask(Player player, long power, long gold, long gem, long ruby) {
+        Service.gI().addSMTN(player, (byte) 0, power, false);
+        Service.gI().addSMTN(player, (byte) 1, power, false);
+        player.inventory.gold += gold;
+        player.inventory.gem += gem;
+        player.inventory.ruby += ruby;
+
+        Service.gI().sendMoney(player);
+
     }
 
     // vd: pem đc 1 mộc nhân -> +1 mộc nhân vào nv hiện tại

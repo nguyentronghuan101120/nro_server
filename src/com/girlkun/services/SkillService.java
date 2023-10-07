@@ -1,6 +1,7 @@
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstPlayer;
+import com.girlkun.jdbc.daos.ShopDAO;
 import com.girlkun.models.intrinsic.Intrinsic;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.mob.MobMe;
@@ -9,18 +10,12 @@ import com.girlkun.models.player.Player;
 import com.girlkun.models.player.SkillSpecial;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
-import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author
- * @copyright
- */
 public class SkillService {
 
     private static SkillService i;
@@ -67,17 +62,21 @@ public class SkillService {
         if (player.isPet) {
             // ((Pet) player).lastTimeMoveIdle = System.currentTimeMillis();
         }
+
         switch (player.playerSkill.skillSelect.template.type) {
+
             case 1:
                 useSkillAttack(player, plTarget, mobTarget);
                 // Service.gI().releaseCooldownSkill(player);
                 break;
             case 3:
+
                 useSkillAlone(player);
                 break;
             case 4:
+
                 userSkillSpecial(player, message);
-                break;        
+                break;
             default:
                 return false;
         }
@@ -89,7 +88,6 @@ public class SkillService {
             return;
         }
         try {
-            byte st = message.reader().readByte();
             byte skillId = message.reader().readByte();
             Short dx = message.reader().readShort();
             Short dy = message.reader().readShort();
@@ -110,6 +108,8 @@ public class SkillService {
             affterUseSkill(player, player.playerSkill.skillSelect.template.id);
             player.skillSpecial.setSkillSpecial(dir, dx, dy, x, y);
         } catch (Exception e) {
+            Logger.logException(SkillService.class, e);
+
         }
     }
 
@@ -241,6 +241,7 @@ public class SkillService {
                 }
             }
         } catch (Exception e) {
+            Logger.logException(ShopDAO.class, e);
         }
     }
 
@@ -279,6 +280,7 @@ public class SkillService {
             Service.getInstance().sendMessAllPlayerInMap(player, message);
             message.cleanup();
         } catch (Exception e) {
+            Logger.logException(SkillService.class, e);
         } finally {
             if (message != null) {
                 message.cleanup();
@@ -304,6 +306,8 @@ public class SkillService {
             Service.getInstance().sendMessAllPlayerInMap(player, message);
             message.cleanup();
         } catch (Exception e) {
+            Logger.logException(SkillService.class, e);
+
         } finally {
             if (message != null) {
                 message.cleanup();
@@ -329,6 +333,8 @@ public class SkillService {
             Service.getInstance().sendMessAllPlayerInMap(player, message);
             message.cleanup();
         } catch (Exception e) {
+            Logger.logException(SkillService.class, e);
+
         } finally {
             if (message != null) {
                 message.cleanup();
@@ -356,6 +362,8 @@ public class SkillService {
             Service.getInstance().sendMessAllPlayerInMap(player, message);
             message.cleanup();
         } catch (final Exception ex) {
+            Logger.logException(SkillService.class, ex);
+
         } finally {
             if (message != null) {
                 message.cleanup();
@@ -383,6 +391,8 @@ public class SkillService {
             Service.getInstance().sendMessAllPlayerInMap(player, message);
             message.cleanup();
         } catch (final Exception ex) {
+            Logger.logException(SkillService.class, ex);
+
         } finally {
             if (message != null) {
                 message.cleanup();
@@ -418,6 +428,8 @@ public class SkillService {
             Service.getInstance().sendMessAllPlayerInMap(player, message);
             message.cleanup();
         } catch (final Exception ex) {
+            Logger.logException(SkillService.class, ex);
+
         } finally {
             if (message != null) {
                 message.cleanup();
@@ -437,7 +449,8 @@ public class SkillService {
             player.sendMessage(message);
             message.cleanup();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.logException(SkillService.class, e);
+
         } finally {
             if (message != null) {
                 message.cleanup();
@@ -446,7 +459,6 @@ public class SkillService {
 
         }
     }
-
 
     private void useSkillAttack(Player player, Player plTarget, Mob mobTarget) {
         if (!player.isBoss) {
@@ -546,9 +558,7 @@ public class SkillService {
                             }
                         }
                     }
-                    for (Mob mob : mobs) {
-                        // mob.injured(player, player.point.getDameAttack(), true);
-                    }
+
                     PlayerService.gI().sendInfoHpMpMoney(player);
                     affterUseSkill(player, player.playerSkill.skillSelect.template.id);
                 }
@@ -822,9 +832,8 @@ public class SkillService {
     private void useSkillBuffToPlayer(Player player, Player plTarget) {
         switch (player.playerSkill.skillSelect.template.id) {
             case Skill.TRI_THUONG:
-                List<Player> players = new ArrayList();
+                final List<Player> players = new ArrayList();
                 int percentTriThuong = SkillUtil.getPercentTriThuong(player.playerSkill.skillSelect.point);
-                int point = player.playerSkill.skillSelect.point;
                 if (canHsPlayer(player, plTarget)) {
                     players.add(plTarget);
                     List<Player> playersMap = player.zone.getNotBosses();

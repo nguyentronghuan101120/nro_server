@@ -4,6 +4,7 @@ import com.girlkun.consts.ConstMap;
 import com.girlkun.consts.ConstMob;
 import com.girlkun.consts.ConstTask;
 import com.girlkun.models.item.Item;
+import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.map.ItemMap;
 
 import java.util.List;
@@ -87,7 +88,7 @@ public class Mob {
 
     public void setTiemNang() {
 
-        this.maxTiemNang = (long) this.point.getHpFull() * (this.pTiemNang + Util.nextInt(1, 2)) / 100;
+        this.maxTiemNang = (long) this.point.getHpFull() * (this.pTiemNang + 2) / 100;
     }
 
     private long lastTimeAttackPlayer;
@@ -133,7 +134,7 @@ public class Mob {
         int levelPlayer = Service.gI().getCurrLevel(pl);
         int n = levelPlayer - this.level;
         long pDameHit = dame * 100 / point.getHpFull();
-        long tiemNang = pDameHit * maxTiemNang / 100;
+        long tiemNang = pDameHit * maxTiemNang;
 
         if (tiemNang <= 0) {
             tiemNang = 1;
@@ -161,7 +162,6 @@ public class Mob {
         if (tiemNang <= 0) {
             tiemNang = 1;
         }
-
         tiemNang = (int) pl.nPoint.calSucManhTiemNang(tiemNang);
         if (pl.zone.map.mapId == 122 || pl.zone.map.mapId == 123 || pl.zone.map.mapId == 124) {
             tiemNang *= 20;
@@ -204,7 +204,6 @@ public class Mob {
                 && Util.canDoWithTime(lastTimeAttackPlayer, 2000)) {
             Player pl = getPlayerCanAttack();
             if (pl != null) {
-                // MobService.gI().mobAttackPlayer(this, pl);
                 this.mobAttackPlayer(pl);
             }
             this.lastTimeAttackPlayer = System.currentTimeMillis();
@@ -298,6 +297,7 @@ public class Mob {
             msg.writer().writeInt(dameHit);
             msg.writer().writeBoolean(plKill.nPoint.isCrit); // crit
             List<ItemMap> items = mobReward(plKill, this.dropItemTask(plKill), msg);
+
             Service.gI().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
             hutItem(plKill, items);
@@ -360,8 +360,10 @@ public class Mob {
                 }
             }
 
-            itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10),
+            itemReward = this.getItemMobReward(player, this.location.x +
+                    Util.nextInt(-10, 10),
                     this.zone.map.yPhysicInTop(this.location.x, this.location.y));
+
             if (itemTask != null) {
                 itemReward.add(itemTask);
             }
@@ -390,6 +392,7 @@ public class Mob {
         if (!items.isEmpty()) {
             ItemMobReward item = items.get(Util.nextInt(0, items.size() - 1));
             ItemMap itemMap = item.getItemMap(zone, player, x, yEnd);
+
             if (itemMap != null) {
                 list.add(itemMap);
             }
@@ -401,16 +404,15 @@ public class Mob {
                 list.add(itemMap);
             }
         }
-        if (player.itemTime.isUseMayDo && Util.isTrue(21, 100) && this.tempId > 57 && this.tempId < 66) {
+        if (player.itemTime.isUseMayDo && Util.isTrue(21, 100) && this.tempId > 57 &&
+                this.tempId < 66) {
             list.add(new ItemMap(zone, 380, 1, x, player.location.y, player.id));
         } // vat phẩm rơi khi user maaáy dò adu hoa r o day ti code choa
-        if (player.itemTime.isUseMayDo2 && Util.isTrue(7, 100) && this.tempId > 1 && this.tempId < 81) {
-            list.add(new ItemMap(zone, 2036, 1, x, player.location.y, player.id));// cai nay sua sau nha
+        if (player.itemTime.isUseMayDo2 && Util.isTrue(7, 100) && this.tempId > 1 &&
+                this.tempId < 81) {
+            list.add(new ItemMap(zone, 2036, 1, x, player.location.y, player.id));
         }
 
-        // if (player.isPet && player.getSession().actived && Util.isTrue(15, 100)) {
-        // list.add(new ItemMap(zone, 610, 1, x, player.location.y, player.id));
-        // }
         return list;
     }
 

@@ -60,7 +60,7 @@ public class CombineServiceNew {
     public static final int MO_GIOI_HAN_CHIEN_LINH = 522;
 
     private static final int GOLD_BONG_TAI = 500_000_000;
-    private static final int GEM_BONG_TAI = 5_000;
+    private static final int GEM_BONG_TAI = 1_00;
     private static final int RATIO_BONG_TAI = 50;
     private static final int RATIO_NANG_CAP = 45;
 
@@ -130,7 +130,7 @@ public class CombineServiceNew {
                             manhVo = item;
                         }
                     }
-                    if (bongTai != null && manhVo != null && manhVo.quantity >= 99) {
+                    if (bongTai != null && manhVo != null && manhVo.quantity >= 9999) {
 
                         player.combineNew.goldCombine = GOLD_BONG_TAI;
                         player.combineNew.gemCombine = GEM_BONG_TAI;
@@ -153,11 +153,11 @@ public class CombineServiceNew {
                         }
                     } else {
                         this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                                "Cần 1 Bông tai Porata cấp 1 và X99 Mảnh vỡ bông tai", "Đóng");
+                                "Cần 1 Bông tai Porata cấp 1 và X9999 Mảnh vỡ bông tai", "Đóng");
                     }
                 } else {
                     this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                            "Cần 1 Bông tai Porata cấp 1 và X99 Mảnh vỡ bông tai", "Đóng");
+                            "Cần 1 Bông tai Porata cấp 1 và X9999 Mảnh vỡ bông tai", "Đóng");
                 }
                 break;
             case MO_CHI_SO_BONG_TAI:
@@ -2473,22 +2473,22 @@ public class CombineServiceNew {
         } else {
             switch (star) {
                 case 0:
-                    return 100;
+                    return 50;
                 case 1:
-                    return 90;
-                case 2:
-                    return 80;
-                case 3:
-                    return 60;
-                case 4:
-                    return 40;
-                case 5:
                     return 20;
-                case 6:
+                case 2:
                     return 10;
+                case 3:
+                    return 4;
+                case 4:
+                    return 3;
+                case 5:
+                    return 2;
+                case 6:
+                    return 1;
                 case 7:
 
-                    return 5;
+                    return 0.1f;
                 // case 8:
                 // return 40f;
                 // case 9:
@@ -2589,19 +2589,19 @@ public class CombineServiceNew {
                 case 0: // tại lúc đồ 0 có cấp khi nâng lên +1 thì tỉ lệ 100%
                     return 100;
                 case 1:
-                    return 70;
-                case 2: // tại lúc đồ có cấp là +2 thì khi nâng lên +3 thì tỉ lệ là 50%
                     return 50;
-                case 3:
-                    return 40;
-                case 4:
+                case 2: // tại lúc đồ có cấp là +2 thì khi nâng lên +3 thì tỉ lệ là 50%
                     return 20;
-                case 5:
+                case 3:
                     return 10;
-                case 6:
+                case 4:
                     return 5;
+                case 5:
+                    return 1;
+                case 6:
+                    return 0.1;
                 case 7:
-                    return 3;
+                    return 0.1;
                 // case 8:
                 // return 1;
                 // case 9:
@@ -2981,11 +2981,11 @@ public class CombineServiceNew {
                         " đồ SKH VIP sẽ cùng loại \n với đồ thiên sứ!"
                         + "Chỉ cần chọn 'Nâng Cấp'";
             case NANG_CAP_BONG_TAI:
-                return "Vào hành trang\nChọn bông tai Porata\nChọn mảnh bông tai để nâng cấp, số lượng\n99 cái\nSau đó chọn 'Nâng cấp'";
+                return "Vào hành trang\nChọn bông tai Porata\nChọn mảnh bông tai để nâng cấp, số lượng\n9999 cái\nSau đó chọn 'Nâng cấp'";
             case MO_CHI_SO_BONG_TAI:
                 return "Vào hành trang\nChọn bông tai Porata\nChọn mảnh hồn bông tai số lượng 99 cái\nvà đá xanh lam để nâng cấp\nSau đó chọn 'Nâng cấp'";
             case NANG_CAP_LINH_THU:
-                return "Vào hành trang\nChọn Linh Thú\nChọn đá ma thuật  số lượng 99 cái\nvà thức ăn để nâng cấp\nSau đó chọn 'Nâng cấp'";
+                return "Vào hành trang\nChọn Linh Thú\nChọn đá ma thuật  số lượng 999 cái\nvà thức ăn để nâng cấp\nSau đó chọn 'Nâng cấp'";
             case CHE_TAO_TRANG_BI_TS:
                 return "Cần 1 công thức vip\nMảnh trang bị tương ứng\n"
                         + "Số Lượng\n999"

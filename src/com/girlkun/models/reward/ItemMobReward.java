@@ -2,15 +2,16 @@ package com.girlkun.models.reward;
 
 import com.girlkun.models.Template;
 import com.girlkun.models.item.Item;
+import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Manager;
 import com.girlkun.utils.Util;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import lombok.Data;
-
 
 @Data
 public class ItemMobReward {
@@ -52,22 +53,112 @@ public class ItemMobReward {
             if (mapId != -1 && mapId != zone.map.mapId) {
                 continue;
             }
-            if(this.gender != -1 && this.gender != player.gender){
+            if (this.gender != -1 && this.gender != player.gender) {
                 break;
             }
-            if (Util.isTrue(this.ratio[0], this.ratio[1])) {
-                ItemMap itemMap = new ItemMap(zone, this.temp, Util.nextInt(this.quantity[0], this.quantity[1]), 
+            int ratioToGetItem = Util.nextInt(100);
+            if (ratioToGetItem <= 10) {
+                ItemMap itemMap = new ItemMap(zone, this.temp, Util.nextInt(this.quantity[0], this.quantity[1]),
                         x, y, player.id);
-                // for(ItemOptionMobReward opt : this.option){
-                //     if(!Util.isTrue(opt.getRatio()[0], opt.getRatio()[1])){
-                //         continue;
-                //     }
-                //     itemMap.options.add(new Item.ItemOption(opt.getTemp(), Util.nextInt(opt.getParam()[0], opt.getParam()[1])));
-                // }
-                return itemMap;
+
+                if (isIdSKHTraiDat(itemMap.itemTemplate.id) || isIdSKHNamec(itemMap.itemTemplate.id)
+                        || isIdSKHXayda(itemMap.itemTemplate.id)) {
+
+                    double ratioSKH = Util.nextInt(10000);
+                    if (ratioSKH <= 1) {
+
+                        // System.out.println("\n- START -\n");
+                        // System.out.println("Id: " + itemMap.itemTemplate.id + " - Name: " +
+                        // itemMap.itemTemplate.name);
+                        // System.out.println("Option: ");
+
+                        for (ItemOptionMobReward opt : this.option) {
+                            // System.out.println(" - Id: " + opt.getTemp().id + " - Name: " +
+                            // opt.getTemp().name);
+
+                            if (opt.getTemp().id == 0 || opt.getTemp().id == 6
+                                    || opt.getTemp().id == 7
+                                    || opt.getTemp().id == 14 || opt.getTemp().id == 47
+                                    || opt.getTemp().id == 127 || opt.getTemp().id == 128
+                                    || opt.getTemp().id == 129 || opt.getTemp().id == 130
+                                    || opt.getTemp().id == 131 || opt.getTemp().id == 132
+                                    || opt.getTemp().id == 133 || opt.getTemp().id == 134
+                                    || opt.getTemp().id == 135
+                                    || opt.getTemp().id == 136
+                                    || opt.getTemp().id == 137 || opt.getTemp().id == 138
+                                    || opt.getTemp().id == 139
+                                    || opt.getTemp().id == 140 || opt.getTemp().id == 141
+                                    || opt.getTemp().id == 142
+                                    || opt.getTemp().id == 143 || opt.getTemp().id == 144
+                                    || opt.getTemp().id == 30) {
+
+                                itemMap.options.add(
+                                        new Item.ItemOption(opt.getTemp(),
+                                                Util.nextInt(opt.getParam()[0], opt.getParam()[1])));
+
+                            }
+
+                            continue;
+
+                        }
+
+                        // System.out.println("\n-----\n");
+
+                        // for (ItemOption opt : itemMap.options) {
+
+                        // System.out
+                        // .println(" - Id: " + opt.optionTemplate.id + " - Name: " +
+                        // opt.optionTemplate.name);
+
+                        // }
+
+                        // System.out.println("\n- END -\n\n");
+
+                        return itemMap;
+                    } else {
+                        return itemMap;
+
+                    }
+
+                } else {
+
+                    for (ItemOptionMobReward opt : this.option) {
+
+                        itemMap.options.add(
+                                new Item.ItemOption(opt.getTemp(),
+                                        Util.nextInt(opt.getParam()[0], opt.getParam()[1])));
+
+                    }
+                }
+
+                if (itemMap.itemTemplate.id == 14 || itemMap.itemTemplate.id == 15 ||
+                        itemMap.itemTemplate.id == 16
+                        || itemMap.itemTemplate.id == 17 || itemMap.itemTemplate.id == 18) {
+                    return null;
+                }
+
+                else {
+                    return itemMap;
+                }
+
             }
         }
         return null;
+    }
+
+    private boolean isIdSKHTraiDat(int id) {
+        return id == 0 || id == 6 || id == 21
+                || id == 27 || id == 12;
+    }
+
+    private boolean isIdSKHXayda(int id) {
+        return id == 2 || id == 8 || id == 23
+                || id == 29 || id == 12;
+    }
+
+    private boolean isIdSKHNamec(int id) {
+        return id == 1 || id == 7 || id == 22
+                || id == 28 || id == 12;
     }
 
 }

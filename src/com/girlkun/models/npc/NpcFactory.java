@@ -440,13 +440,13 @@ public class NpcFactory {
                                 Input.gI().createFormGiftCode(player);
                                 break;
                             case 2:
-                                int amountToAdd = 2000000;
+                                int amountToAdd = 10000;
                                 player.inventory.gem += amountToAdd;
                                 Service.gI().sendMoney(player);
                                 Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd + " Ngọc Xanh");
                                 break;
                             case 3:
-                                int amountToAdd1 = 2000000;
+                                int amountToAdd1 = 10000;
                                 player.inventory.ruby += amountToAdd1;
                                 Service.gI().sendMoney(player);
                                 Service.gI().sendThongBao(player, "Bạn vừa nhận được " + amountToAdd1 + " Ngọc Hồng");
@@ -1594,62 +1594,63 @@ public class NpcFactory {
     // }
     // };
     // }
-    // public static Npc npclytieunuong54(int mapId, int status, int cx, int cy, int tempId, int avartar) { // gojo
-    //     return new Npc(mapId, status, cx, cy, tempId, avartar) {
-    //         @Override
-    //         public void openBaseMenu(Player player) {
-    //             if (this.mapId == 5) {
-    //                 this.createOtherMenu(player, ConstNpc.BASE_MENU,
-    //                         "|7|Xin chào tôi có thể giúp gì cho cậu?",
-    //                         "Học Skill 9", "Từ chối");
-    //             }
-    //         }
+    // public static Npc npclytieunuong54(int mapId, int status, int cx, int cy, int
+    // tempId, int avartar) { // gojo
+    // return new Npc(mapId, status, cx, cy, tempId, avartar) {
+    // @Override
+    // public void openBaseMenu(Player player) {
+    // if (this.mapId == 5) {
+    // this.createOtherMenu(player, ConstNpc.BASE_MENU,
+    // "|7|Xin chào tôi có thể giúp gì cho cậu?",
+    // "Học Skill 9", "Từ chối");
+    // }
+    // }
 
-    //         @Override
-    //         public void confirmMenu(Player player, int select) {
-    //             if (canOpenNpc(player)) {
-    //                 if (player.iDMark.isBaseMenu() && this.mapId == 5) {
-    //                     switch (select) {
-    //                         case 0:
-    //                             if (player.gender == 0) {
-    //                                 this.createOtherMenu(player, 6,
-    //                                         "|1|Ta sẽ dạy ngươi tuyệt kỹ super kamejoko\n",
-    //                                         "Đồng ý", "Từ chối");
-    //                             }
-    //                             if (player.gender == 1) {
-    //                                 this.createOtherMenu(player, 6,
-    //                                         "|1|Ta sẽ dạy ngươi tuyệt kỹ ma phông ba\n",
-    //                                         "Đồng ý", "Từ chối");
-    //                             }
-    //                             if (player.gender == 2) {
-    //                                 this.createOtherMenu(player, 6,
-    //                                         "|1|Ta sẽ dạy ngươi tuyệt kỹ liên hoàn chưởng",
-    //                                         "Đồng ý", "Từ chối");
-    //                                 break;
-    //                             }
-    //                     }
-    //                 } else if (player.iDMark.getIndexMenu() == 6) {
-    //                     switch (select) {
-    //                         case 0:
+    // @Override
+    // public void confirmMenu(Player player, int select) {
+    // if (canOpenNpc(player)) {
+    // if (player.iDMark.isBaseMenu() && this.mapId == 5) {
+    // switch (select) {
+    // case 0:
+    // if (player.gender == 0) {
+    // this.createOtherMenu(player, 6,
+    // "|1|Ta sẽ dạy ngươi tuyệt kỹ super kamejoko\n",
+    // "Đồng ý", "Từ chối");
+    // }
+    // if (player.gender == 1) {
+    // this.createOtherMenu(player, 6,
+    // "|1|Ta sẽ dạy ngươi tuyệt kỹ ma phông ba\n",
+    // "Đồng ý", "Từ chối");
+    // }
+    // if (player.gender == 2) {
+    // this.createOtherMenu(player, 6,
+    // "|1|Ta sẽ dạy ngươi tuyệt kỹ liên hoàn chưởng",
+    // "Đồng ý", "Từ chối");
+    // break;
+    // }
+    // }
+    // } else if (player.iDMark.getIndexMenu() == 6) {
+    // switch (select) {
+    // case 0:
 
-    //                             if (player.gender == 2) {
+    // if (player.gender == 2) {
 
-    //                                 SkillService.gI().learSkillSpecial(player, Skill.LIEN_HOAN_CHUONG);
-    //                             }
-    //                             if (player.gender == 0) {
-    //                                 SkillService.gI().learSkillSpecial(player, Skill.SUPER_KAME);
-    //                             }
-    //                             if (player.gender == 1) {
-    //                                 SkillService.gI().learSkillSpecial(player, Skill.MA_PHONG_BA);
-    //                             }
-    //                             InventoryServiceNew.gI().sendItemBags(player);
+    // SkillService.gI().learSkillSpecial(player, Skill.LIEN_HOAN_CHUONG);
+    // }
+    // if (player.gender == 0) {
+    // SkillService.gI().learSkillSpecial(player, Skill.SUPER_KAME);
+    // }
+    // if (player.gender == 1) {
+    // SkillService.gI().learSkillSpecial(player, Skill.MA_PHONG_BA);
+    // }
+    // InventoryServiceNew.gI().sendItemBags(player);
 
-    //                             break;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     };
+    // break;
+    // }
+    // }
+    // }
+    // }
+    // };
     // }
     // public void openBaseMenu(Player player) {
     // if (canOpenNpc(player)) {
@@ -3937,7 +3938,7 @@ public class NpcFactory {
                 case ConstNpc.OSIN:
                     return osin(mapId, status, cx, cy, tempId, avatar);
                 // case ConstNpc.LY_TIEU_NUONG:
-                //     return npclytieunuong54(mapId, status, cx, cy, tempId, avatar);
+                // return npclytieunuong54(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.LINH_CANH:
                     return linhCanh(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.QUA_TRUNG:

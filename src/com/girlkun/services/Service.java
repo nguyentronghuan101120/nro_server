@@ -3,10 +3,10 @@ package com.girlkun.services;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
+import com.girlkun.consts.ConstTask;
 import com.girlkun.utils.FileIO;
 import com.girlkun.data.DataGame;
 import com.girlkun.jdbc.daos.GodGK;
-import com.girlkun.models.boss.BossManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,19 +30,12 @@ import com.girlkun.network.io.Message;
 import com.girlkun.network.session.ISession;
 import com.girlkun.network.session.Session;
 import com.girlkun.result.GirlkunResultSet;
-import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
-import com.girlkun.server.ServerManager;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.services.func.Input;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
-
-import helper.CustomLogger;
-import lombok.CustomLog;
-
-import java.util.Set;
 
 public class Service {
 
@@ -713,7 +706,7 @@ public class Service {
                 Input.gI().createFormGiveItem2(player);
             } else if (text.equals("dbm")) {
                 TaskService.gI().paySideTask(player);
-            } else if (text.equals("hsd")) {
+            }  else if (text.equals("hsd")) {
                 Service.gI().hsChar(player.pet, player.pet.nPoint.hpMax, player.pet.nPoint.mpMax);
             } else if (text.equals("skillvip")) {
                 if (player.gender == 2) {
@@ -731,14 +724,19 @@ public class Service {
             /// Update user point
             // else if (text.startsWith("hp")) {
             // try {
+            // Message msg;
             // int data = Integer.parseInt(text.replaceAll("hp", ""));
-            // player.nPoint.setHp(data);
-            // Service.gI().sendThongBao(player, "Setted your hp: "+ player.nPoint.hp);
+            // player.nPoint.hp = data;
+            // msg = Service.gI().messageSubCommand((byte) 5);
+            // msg.writer().writeInt(data);
+            // player.sendMessage(msg);
+            // msg.cleanup();
             // return;
             // } catch (Exception e) {
             // Logger.logException(Service.class, e);
             // }
-            // } else if (text.startsWith("mp")) {
+            // }
+            // else if (text.startsWith("mp")) {
             // try {
             // int data = Integer.parseInt(text.replaceAll("mp", ""));
             // player.nPoint.addMp(data);

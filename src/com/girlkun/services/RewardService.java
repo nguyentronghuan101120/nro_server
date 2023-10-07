@@ -3,8 +3,6 @@ package com.girlkun.services;
 import com.girlkun.models.Template.ItemLuckyRound;
 import com.girlkun.models.Template.ItemOptionLuckyRound;
 import com.girlkun.models.item.Item;
-import com.girlkun.models.map.ItemMap;
-import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Manager;
 import com.girlkun.utils.Util;
@@ -34,12 +32,7 @@ public class RewardService {
         return RewardService.I;
     }
 
-    //trả về list item quái die
-    public List<ItemMap> getRewardItemsz(Player player, Mob mob, int x, int yEnd) {
-        List<ItemMap> list = new ArrayList<>();
-        return list;
-    }
-
+ 
     //chỉ số cơ bản: hp, ki, hồi phục, sđ, crit
     public void initBaseOptionClothes(int tempId, int type, List<Item.ItemOption> list) {
         int[][] option_param = {{-1, -1}, {-1, -1}, {-1, -1}, {-1, -1}, {-1, -1}};
@@ -746,25 +739,6 @@ public class RewardService {
         }
     }
 
-    //hạn sử dụng
-    private void initExpiryDateOption(ItemMap item) {
-
-    }
-
-    //vật phẩm không thể giao dịch
-    private void initNotTradeOption(ItemMap item) {
-        switch(item.itemTemplate.id){
-            case 2009:
-                item.options.add(new Item.ItemOption(30, 0));
-                break;
-        }
-    }
-
-    //vật phẩm ký gửi
-    private void initDepositOption(ItemMap item) {
-
-    }
-
     //set kích hoạt
     public void initActivationOption(int gender, int type, List<Item.ItemOption> list) {
         if (type <= 4) {
@@ -775,53 +749,6 @@ public class RewardService {
         }
     }
 
-    private byte getMaxStarOfItemReward(ItemMap itemMap) {
-        switch (itemMap.itemTemplate.id) {
-            case 232:
-            case 233:
-            case 244:
-            case 245:
-            case 256:
-            case 257:
-            case 268:
-            case 269:
-            case 280:
-            case 281:
-            case 236:
-            case 237:
-            case 248:
-            case 249:
-            case 260:
-            case 261:
-            case 272:
-            case 273:
-            case 240:
-            case 241:
-            case 252:
-            case 253:
-            case 264:
-            case 265:
-            case 276:
-            case 277:
-            // đồ thần
-            case 555:
-            case 556:
-            case 562:
-            case 563:
-            case 557:
-            case 558:
-            case 564:
-            case 565:
-            case 559:
-            case 560:
-            case 566:
-            case 567:
-            case 561:
-                return 7;
-            default:
-                return 3;
-        }
-    }
 
     //-------------------------------------------------------------------------- Item reward lucky round
     public List<Item> getListItemLuckyRound(Player player, int num) {

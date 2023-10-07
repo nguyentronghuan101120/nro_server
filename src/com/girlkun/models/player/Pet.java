@@ -568,7 +568,7 @@ public class Pet extends Player {
     private long lastTimeIncreasePoint;
 
     private void increasePoint() {
-        if (this.nPoint != null && Util.canDoWithTime(lastTimeIncreasePoint, 1)) {
+        if (this.nPoint != null && Util.canDoWithTime(lastTimeIncreasePoint, 100)) {
             if (Util.isTrue(1, 100)) {
                 this.nPoint.increasePoint((byte) 2, (short) 1);
             } else {

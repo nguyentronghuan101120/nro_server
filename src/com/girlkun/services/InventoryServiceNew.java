@@ -1,6 +1,7 @@
 package com.girlkun.services;
 
 import com.arriety.MaQuaTang.MaQuaTang;
+import com.girlkun.jdbc.daos.GiftDAO;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.map.blackball.BlackBallWar;
@@ -11,6 +12,7 @@ import com.girlkun.models.player.Pet;
 import com.girlkun.models.player.Player;
 import com.girlkun.network.io.Message;
 import com.girlkun.services.func.ChangeMapService;
+import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
@@ -659,6 +661,7 @@ public class InventoryServiceNew {
                     min = 60 * 24 * 30;
                 }
             } catch (Exception e) {
+                Logger.logException(InventoryServiceNew.class, e);
             }
             player.charms.addTimeCharms(item.template.id, min);
             return true;

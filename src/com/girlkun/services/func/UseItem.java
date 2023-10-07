@@ -19,7 +19,6 @@ import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 import com.girlkun.server.io.MySession;
 import com.girlkun.utils.Logger;
-import lombok.var;
 
 import java.util.Date;
 
@@ -37,10 +36,6 @@ public class UseItem {
     private static final byte DO_THROW_ITEM = 1;
     private static final byte ACCEPT_THROW_ITEM = 2;
     private static final byte ACCEPT_USE_ITEM = 3;
-
-    private static int HP_BUFF = 100000;
-    private static int MP_BUFF = 100000;
-    private static int SD_BUFF = 5000;
 
     private static UseItem instance;
     public static final int[][][] LIST_ITEM_CLOTHES = {
@@ -189,12 +184,12 @@ public class UseItem {
                     break;
             }
         } catch (Exception e) {
-            // Logger.logException(UseItem.class, e);
+            Logger.logException(UseItem.class, e);
         }
     }
 
     private void useItem(Player pl, Item item, int indexBag) {
-        if (item.template.strRequire <= pl.nPoint.power) {
+        if (item.template.strRequire <= pl.nPoint.power || pl.isAdmin()) {
             switch (item.template.type) {
                 case 21:
                     if (pl.newpet != null) {
@@ -331,20 +326,20 @@ public class UseItem {
                         // Service.gI().point(pl);
                         // break;
                         // case 1209: // lí do
-                        //     InventoryServiceNew.gI().itemBagToBody(pl, indexBag);
-                        //     PetService.Pet2(pl, 1419, 1420, 1421, null);
-                        //     Service.gI().point(pl);
-                        //     break;
+                        // InventoryServiceNew.gI().itemBagToBody(pl, indexBag);
+                        // PetService.Pet2(pl, 1419, 1420, 1421, null);
+                        // Service.gI().point(pl);
+                        // break;
                         // case 1210: // lí do
-                        //     InventoryServiceNew.gI().itemBagToBody(pl, indexBag);
-                        //     PetService.Pet2(pl, 1422, 1423, 1424, null);
-                        //     Service.gI().point(pl);
-                        //     break;
+                        // InventoryServiceNew.gI().itemBagToBody(pl, indexBag);
+                        // PetService.Pet2(pl, 1422, 1423, 1424, null);
+                        // Service.gI().point(pl);
+                        // break;
                         // case 1211: // lí do
-                        //     InventoryServiceNew.gI().itemBagToBody(pl, indexBag);
-                        //     PetService.Pet2(pl, 1425, 1426, 1427, null);
-                        //     Service.gI().point(pl);
-                        //     break;
+                        // InventoryServiceNew.gI().itemBagToBody(pl, indexBag);
+                        // PetService.Pet2(pl, 1425, 1426, 1427, null);
+                        // Service.gI().point(pl);
+                        // break;
 
                         case 211: // nho tím
                         case 212: // nho xanh
@@ -683,27 +678,6 @@ public class UseItem {
         }
     }
 
-    private void openPhieuCaiTrangHaiTac(Player pl, Item item) {
-        if (InventoryServiceNew.gI().getCountEmptyBag(pl) > 0) {
-            Item ct = ItemService.gI().createNewItem((short) Util.nextInt(618, 626));
-            ct.itemOptions.add(new ItemOption(147, 3));
-            ct.itemOptions.add(new ItemOption(77, 3));
-            ct.itemOptions.add(new ItemOption(103, 3));
-            ct.itemOptions.add(new ItemOption(149, 0));
-            if (item.template.id == 2006) {
-                ct.itemOptions.add(new ItemOption(93, Util.nextInt(1, 7)));
-            } else if (item.template.id == 2007) {
-                ct.itemOptions.add(new ItemOption(93, Util.nextInt(7, 30)));
-            }
-            InventoryServiceNew.gI().addItemBag(pl, ct);
-            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
-            InventoryServiceNew.gI().sendItemBags(pl);
-            CombineServiceNew.gI().sendEffectOpenItem(pl, item.template.iconID, ct.template.iconID);
-        } else {
-            Service.gI().sendThongBao(pl, "Hàng trang đã đầy");
-        }
-    }
-
     private void eatGrapes(Player pl, Item item) {
         int percentCurrentStatima = pl.nPoint.stamina * 100 / pl.nPoint.maxStamina;
         if (percentCurrentStatima > 50) {
@@ -735,16 +709,21 @@ public class UseItem {
                 }
                 PlayerService.gI().sendInfoHpMpMoney(pl);
                 icon[1] = 930;
+                Service.gI().sendThongBao(pl,
+                        "Nhận được: " + Util.numberToMoney(Util.nextInt(gold[0][0], gold[0][1])) + " vàng");
+
             } else {
                 Item it = ItemService.gI().createNewItem(temp[index]);
                 it.itemOptions.add(new ItemOption(73, 0));
                 InventoryServiceNew.gI().addItemBag(pl, it);
                 icon[1] = it.template.iconID;
+                Service.gI().sendThongBao(pl, "Nhận được: " + it.template.name);
+
             }
             InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
             InventoryServiceNew.gI().sendItemBags(pl);
 
-            CombineServiceNew.gI().sendEffectOpenItem(pl, icon[0], icon[1]);
+            // CombineServiceNew.gI().sendEffectOpenItem(pl, icon[0], icon[1]);
         } else {
             Service.gI().sendThongBao(pl, "Hàng trang đã đầy");
         }
@@ -783,7 +762,6 @@ public class UseItem {
         if (InventoryServiceNew.gI().getCountEmptyBag(pl) > 0) {
             short[] temp = { 2069, 2070, 2071, 2072, 2073 };
             int[][] gold = { { 10000000, 20000000 } };
-            int[][] ruby = { { 10, 20 } };
             byte index = (byte) Util.nextInt(0, temp.length - 1);
             short[] icon = new short[2];
             icon[0] = item.template.iconID;
