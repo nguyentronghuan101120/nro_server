@@ -10,20 +10,17 @@ import com.girlkun.utils.SkillUtil;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
-import helper.CustomLogger;
-import lombok.CustomLog;
-
 import com.girlkun.network.io.Message;
-import com.girlkun.server.Manager;
 import com.girlkun.services.ItemTimeService;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.SkillService;
+import com.girlkun.services.TaskService;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.TimeUtil;
 
 public class Pet extends Player {
 
-    private static final short ARANGE_CAN_ATTACK = 300;
+    private static final short ARANGE_CAN_ATTACK = 600;
     private static final short ARANGE_ATT_SKILL1 = 50;
 
     private static final short[][] PET_ID = { { 285, 286, 287 }, { 288, 289, 290 }, { 282, 283, 284 },
@@ -295,9 +292,10 @@ public class Pet extends Player {
             }
 
             moveIdle();
+
             switch (status) {
                 case FOLLOW:
-                    followMaster(60);
+                    followMaster(100);
                     break;
                 case PROTECT:
                     if (useSkill3() || useSkill4() || useSkill5()) {
@@ -314,6 +312,8 @@ public class Pet extends Player {
                                     PlayerService.gI().playerMove(this, mobAttack.location.x + Util.nextInt(-60, 60),
                                             mobAttack.location.y);
                                     SkillService.gI().useSkill(this, playerAttack, mobAttack, null);
+                                    TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
+                                    TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
                                 } else {
                                     askPea();
                                 }
@@ -325,6 +325,8 @@ public class Pet extends Player {
                                 if (SkillService.gI().canUseSkillWithCooldown(this)) {
                                     if (SkillService.gI().canUseSkillWithMana(this)) {
                                         SkillService.gI().useSkill(this, playerAttack, mobAttack, null);
+                                        TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
+                                        TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
                                     } else {
                                         askPea();
                                     }
@@ -351,6 +353,8 @@ public class Pet extends Player {
                                     PlayerService.gI().playerMove(this, mobAttack.location.x + Util.nextInt(-20, 20),
                                             mobAttack.location.y);
                                     SkillService.gI().useSkill(this, playerAttack, mobAttack, null);
+                                    TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
+                                    TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
                                 } else {
                                     askPea();
                                 }
@@ -360,6 +364,8 @@ public class Pet extends Player {
                             if (this.playerSkill.skillSelect.skillId != -1) {
                                 if (SkillService.gI().canUseSkillWithMana(this)) {
                                     SkillService.gI().useSkill(this, playerAttack, mobAttack, null);
+                                    TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
+                                    TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
                                 }
                             } else {
                                 this.playerSkill.skillSelect = getSkill(1);
@@ -368,6 +374,8 @@ public class Pet extends Player {
                                         PlayerService.gI().playerMove(this,
                                                 mobAttack.location.x + Util.nextInt(-20, 20), mobAttack.location.y);
                                         SkillService.gI().useSkill(this, playerAttack, mobAttack, null);
+                                        TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
+                                        TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
                                     } else {
                                         askPea();
                                     }
@@ -419,7 +427,7 @@ public class Pet extends Player {
                     break;
             }
         } catch (Exception e) {
-            // Logger.logException(Pet.class, e);
+            Logger.logException(Pet.class, e);
         }
     }
 
@@ -573,7 +581,7 @@ public class Pet extends Player {
                 this.nPoint.increasePoint((byte) 2, (short) 1);
             } else {
                 byte type = (byte) Util.nextInt(0, 2);
-                short point = (short) Util.nextInt(1,20);
+                short point = (short) Util.nextInt(1, 20);
                 this.nPoint.increasePoint(type, point);
             }
             lastTimeIncreasePoint = System.currentTimeMillis();
@@ -740,7 +748,9 @@ public class Pet extends Player {
         Mob mobAtt = null;
         for (Mob mob : zone.mobs) {
             if (mob.isDie()) {
+
                 continue;
+
             }
             int d = Util.getDistance(this, mob);
             if (d <= dis) {

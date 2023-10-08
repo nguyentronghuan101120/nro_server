@@ -76,7 +76,7 @@ public class SkillService {
             case 3:
 
                 useSkillAlone(player);
-                if (player.isFrezedSkill) {
+                if (player.isFrezedSkill ) {
                     Service.gI().releaseCooldownSkill(player);
 
                 }
@@ -84,7 +84,7 @@ public class SkillService {
             case 4:
 
                 userSkillSpecial(player, message);
-                if (player.isFrezedSkill) {
+                if (player.isFrezedSkill ) {
                     Service.gI().releaseCooldownSkill(player);
 
                 }
@@ -487,6 +487,7 @@ public class SkillService {
                     ((Pet) player).askPea();
                     return;
                 }
+
             } else {
                 if (player.nPoint.stamina > 0) {
                     if (player.charms.tdDeoDai < System.currentTimeMillis()) {

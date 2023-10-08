@@ -118,6 +118,7 @@ public class Mob {
             if (this.isDie()) {
                 this.status = 0;
                 this.sendMobDieAffterAttacked(plAtt, damage);
+
                 TaskService.gI().checkDoneTaskKillMob(plAtt, this);
                 TaskService.gI().checkDoneSideTaskKillMob(plAtt, this);
                 this.lastTimeDie = System.currentTimeMillis();

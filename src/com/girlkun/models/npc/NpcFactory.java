@@ -4493,9 +4493,15 @@ public class NpcFactory {
                                     Client.gI().kickSession(p.getSession());
                                     break;
                                 case 5:
-                                    Service.gI().sendThongBao(player, "Đấm bm nó :))");
                                     PVPService.gI().openSelectRevenge(player, p.id);
                                     break;
+                                case 6:
+                                    p.effectSkin.updateHoaDaSpecificPlayer(p);
+                                    break;
+
+                                // case 7:
+                                //     EffectSkillService.gI().sendEffectPlayer(player, player,
+                                //             EffectSkillService.TURN_ON_EFFECT, EffectSkillService.BLIND_EFFECT);
                             }
                         }
                         break;

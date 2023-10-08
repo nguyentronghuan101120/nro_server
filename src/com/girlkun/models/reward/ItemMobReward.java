@@ -2,14 +2,12 @@ package com.girlkun.models.reward;
 
 import com.girlkun.models.Template;
 import com.girlkun.models.item.Item;
-import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Manager;
 import com.girlkun.utils.Util;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import lombok.Data;
 
@@ -115,9 +113,6 @@ public class ItemMobReward {
                         // System.out.println("\n- END -\n\n");
 
                         return itemMap;
-                    } else {
-                        return itemMap;
-
                     }
 
                 } else {
@@ -135,6 +130,32 @@ public class ItemMobReward {
                         itemMap.itemTemplate.id == 16
                         || itemMap.itemTemplate.id == 17 || itemMap.itemTemplate.id == 18) {
                     return null;
+                }
+
+                if (itemMap.itemTemplate.id == 555 || itemMap.itemTemplate.id == 556 || itemMap.itemTemplate.id == 561
+                        || itemMap.itemTemplate.id == 562 || itemMap.itemTemplate.id == 563) {
+
+                    double ratioSKH = Util.nextInt(1000);
+                    if (ratioSKH <= 1) {
+
+                        for (ItemOptionMobReward opt : this.option) {
+                            // System.out.println(" - Id: " + opt.getTemp().id + " - Name: " +
+                            // opt.getTemp().name);
+
+                            if (opt.getTemp().id == 107) {
+
+                                itemMap.options.add(
+                                        new Item.ItemOption(opt.getTemp(),
+                                                Util.nextInt(opt.getParam()[0], opt.getParam()[1])));
+
+                            }
+
+                            continue;
+
+                        }
+
+                        return itemMap;
+                    }
                 }
 
                 else {

@@ -1623,9 +1623,29 @@ public class Service {
                 }
                 msg.writer().writeInt(leftTime);
             }
+            // for (Skill skill : pl.pet.playerSkill.skills) {
+            // if (pl.pet.playerSkill.skillSelect.template.id == 0
+            // || pl.pet.playerSkill.skillSelect.template.id == 1
+            // || pl.pet.playerSkill.skillSelect.template.id == 2
+            // || pl.pet.playerSkill.skillSelect.template.id == 3
+            // || pl.pet.playerSkill.skillSelect.template.id == 4
+            // || pl.pet.playerSkill.skillSelect.template.id == 5) {
+            // skill.coolDown = 0;
+            // msg.writer().writeShort(skill.skillId);
+            // int leftTime = (int) (skill.lastTimeUseThisSkill + skill.coolDown -
+            // System.currentTimeMillis());
+            // if (leftTime < 0) {
+            // leftTime = 0;
+            // }
+            // msg.writer().writeInt(leftTime);
+            // pl.pet.nPoint.setMp(pl.pet.nPoint.mpMax);
+            // }
+            // }
             pl.sendMessage(msg);
             pl.nPoint.setMp(pl.nPoint.mpMax);
+
             PlayerService.gI().sendInfoHpMpMoney(pl);
+            PlayerService.gI().sendInfoHpMpMoney(pl.pet);
             msg.cleanup();
 
         } catch (Exception e) {
@@ -1722,8 +1742,8 @@ public class Service {
                 msg.writer().writeShort(pl.pet.nPoint.maxStamina); // stamina full
                 msg.writer().writeByte(pl.pet.nPoint.crit); // crit
                 msg.writer().writeShort(pl.pet.nPoint.def); // def
-                int sizeSkill = pl.pet.playerSkill.skills.size();
                 msg.writer().writeByte(5); // counnt pet skill
+
                 for (int i = 0; i < pl.pet.playerSkill.skills.size(); i++) {
                     if (pl.pet.playerSkill.skills.get(i).skillId != -1) {
                         msg.writer().writeShort(pl.pet.playerSkill.skills.get(i).skillId);
@@ -1741,6 +1761,7 @@ public class Service {
                                 msg.writer().writeShort(-1);
                                 msg.writer().writeUTF("Cần đạt sức mạnh 20tỷ\nđể mở");
                                 break;
+
                             default:
                                 msg.writer().writeShort(-1);
                                 msg.writer().writeUTF("Cần đạt sức mạnh 60tỷ\nđể mở");

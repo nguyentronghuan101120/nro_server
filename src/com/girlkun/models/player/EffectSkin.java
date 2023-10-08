@@ -19,14 +19,11 @@ public class EffectSkin {
             "Hôi quá", "Tránh ra đi thằng ở dơ", "Mùi gì kinh quá vậy?",
             "Kinh tởm quá", "Biến đi thằng ở dơ", "Kính ngài ở dơ"
     };
-    private static final String[] textHoaDa = new String[]{
-        "Chết rồi", "Tránh ra đi tên khốn!", "Bị hóa đá ròi",
-        "Kinh tởm quá", "Thấy ảo chưa nè!", "Kính ngài nước dãi"
+    private static final String[] textHoaDa = new String[] {
+            "Chết rồi", "Tránh ra đi tên khốn!", "Bị hóa đá ròi",
+            "Kinh tởm quá", "Thấy ảo chưa nè!", "Kính ngài nước dãi"
     };
-    private static final String[] test = new String[] {
-            "Người gì mà đẹp zai zậy", "Ui anh Béo :3", "Sao anh đẹp zoai zị?"
 
-    };
     private Player player;
 
     public EffectSkin(Player player) {
@@ -36,7 +33,6 @@ public class EffectSkin {
 
     public long lastTimeAttack;
     private long lastTimeOdo;
-    private long lastTimeTest;
     private long lastTimeXenHutHpKi;
 
     public long lastTimeAddTimeTrainArmor;
@@ -93,7 +89,7 @@ public class EffectSkin {
                         ItemTimeService.gI().sendItemTime(pl, 4392, (int) TIME_HOA_DA / 1000);
                         Service.gI().chat(pl, textHoaDa[Util.nextInt(0, textHoaDa.length - 1)]);
                         pl.effectSkin.lastTimeBiHoaDa = System.currentTimeMillis();
-//                        System.err.println("HOA DA THANH CONG PLAYER: " + pl.name);
+                        // System.err.println("HOA DA THANH CONG PLAYER: " + pl.name);
                     }
                     this.lastTimeThucHienHoaDa = System.currentTimeMillis();
                 }
@@ -110,6 +106,31 @@ public class EffectSkin {
         }
     }
 
+    public void updateHoaDaSpecificPlayer(Player player) {
+        try {
+            boolean Check = System.currentTimeMillis() - lastTimeThucHienHoaDa > TIME_HOA_DA_PER_SECOND;
+            if (Check) { // thời gian hóa đá mỗi lần
+
+                player.nPoint.IsBiHoaDa = true;
+                Service.gI().SendMsgUpdateHoaDa(player, (byte) 1, (byte) 0, (byte) 42);
+                Service.gI().Send_Caitrang(player);
+                ItemTimeService.gI().sendItemTime(player, 4392, (int) TIME_HOA_DA / 1000);
+                Service.gI().chat(player, textHoaDa[Util.nextInt(0, textHoaDa.length - 1)]);
+                player.effectSkin.lastTimeBiHoaDa = System.currentTimeMillis();
+
+                this.lastTimeThucHienHoaDa = System.currentTimeMillis();
+            }
+            if (player.nPoint.IsBiHoaDa && (System.currentTimeMillis() - lastTimeBiHoaDa > TIME_HOA_DA)) {
+                player.nPoint.IsBiHoaDa = false;
+                Service.gI().SendMsgUpdateHoaDa(player, (byte) 0, (byte) 0, (byte) 42);
+                Service.gI().Send_Caitrang(player);
+                ItemTimeService.gI().removeItemTime(player, 4392);
+                Service.gI().chat(player, "Phẹt Phẹt Phẹt...");
+            }
+        } catch (Exception e) {
+            Logger.error("");
+        }
+    }
 
     private void updateCTHaiTac() {
         if (this.player.setClothes.ctHaiTac != -1
@@ -234,31 +255,6 @@ public class EffectSkin {
                         pl.injured(null, subHp, true, false);
                     }
                     this.lastTimeOdo = System.currentTimeMillis();
-                }
-            }
-        } catch (Exception e) {
-            Logger.error("");
-        }
-    }
-
-    private void Test() {
-        try {
-            int param = this.player.nPoint.test;
-            if (param > 0) {
-                if (Util.canDoWithTime(lastTimeTest, 10000)) {
-                    List<Player> players = new ArrayList<>();
-
-                    for (Player pl : players) {
-                        int subHp = pl.nPoint.hpMax * param * 100;
-                        if (subHp >= pl.nPoint.hp) {
-                            subHp = pl.nPoint.hp + 1;
-                        }
-                        Service.gI().chat(pl, test[Util.nextInt(0, test.length + 1)]);
-                        PlayerService.gI().sendInfoHpMpMoney(pl);
-                        Service.gI().Send_Info_NV(pl);
-                        pl.injured(null, subHp, true, false);
-                    }
-                    this.lastTimeTest = System.currentTimeMillis();
                 }
             }
         } catch (Exception e) {
