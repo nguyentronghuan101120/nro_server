@@ -149,6 +149,7 @@ public class Player {
     public boolean lockPK;
     public Timer timerDHVT;
     public Player _friendGiaoDich;
+    public boolean isFrezedSkill;
 
     public Player() {
         lastTimeUseOption = System.currentTimeMillis();
@@ -175,6 +176,7 @@ public class Player {
         effectSkin = new EffectSkin(this);
         skillSpecial = new SkillSpecial(this);
         achievement = new BoMong(this);
+        isFrezedSkill = false;
 //        this.typePk = 5; trạng thái pk toàn server
     }
 

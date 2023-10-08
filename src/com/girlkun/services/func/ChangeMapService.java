@@ -708,9 +708,9 @@ public class ChangeMapService {
     // kiểm tra map có thể vào với nhiệm vụ hiện tại
     public Zone checkMapCanJoin(Player player, Zone zoneJoin) {
         // //dong map
-        if (zoneJoin.map.mapId == 154 || zoneJoin.map.mapId == 160) {
-            return null;
-        }
+        // if (zoneJoin.map.mapId == 154 || zoneJoin.map.mapId == 160) {
+        //     return null;
+        // }
         if (player.isPet || player.isBoss || player.getSession() != null && player.isAdmin()) {
             return zoneJoin;
         }

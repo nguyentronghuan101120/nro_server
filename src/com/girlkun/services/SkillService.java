@@ -2,6 +2,7 @@ package com.girlkun.services;
 
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.jdbc.daos.ShopDAO;
+import com.girlkun.models.clan.Clan;
 import com.girlkun.models.intrinsic.Intrinsic;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.mob.MobMe;
@@ -67,15 +68,26 @@ public class SkillService {
 
             case 1:
                 useSkillAttack(player, plTarget, mobTarget);
-                // Service.gI().releaseCooldownSkill(player);
+                if (player.isFrezedSkill) {
+                    Service.gI().releaseCooldownSkill(player);
+
+                }
                 break;
             case 3:
 
                 useSkillAlone(player);
+                if (player.isFrezedSkill) {
+                    Service.gI().releaseCooldownSkill(player);
+
+                }
                 break;
             case 4:
 
                 userSkillSpecial(player, message);
+                if (player.isFrezedSkill) {
+                    Service.gI().releaseCooldownSkill(player);
+
+                }
                 break;
             default:
                 return false;
@@ -254,6 +266,7 @@ public class SkillService {
             message.writer().writeShort(skill.currLevel);
             player.sendMessage(message);
         } catch (final Exception ex) {
+            Logger.logException(Clan.class, ex);
         } finally {
             if (message != null) {
                 message.cleanup();

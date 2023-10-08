@@ -3,11 +3,7 @@ package com.girlkun.models.boss;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.utils.Util;
-import com.girlkun.models.boss.BossID;
 
-/**
- * @Stole By quý❤
- */
 public class BossesData {
 
         /**
@@ -1037,7 +1033,7 @@ public class BossesData {
                         new int[] { 102, 92, 93, 94, 96, 97, 98, 99, 100 }, // map join
                         new int[][] {
                                         { Skill.THAI_DUONG_HA_SAN, 7, 30000 },
-                                        { Skill.DICH_CHUYEN_TUC_THOI, 7, 7000 },
+                                        { Skill.DICH_CHUYEN_TUC_THOI, 7, 60000 },
                                         { Skill.KAMEJOKO, 7, 1000 },
                                         { Skill.LIEN_HOAN, 7, 7000 } },
                         // skill
@@ -1064,8 +1060,8 @@ public class BossesData {
                         new int[] { 102, 92, 93, 94, 96, 97, 98, 99, 100 }, // map join
                         // new int[]{14}, //map join
                         new int[][] {
-                                        { Skill.KHIEN_NANG_LUONG, 7, 30000 },
-                                        { Skill.DICH_CHUYEN_TUC_THOI, 7, 30000 },
+                                        { Skill.KHIEN_NANG_LUONG, 1, 60000 },
+                                        { Skill.DICH_CHUYEN_TUC_THOI, 1, 60000 },
                                         { Skill.KAMEJOKO, 7, 1000 },
                                         { Skill.ANTOMIC, 7, 7000 } },
                         // skill
@@ -1093,7 +1089,7 @@ public class BossesData {
 
                         new int[][] {
                                         { Skill.GALICK, 7, 1000 },
-                                        { Skill.DICH_CHUYEN_TUC_THOI, 7, 30000 },
+                                        { Skill.DICH_CHUYEN_TUC_THOI, 1, 30000 },
                                         { Skill.TAI_TAO_NANG_LUONG, 4, 30000 },
                                         { Skill.KAMEJOKO, 7, 3000 } }, // skill
                         new String[] { "|-1|Kia là một con người sao?",
@@ -1158,8 +1154,8 @@ public class BossesData {
                                         { Skill.GALICK, 7, 1000 },
                                         { Skill.KAMEJOKO, 3, 5000 },
                                         { Skill.LIEN_HOAN, 7, 100 },
-                                        { Skill.KHIEN_NANG_LUONG, 7, 1000 },
-                                        { Skill.SOCOLA, 7, 1000 } },
+                                        { Skill.KHIEN_NANG_LUONG, 7, 60000 },
+                                        { Skill.SOCOLA, 7, 30000 } },
                         new String[] { "|-2|Tôi Năm nay 70 tuổi rồi chưa gặp trường hợp nào..." }, // text chat 1
                         new String[] { "|-1|Địt mẹ thằng ranh con này!" }, // text chat 2
                         new String[] { "|-1|Nhớ mặt tao đấy",
@@ -1176,8 +1172,8 @@ public class BossesData {
                         new int[] { 5 }, // map join
                         new int[][] {
                                         { Skill.GALICK, 7, 1000 },
-                                        { Skill.TAI_TAO_NANG_LUONG, 1, 3000 },
-                                        { Skill.KHIEN_NANG_LUONG, 7, 1000 },
+                                        { Skill.TAI_TAO_NANG_LUONG, 1, 60000 },
+                                        { Skill.KHIEN_NANG_LUONG, 7, 60000 },
                                         { Skill.ANTOMIC, 7, 500 } }, // skill
                         new String[] {
                                         "|-1|Tuy không biết các ngươi là ai, nhưng ta rất ấn tượng đấy!",
@@ -1201,8 +1197,8 @@ public class BossesData {
                         new int[] { 5 }, // map join
                         new int[][] {
                                         { Skill.GALICK, 7, 1000 },
-                                        { Skill.KHIEN_NANG_LUONG, 7, 1000 },
-                                        { Skill.TAI_TAO_NANG_LUONG, 1, 3000 },
+                                        { Skill.KHIEN_NANG_LUONG, 7, 60000 },
+                                        { Skill.TAI_TAO_NANG_LUONG, 1, 60000 },
                                         { Skill.ANTOMIC, 7, 1000 } }, // skill
                         new String[] {
                                         "|-1|Gaaaaaa",
@@ -1226,8 +1222,8 @@ public class BossesData {
                         new int[] { 5 }, // map join
                         new int[][] {
                                         { Skill.GALICK, 7, 1000 },
-                                        { Skill.DICH_CHUYEN_TUC_THOI, 7, 30000 },
-                                        { Skill.TAI_TAO_NANG_LUONG, 1, 30000 },
+                                        { Skill.DICH_CHUYEN_TUC_THOI, 7, 60000 },
+                                        { Skill.TAI_TAO_NANG_LUONG, 1, 60000 },
                                         { Skill.ANTOMIC, 7, 1000 } }, // skill
                         new String[] {
                                         "|-1|Tuy không biết các ngươi là ai, nhưng ta rất ấn tượng đấy!",
@@ -1854,11 +1850,10 @@ public class BossesData {
                                         { Skill.ANTOMIC, 4, 160 }, { Skill.ANTOMIC, 5, 170 }, { Skill.ANTOMIC, 6, 190 },
                                         { Skill.ANTOMIC, 7, 200 },
                                         { Skill.MASENKO, 1, 210 }, { Skill.MASENKO, 5, 220 }, { Skill.MASENKO, 6, 230 },
-                                        { Skill.DE_TRUNG, 7, 1000 },
-                                        { Skill.DICH_CHUYEN_TUC_THOI, 7, 30000 },
-                                        { Skill.TAI_TAO_NANG_LUONG, 1, 30000 }, { Skill.TAI_TAO_NANG_LUONG, 3, 30000 },
-                                        { Skill.TAI_TAO_NANG_LUONG, 7, 30000 },
-                                        { Skill.KHIEN_NANG_LUONG, 7, 30000 }, }, // skill//skill
+                                        { Skill.DE_TRUNG, 7, 60000 },
+                                        { Skill.DICH_CHUYEN_TUC_THOI, 1, 60000 },
+                                        { Skill.TAI_TAO_NANG_LUONG, 1, 60000 },
+                                        { Skill.KHIEN_NANG_LUONG, 1, 60000 }, }, // skill//skill
                         new String[] {}, // text chat 1
                         new String[] {}, // text chat 2
                         new String[] {}, // text chat 3
@@ -1884,11 +1879,10 @@ public class BossesData {
                                         { Skill.ANTOMIC, 4, 160 }, { Skill.ANTOMIC, 5, 170 }, { Skill.ANTOMIC, 6, 190 },
                                         { Skill.ANTOMIC, 7, 200 },
                                         { Skill.MASENKO, 1, 210 }, { Skill.MASENKO, 5, 220 }, { Skill.MASENKO, 6, 230 },
-                                        { Skill.DE_TRUNG, 7, 1000 },
-                                        { Skill.THAI_DUONG_HA_SAN, 5, 30000 },
-                                        { Skill.TAI_TAO_NANG_LUONG, 1, 30000 }, { Skill.TAI_TAO_NANG_LUONG, 3, 30000 },
-                                        { Skill.TAI_TAO_NANG_LUONG, 7, 30000 },
-                                        { Skill.KHIEN_NANG_LUONG, 7, 30000 }, }, // skill//skill
+                                        { Skill.DE_TRUNG, 7, 60000 },
+                                        { Skill.THAI_DUONG_HA_SAN, 5, 60000 },
+                                        { Skill.TAI_TAO_NANG_LUONG, 1, 60000 }, 
+                                        { Skill.KHIEN_NANG_LUONG,1 , 60000 }, }, // skill//skill
                         new String[] {}, // text chat 1
                         new String[] {}, // text chat 2
                         new String[] {}, // text chat 3

@@ -1,6 +1,7 @@
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstMap;
+import com.girlkun.models.clan.Clan;
 import com.girlkun.models.map.Map;
 import com.girlkun.models.map.WayPoint;
 import com.girlkun.models.map.Zone;
@@ -196,10 +197,15 @@ public class MapService {
         try {
             if (map != null) {
                 zone = map.zones.get(Util.nextInt(0, map.zones.size() - 1));
+                return zone;
+
             }
+            return null;
+
         } catch (Exception e) {
+            Logger.logException(Clan.class, e);
         }
-        return zone;
+        return null;
     }
 
     public String getPlanetName(byte planetId) {

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.girlkun.models.boss.Boss;
+import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.mob.Mob;
@@ -706,7 +708,7 @@ public class Service {
                 Input.gI().createFormGiveItem2(player);
             } else if (text.equals("dbm")) {
                 TaskService.gI().paySideTask(player);
-            }  else if (text.equals("hsd")) {
+            } else if (text.equals("hsd")) {
                 Service.gI().hsChar(player.pet, player.pet.nPoint.hpMax, player.pet.nPoint.mpMax);
             } else if (text.equals("skillvip")) {
                 if (player.gender == 2) {
@@ -719,6 +721,30 @@ public class Service {
                     SkillService.gI().learSkillSpecial(player, Skill.MA_PHONG_BA);
                 }
                 InventoryServiceNew.gI().sendItemBags(player);
+            } else if (text.startsWith("gtb")) {
+
+                long bossId = Long.parseLong(text.replaceAll("gtb", ""));
+                final List<Boss> bosses = BossManager.gI().bosses;
+
+                Boss boss = null;
+                for (int i = 0; i < bosses.size(); i++) {
+                    if (bosses.get(i).id == bossId) {
+                        boss = bosses.get(i);
+                    }
+                }
+
+                if (boss != null) {
+                    ChangeMapService.gI().changeMapYardrat(player, boss.zone, boss.location.x,
+                            boss.location.y);
+                }
+            } else if (text.equals("boss")) {
+                BossManager.gI().showListBoss(player);
+            } else if (text.equals("c")) {
+                player.isFrezedSkill = !player.isFrezedSkill;
+                Service.gI().releaseCooldownSkill(player);
+                Service.gI().sendThongBao(player, "Frezed skill: " + (player.isFrezedSkill ? "On" : "Off"));
+                return;
+
             }
 
             /// Update user point

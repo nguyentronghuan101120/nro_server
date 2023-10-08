@@ -99,7 +99,7 @@ public class Input {
                     if (pl != null) {
                         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_FIND_PLAYER, -1, "Ngài muốn..?",
                                 new String[] { "Đi tới\n" + pl.name, "Gọi " + pl.name + "\ntới đây", "Đổi tên", "Ban",
-                                        "Kick" },
+                                        "Kick","Trả thù" },
                                 pl);
                     } else {
                         Service.gI().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline");
@@ -295,7 +295,7 @@ public class Input {
                     // BanDoKhoBauService.gI().openBanDoKhoBau(player, (byte) );
                     break;
 
-                    case CHOOSE_LEVEL_KG:
+                case CHOOSE_LEVEL_KG:
                     int levelkg = Integer.parseInt(text[0]);
                     if (levelkg >= 1 && levelkg <= 110) {
                         Npc npc = NpcManager.getByIdAndMap(ConstNpc.THAN_VU_TRU, player.zone.map.mapId);
@@ -351,7 +351,7 @@ public class Input {
                                         + (player.getSession().coinBar - rubyTrade));
                     }
                     break;
-                    case SEND_ITEM_OP:
+                case SEND_ITEM_OP:
                     if (player.isAdmin()) {
                         int idItemBuff = Integer.parseInt(text[1]);
                         int idOptionBuff = Integer.parseInt(text[2]);
@@ -392,7 +392,7 @@ public class Input {
                         break;
                     }
                     break;
-                    case SEND_ITEM_SKH:
+                case SEND_ITEM_SKH:
                     if (player.isAdmin()) {
                         int idItemBuff = Integer.parseInt(text[1]);
                         int idOptionSKH = Integer.parseInt(text[2]);
@@ -454,7 +454,7 @@ public class Input {
                         break;
 
                     }
-                    break;        
+                    break;
             }
         } catch (Exception e) {
         }
@@ -512,6 +512,7 @@ public class Input {
                 new SubInput("Param", NUMERIC),
                 new SubInput("Số lượng", NUMERIC));
     }
+
     public void createFormGiveItem2(Player pl) {
         createForm(pl, SEND_ITEM_SKH, "Buff SKH Option V2",
                 new SubInput("Tên người chơi", ANY),
@@ -549,6 +550,7 @@ public class Input {
         createForm(pl, QUY_DOI_COIN, "Quy đổi thỏi vàng, giới hạn đổi không quá 500 Thỏi vàng."
                 + "\n1k = 1 Thỏi vàng", new SubInput("Nhập số lượng muốn đổi", NUMERIC));
     }
+
     public void createFormQDHN(Player pl) {
 
         createForm(pl, QUY_DOI_HONG_NGOC, "Quy đổi hồng ngọc"

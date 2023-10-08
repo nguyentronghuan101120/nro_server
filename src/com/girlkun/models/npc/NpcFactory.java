@@ -4212,14 +4212,14 @@ public class NpcFactory {
                             case 2:
                                 if (player.isAdmin()) {
                                     // PlayerService.gI().baoTri();
-                                    this.createOtherMenu(player, 1,
-                                            "Chắc chưa?",
-                                            "Chuẩn", "Thôi");
+                                    // this.createOtherMenu(player, 1,
+                                    // "Chắc chưa?",
+                                    // "Chuẩn", "Thôi");
 
-                                    if (player.iDMark.getIndexMenu() == 1) {
-                                        Maintenance.gI().start(15);
+                                    // if (player.iDMark.getIndexMenu() == 1) {
+                                    Maintenance.gI().start(15);
 
-                                    }
+                                    // }
                                 }
                                 break;
                             case 3:
@@ -4491,6 +4491,10 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Kik người chơi " + p.name + " thành công");
                                     Client.gI().getPlayers().remove(p);
                                     Client.gI().kickSession(p.getSession());
+                                    break;
+                                case 5:
+                                    Service.gI().sendThongBao(player, "Đấm bm nó :))");
+                                    PVPService.gI().openSelectRevenge(player, p.id);
                                     break;
                             }
                         }

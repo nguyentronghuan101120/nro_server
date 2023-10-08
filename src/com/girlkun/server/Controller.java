@@ -4,7 +4,6 @@ import com.arriety.card.Card;
 import com.arriety.card.RadarCard;
 import com.arriety.card.RadarService;
 import com.girlkun.database.GirlkunDB;
-import com.girlkun.models.item.Item;
 import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.consts.ConstIgnoreName;
 import com.girlkun.consts.ConstMap;
@@ -22,7 +21,6 @@ import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstTask;
 import com.girlkun.data.ItemData;
 import com.girlkun.jdbc.daos.PlayerDAO;
-import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.map.blackball.BlackBallWar;
 import com.girlkun.models.npc.NpcManager;
 import com.girlkun.models.player.Player;
@@ -32,9 +30,6 @@ import com.girlkun.network.handler.IMessageHandler;
 import com.girlkun.network.io.Message;
 import com.girlkun.network.session.ISession;
 import com.girlkun.services.func.CombineServiceNew;
-
-import static com.girlkun.services.func.Input.CHOOSE_LEVEL_BDKB;
-import static com.girlkun.services.func.Input.NUMERIC;
 
 import com.girlkun.services.func.LuckyRound;
 import com.girlkun.services.func.TransactionService;
@@ -64,7 +59,9 @@ public class Controller implements IMessageHandler {
             // != -16 && cmd != -101 && cmd != 126 && cmd != -74 && cmd != 21 && cmd != -15
             // && cmd != -103) {
             // }
+
             switch (cmd) {
+
                 case -100:
                     byte action = _msg.reader().readByte();
                     switch (action) {
@@ -377,8 +374,8 @@ public class Controller implements IMessageHandler {
                     break;
                 case -45:
                     if (player != null) {
-                        //byte status = _msg.reader().readByte();
-                        SkillService.gI().useSkill(player, null, null,_msg);
+                        // byte status = _msg.reader().readByte();
+                        SkillService.gI().useSkill(player, null, null, _msg);
                     }
                     break;
                 case -46:
@@ -707,7 +704,7 @@ public class Controller implements IMessageHandler {
             }
             if (created) {
                 session.login(session.uu, session.pp);
-                
+
             }
         }
     }

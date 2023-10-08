@@ -494,7 +494,7 @@ public class UseItem {
 
     private void openWoodChest(Player pl, Item item) {
         int time = (int) TimeUtil.diffDate(new Date(), new Date(item.createTime), TimeUtil.DAY);
-        if (time != 0) {
+        if (time != 0 || pl.isAdmin()) {
             Item itemReward = null;
             int param = item.itemOptions.size();
             int gold = 0;

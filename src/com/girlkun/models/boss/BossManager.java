@@ -52,6 +52,7 @@ import com.girlkun.network.io.Message;
 import com.girlkun.server.ServerManager;
 import com.girlkun.services.ItemMapService;
 import com.girlkun.services.MapService;
+import com.girlkun.services.func.ChangeMapService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,7 @@ public class BossManager implements Runnable {
     }
 
     private boolean loadedBoss;
-    private final List<Boss> bosses;
+    public final List<Boss> bosses;
 
     public void addBoss(Boss boss) {
         this.bosses.add(boss);
@@ -321,8 +322,9 @@ public class BossManager implements Runnable {
                 msg.writer().writeUTF(boss.data[0].getName());
                 if (boss.zone != null) {
                     msg.writer().writeUTF("Sống");
-                    msg.writer().writeUTF(
+                    msg.writer().writeUTF("Boss id: "+boss.id+ "\n"+
                             boss.zone.map.mapName + "(" + boss.zone.map.mapId + ") khu " + boss.zone.zoneId + "");
+
                 } else {
                     msg.writer().writeUTF("Chết");
                     msg.writer().writeUTF("Chết rồi");

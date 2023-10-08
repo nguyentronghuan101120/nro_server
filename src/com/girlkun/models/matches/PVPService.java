@@ -159,7 +159,8 @@ public class PVPService {
             Service.gI().sendThongBao(pl, "Kẻ thù hiện đang offline");
             return;
         }
-        if (pl.pvp != null || enemy.pvp != null) {
+        if(!pl.isAdmin()){
+            if (pl.pvp != null || enemy.pvp != null) {
             Service.gI().hideWaitDialog(pl);
             Service.gI().sendThongBao(pl, "Không thể thực hiện");
             return;
@@ -168,6 +169,7 @@ public class PVPService {
         if ((mapGo = ChangeMapService.gI().checkMapCanJoin(pl, mapGo)) == null || mapGo.isFullPlayer()) {
             Service.gI().sendThongBao(pl, "Không thể tới ngay lúc này, vui lòng đợi sau ít phút");
             return;
+        }
         }
         TraThu traThu = new TraThu(pl, enemy);
     }
