@@ -52,7 +52,6 @@ import com.girlkun.network.io.Message;
 import com.girlkun.server.ServerManager;
 import com.girlkun.services.ItemMapService;
 import com.girlkun.services.MapService;
-import com.girlkun.services.func.ChangeMapService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +59,7 @@ import java.util.List;
 public class BossManager implements Runnable {
 
     private static BossManager I;
-    public static final byte ratioReward = 2;
+    public static final byte ratioReward = 20;
 
     public static BossManager gI() {
         if (BossManager.I == null) {

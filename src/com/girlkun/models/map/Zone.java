@@ -30,7 +30,6 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Zone {
 
     public static final byte PLAYERS_TIEU_CHUAN_TRONG_MAP = 7;
@@ -41,11 +40,11 @@ public class Zone {
     public int zoneId;
     public int maxPlayer;
 
-    private final List<Player> humanoids; //player, boss, pet
-    private final List<Player> notBosses; //player, pet
-    private final List<Player> players; //player
-    private final List<Player> bosses; //boss
-    private final List<Player> pets; //pet
+    private final List<Player> humanoids; // player, boss, pet
+    private final List<Player> notBosses; // player, pet
+    private final List<Player> players; // player
+    private final List<Player> bosses; // boss
+    private final List<Player> pets; // pet
 
     public final List<Mob> mobs;
     public final List<ItemMap> items;
@@ -54,14 +53,11 @@ public class Zone {
     public boolean finishBlackBallWar;
     public boolean finishMapMaBu;
 
-
     public List<TrapMap> trapMaps;
     @Setter
     @Getter
     private Player referee;
 
-    private Player referee1;
-    
     public boolean isFullPlayer() {
         return this.players.size() >= this.maxPlayer;
     }
@@ -80,7 +76,6 @@ public class Zone {
             }
         }
     }
-    
 
     private void udItem() {
         for (int i = this.items.size() - 1; i >= 0; i--) {
@@ -145,7 +140,7 @@ public class Zone {
             if (!player.isBoss && !this.notBosses.contains(player)) {
                 this.notBosses.add(player);
             }
-            if (!player.isBoss &&!player.isNewPet&& !player.isPet && !this.players.contains(player)) {
+            if (!player.isBoss && !player.isNewPet && !player.isPet && !this.players.contains(player)) {
                 this.players.add(player);
             }
             if (player.isBoss) {
@@ -215,8 +210,8 @@ public class Zone {
         if (itemMap != null) {
             if (itemMap.playerId == player.id || itemMap.playerId == -1) {
                 Item item = ItemService.gI().createItemFromItemMap(itemMap);
-                 boolean picked=true;
-                if(!ItemMapService.gI().isNamecBall(item.template.id)){
+                boolean picked = true;
+                if (!ItemMapService.gI().isNamecBall(item.template.id)) {
                     picked = InventoryServiceNew.gI().addItemBag(player, item);
                 }
                 if (picked) {
@@ -244,25 +239,30 @@ public class Zone {
                                     case 357:
                                     case 358:
                                     case 359:
-                                        if(System.currentTimeMillis() >= NgocRongNamecService.gI().tOpenNrNamec) {
-                                            if(player.idNRNM == -1){
+                                        if (System.currentTimeMillis() >= NgocRongNamecService.gI().tOpenNrNamec) {
+                                            if (player.idNRNM == -1) {
                                                 PlayerService.gI().changeAndSendTypePK(player, ConstPlayer.PK_ALL);
                                                 player.idNRNM = item.template.id;
-                                                NgocRongNamecService.gI().mapNrNamec[item.template.id - 353] = player.zone.map.mapId;
-                                                NgocRongNamecService.gI().nameNrNamec[item.template.id - 353] = player.zone.map.mapName;
-                                                NgocRongNamecService.gI().zoneNrNamec[item.template.id - 353] = (byte) player.zone.zoneId;
-                                                NgocRongNamecService.gI().pNrNamec[item.template.id - 353] = player.name;
-                                                NgocRongNamecService.gI().idpNrNamec[item.template.id - 353] = (int) player.id;
+                                                NgocRongNamecService.gI().mapNrNamec[item.template.id
+                                                        - 353] = player.zone.map.mapId;
+                                                NgocRongNamecService.gI().nameNrNamec[item.template.id
+                                                        - 353] = player.zone.map.mapName;
+                                                NgocRongNamecService.gI().zoneNrNamec[item.template.id
+                                                        - 353] = (byte) player.zone.zoneId;
+                                                NgocRongNamecService.gI().pNrNamec[item.template.id
+                                                        - 353] = player.name;
+                                                NgocRongNamecService.gI().idpNrNamec[item.template.id
+                                                        - 353] = (int) player.id;
                                                 player.lastTimePickNRNM = System.currentTimeMillis();
                                                 Service.gI().sendFlagBag(player);
-                                                msg.writer().writeUTF("Bạn đã nhặt được "+item.template.name);
+                                                msg.writer().writeUTF("Bạn đã nhặt được " + item.template.name);
                                                 msg.writer().writeShort(item.quantity);
                                                 player.sendMessage(msg);
                                                 msg.cleanup();
-                                            }else{
+                                            } else {
                                                 Service.gI().sendThongBao(player, "Bạn đã mang ngọc rồng trên người");
                                             }
-                                        }else{
+                                        } else {
                                             Service.gI().sendThongBao(player, "Chỉ là cục đá thôi, nhặt làm gì?");
                                         }
                                         break;
@@ -299,7 +299,7 @@ public class Zone {
                         if (!(this.map.mapId >= 21 && this.map.mapId <= 23
                                 && itemMap.itemTemplate.id == 74
                                 || this.map.mapId >= 42 && this.map.mapId <= 44
-                                && itemMap.itemTemplate.id == 78)) {
+                                        && itemMap.itemTemplate.id == 78)) {
                             removeItemMap(itemMap);
                         }
                     } catch (Exception e) {
@@ -311,12 +311,12 @@ public class Zone {
                         Service.gI().sendThongBao(player, text);
                     }
                 }
-//                if (!picked) {
-//                    ItemMap itm = new ItemMap(itemMap);
-//                    itm.x = player.location.x + Util.nextInt(-20, 20);
-//                    itm.y = itm.zone.map.yPhysicInTop(itm.x, player.location.y);
-//                    Service.gI().dropItemMap(player.zone, itm);
-//                }
+                // if (!picked) {
+                // ItemMap itm = new ItemMap(itemMap);
+                // itm.x = player.location.x + Util.nextInt(-20, 20);
+                // itm.y = itm.zone.map.yPhysicInTop(itm.x, player.location.y);
+                // Service.gI().dropItemMap(player.zone, itm);
+                // }
             } else {
                 Service.gI().sendThongBao(player, "Không thể nhặt vật phẩm của người khác");
             }
@@ -344,8 +344,8 @@ public class Zone {
             return null;
         }
     }
-    
-     public Player getRandomBossInMap() {
+
+    public Player getRandomBossInMap() {
         if (!this.bosses.isEmpty()) {
             return this.bosses.get(Util.nextInt(0, this.bosses.size() - 1));
         } else {
@@ -353,7 +353,7 @@ public class Zone {
         }
     }
 
-    public void load_Me_To_Another(Player player) { //load thông tin người chơi cho những người chơi khác
+    public void load_Me_To_Another(Player player) { // load thông tin người chơi cho những người chơi khác
         try {
             if (player.zone != null) {
                 if (MapService.gI().isMapOffline(this.map.mapId)) {
@@ -361,11 +361,11 @@ public class Zone {
                         infoPlayer(((Pet) player).master, player);
                     }
                 } else {
-                    for(int i = 0 ; i < players.size();i++){
+                    for (int i = 0; i < players.size(); i++) {
                         Player pl = players.get(i);
-                       if (!player.equals(pl)) {
+                        if (!player.equals(pl)) {
                             infoPlayer(pl, player);
-                        }        
+                        }
                     }
                 }
             }
@@ -374,7 +374,7 @@ public class Zone {
         }
     }
 
-    public void load_Another_To_Me(Player player) { //load những player trong map và gửi cho player vào map
+    public void load_Another_To_Me(Player player) { // load những player trong map và gửi cho player vào map
         try {
             if (MapService.gI().isMapOffline(this.map.mapId)) {
                 for (Player pl : this.humanoids) {
@@ -438,7 +438,7 @@ public class Zone {
             msg.writer().writeInt(plInfo.nPoint.hpMax);
             msg.writer().writeShort(plInfo.getBody());
             msg.writer().writeShort(plInfo.getLeg());
-            msg.writer().writeByte(plInfo.getFlagBag()); //bag
+            msg.writer().writeByte(plInfo.getFlagBag()); // bag
             msg.writer().writeByte(-1);
             msg.writer().writeShort(plInfo.location.x);
             msg.writer().writeShort(plInfo.location.y);
@@ -455,18 +455,19 @@ public class Zone {
             msg.writer().writeByte(0);
 
             if (plInfo.isPl()) {
-                msg.writer().writeShort(plInfo.idAura); //idauraeff
-                msg.writer().writeShort(plInfo.getAura()); //idauraeff
-                msg.writer().writeByte(plInfo.getEffFront()); //seteff
+                msg.writer().writeShort(plInfo.idAura); // idauraeff
+                msg.writer().writeShort(plInfo.getAura()); // idauraeff
+                msg.writer().writeByte(plInfo.getEffFront()); // seteff
             }
 
             plReceive.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-//            Logger.logException(MapService.class, e);
+            // Logger.logException(MapService.class, e);
         }
         Service.gI().sendFlagPlayerToMe(plReceive, plInfo);
-        if (!plInfo.isBoss && !plInfo.isPet &&!plInfo.isNewPet && !(plInfo instanceof BossDHVT) && !(plInfo instanceof Referee) & !(plInfo instanceof Referee1)) {
+        if (!plInfo.isBoss && !plInfo.isPet && !plInfo.isNewPet && !(plInfo instanceof BossDHVT)
+                && !(plInfo instanceof Referee) & !(plInfo instanceof Referee1)) {
             Service.gI().sendPetFollowToMe(plReceive, plInfo);
         }
 
@@ -516,11 +517,11 @@ public class Zone {
             List<Mob> mobs = this.mobs;
             msg.writer().writeByte(mobs.size());
             for (Mob mob : mobs) {
-                msg.writer().writeBoolean(false); //is disable
-                msg.writer().writeBoolean(false); //is dont move
-                msg.writer().writeBoolean(false); //is fire
-                msg.writer().writeBoolean(false); //is ice
-                msg.writer().writeBoolean(false); //is wind
+                msg.writer().writeBoolean(false); // is disable
+                msg.writer().writeBoolean(false); // is dont move
+                msg.writer().writeBoolean(false); // is fire
+                msg.writer().writeBoolean(false); // is ice
+                msg.writer().writeBoolean(false); // is wind
                 msg.writer().writeByte(mob.tempId);
                 msg.writer().writeByte(0);
                 msg.writer().writeInt(mob.point.gethp());
@@ -558,7 +559,7 @@ public class Zone {
             }
 
             // bg item
-//                msg.writer().writeShort(0);
+            // msg.writer().writeShort(0);
             try {
                 byte[] bgItem = FileIO.readFile("data/girlkun/map/item_bg_map_data/" + this.map.mapId);
                 msg.writer().write(bgItem);
@@ -567,7 +568,7 @@ public class Zone {
             }
 
             // eff item
-//                msg.writer().writeShort(0);
+            // msg.writer().writeShort(0);
             try {
                 byte[] effItem = FileIO.readFile("data/girlkun/map/eff_map/" + this.map.mapId);
                 msg.writer().write(effItem);

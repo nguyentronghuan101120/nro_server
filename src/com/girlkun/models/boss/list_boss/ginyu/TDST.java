@@ -4,12 +4,8 @@ import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
-import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
-import com.girlkun.services.Service;
-import com.girlkun.services.TaskService;
 import com.girlkun.utils.Util;
-import java.util.Random;
 
 
 public class TDST extends Boss {
@@ -44,7 +40,7 @@ public class TDST extends Boss {
     @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
-        if (Util.canDoWithTime(st, 600000)) {
+        if (Util.canDoWithTime(st, 900000)) {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
@@ -56,8 +52,3 @@ public class TDST extends Boss {
     }
     private long st;
 }
-
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
- */

@@ -5,27 +5,22 @@
  */
 package com.girlkun.models.boss.list_boss.kami;
 
-import com.girlkun.consts.ConstPlayer;
+import java.util.Random;
+
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
-import com.girlkun.models.boss.list_boss.android.Android15;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
-import com.girlkun.services.PlayerService;
+import com.girlkun.server.Manager;
 import com.girlkun.services.Service;
+import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
-import com.girlkun.models.boss.Boss;
-import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossManager;
-import com.girlkun.models.boss.BossesData;
-import com.girlkun.models.map.ItemMap;
-import com.girlkun.models.player.Player;
 import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.Service;
-import com.girlkun.utils.Util;
+import com.girlkun.services.RewardService;
 
 
 public class kamiRin extends Boss {
@@ -39,6 +34,9 @@ public class kamiRin extends Boss {
         ItemMap it = new ItemMap(this.zone, 2044, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);
         Service.gI().dropItemMap(this.zone, it);
+
+                RewardService.gI().getRewardFromKillBoss(this.zone, plKill.id, this.location.x, this.location.y);
+
     }
      @Override
     public void leaveMap() {

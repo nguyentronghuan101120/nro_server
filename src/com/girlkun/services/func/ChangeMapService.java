@@ -112,10 +112,10 @@ public class ChangeMapService {
             return;
         }
         if (!pl.isAdmin()) {
-            if (MapService.gI().isMapOffline(pl.zone.map.mapId)) {
-                Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
-                return;
-            }
+            // if (MapService.gI().isMapOffline(pl.zone.map.mapId)) {
+            //     Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
+            //     return;
+            // }
             if (MapService.gI().isMapBanDoKhoBau(pl.zone.map.mapId)) {
                 Service.getInstance().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
                 return;
@@ -334,6 +334,7 @@ public class ChangeMapService {
         }
         zoneJoin = checkMapCanJoin(pl, zoneJoin);
 
+
         if (zoneJoin != null) {
             boolean currMapIsCold = MapService.gI().isMapCold(pl.zone.map);
             boolean nextMapIsCold = MapService.gI().isMapCold(zoneJoin.map);
@@ -416,7 +417,7 @@ public class ChangeMapService {
                 }
             }
         }
-        if (zoneJoin != null) {
+        if (zoneJoin != null || player.isAdmin()) {
             if (player.idNRNM != -1 && !Util.canDoWithTime(player.lastTimePickNRNM, 6000)) {
                 resetPoint(player);
                 Service.gI().sendThongBao(player, "Ngọc rồng namec quá nặng vui lòng đợi một chút để qua map");

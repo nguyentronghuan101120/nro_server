@@ -58,9 +58,7 @@ public class ThienSuWhis extends Boss {
                 }
                 damage = 1;
             }
-            if (damage >= 1) {
-                damage = 1;
-            }
+           
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);

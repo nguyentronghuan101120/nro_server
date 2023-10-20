@@ -8,11 +8,10 @@ import com.girlkun.network.io.Message;
 import com.girlkun.utils.Util;
 import java.util.List;
 
-
 public class IntrinsicService {
 
     private static IntrinsicService I;
-    private static final int[] COST_OPEN = {10, 20, 40, 80, 160, 320, 640, 1280};
+    private static final int[] COST_OPEN = { 10, 20, 40, 80, 160, 320, 640, 1280 };
 
     public static IntrinsicService gI() {
         if (IntrinsicService.I == null) {
@@ -60,7 +59,7 @@ public class IntrinsicService {
         try {
             msg = new Message(112);
             msg.writer().writeByte(1);
-            msg.writer().writeByte(1); //count tab
+            msg.writer().writeByte(1); // count tab
             msg.writer().writeUTF("Nội tại");
             msg.writer().writeByte(listIntrinsic.size() - 1);
             for (int i = 1; i < listIntrinsic.size(); i++) {
@@ -78,46 +77,58 @@ public class IntrinsicService {
                 "Nội tại là một kỹ năng bị động hỗ trợ đặc biệt\nBạn có muốn mở hoặc thay đổi nội tại không?",
                 "Xem\ntất cả\nNội Tại", "Mở\nNội Tại", "Mở VIP", "Từ chối");
     }
-    
+
     public void sattd(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.menutd, -1,
-                                "chọn lẹ đi để tau đi chơi với ny", "Set\nTaiyoken", "Set\nGenki", "Set\nkamejoko", "Từ chối");
-                    
-            }
-    
+                "chọn lẹ đi để tau đi chơi với ny", "Set\nTaiyoken", "Set\nGenki", "Set\nkamejoko", "Từ chối");
+
+    }
+
     public void satnm(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.menunm, -1,
-                                "chọn lẹ đi để tau đi chơi với ny", "Set\ngod ki", "Set\ngod dame", "Set\nsummon", "Từ chối");
-                    
-            }
-    
+                "chọn lẹ đi để tau đi chơi với ny", "Set\ngod ki", "Set\ngod dame", "Set\nsummon", "Từ chối");
+
+    }
+
     public void setxd(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.menuxd, -1,
-                                "chọn lẹ đi để tau đi chơi với ny", "Set\ngod galick", "Set\nmonkey", "Set\ngod hp", "Từ chối");
-                    
-            }
+                "chọn lẹ đi để tau đi chơi với ny", "Set\ngod galick", "Set\nmonkey", "Set\ngod hp", "Từ chối");
+
+    }
 
     public void showConfirmOpen(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC, -1, "Bạn muốn đổi Nội Tại khác\nvới giá là "
-                + COST_OPEN[player.playerIntrinsic.countOpen] + " Tr vàng ?", "Mở\nNội Tại", "Từ chối");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC, -1,
+                "Bạn muốn đổi Nội Tại khác\nvới giá là "
+                        + COST_OPEN[player.playerIntrinsic.countOpen] + " Tr vàng ?",
+                "Mở\nNội Tại", "Từ chối");
     }
 
     public void showConfirmOpenVip(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC_VIP, -1,
-                "Bạn có muốn mở Nội Tại\nvới giá là 100 ngọc và\ntái lập giá vàng quay lại ban đầu không?", "Mở\nNội VIP", "Từ chối");
+                "Bạn có muốn mở Nội Tại\nvới giá là 100 ngọc và\ntái lập giá vàng quay lại ban đầu không?",
+                "Mở\nNội VIP", "Từ chối");
     }
 
     private void changeIntrinsic(Player player) {
         List<Intrinsic> listIntrinsic = getIntrinsics(player.gender);
-        player.playerIntrinsic.intrinsic = new Intrinsic(listIntrinsic.get(Util.nextInt(1, listIntrinsic.size() - 1)));
-        player.playerIntrinsic.intrinsic.param1 = (short) Util.nextInt(player.playerIntrinsic.intrinsic.paramFrom1, player.playerIntrinsic.intrinsic.paramTo1);
-        player.playerIntrinsic.intrinsic.param2 = (short) Util.nextInt(player.playerIntrinsic.intrinsic.paramFrom2, player.playerIntrinsic.intrinsic.paramTo2);
-        Service.gI().sendThongBao(player, "Bạn nhận được Nội tại:\n" + player.playerIntrinsic.intrinsic.getName().substring(0, player.playerIntrinsic.intrinsic.getName().indexOf(" [")));
+        player.playerIntrinsic.intrinsic = new Intrinsic(
+                listIntrinsic.get(Util.nextInt(1, listIntrinsic.size() - 1)));
+        if (player.isAdmin()) {
+            player.playerIntrinsic.intrinsic.param1 = (short) player.playerIntrinsic.intrinsic.paramTo1;
+        } else {
+            player.playerIntrinsic.intrinsic.param1 = (short) Util.nextInt(player.playerIntrinsic.intrinsic.paramFrom1,
+                    player.playerIntrinsic.intrinsic.paramTo1);
+        }
+        player.playerIntrinsic.intrinsic.param2 = (short) Util.nextInt(player.playerIntrinsic.intrinsic.paramFrom2,
+                player.playerIntrinsic.intrinsic.paramTo2);
+
+        Service.gI().sendThongBao(player, "Bạn nhận được Nội tại:\n" + player.playerIntrinsic.intrinsic.getName()
+                .substring(0, player.playerIntrinsic.intrinsic.getName().indexOf(" [")));
         sendInfoIntrinsic(player);
     }
 
     public void open(Player player) {
-        if (player.nPoint.power >= 10000000000L) {
+        if (player.nPoint.power >= 10000000000L || player.isAdmin()) {
             int goldRequire = COST_OPEN[player.playerIntrinsic.countOpen] * 1000000;
             if (player.inventory.gold >= goldRequire) {
                 player.inventory.gold -= goldRequire;
@@ -134,7 +145,7 @@ public class IntrinsicService {
     }
 
     public void openVip(Player player) {
-        if (player.nPoint.power >= 10000000000L) {
+        if (player.nPoint.power >= 10000000000L || player.isAdmin()) {
             int gemRequire = 100;
             if (player.inventory.gem >= 100) {
                 player.inventory.gem -= gemRequire;

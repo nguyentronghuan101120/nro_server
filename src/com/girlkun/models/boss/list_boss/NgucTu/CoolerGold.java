@@ -7,13 +7,10 @@ package com.girlkun.models.boss.list_boss.NgucTu;
 
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
-import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
-import com.girlkun.models.skill.Skill;
 import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.PetService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
@@ -31,7 +28,7 @@ public class CoolerGold extends Boss {
     @Override
     public void reward(Player plKill) {
         int[] itemDos = new int[]{569,2069,2070,2071,2072};
-        int[] NRs = new int[]{17,16};
+        int[] NRs = new int[]{15,14};
         int randomDo = new Random().nextInt(itemDos.length);
         int randomNR = new Random().nextInt(NRs.length);
         if (Util.isTrue(15, 100)) {
@@ -58,9 +55,7 @@ public class CoolerGold extends Boss {
                 }
                 damage = 1;
             }
-            if (damage >= 1) {
-                damage = 1;
-            }
+           
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);

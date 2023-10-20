@@ -91,13 +91,7 @@ public class MapService {
     }
 
     public Zone getMapCanJoin(Player player, int mapId, int zoneId) {
-        // if (player.getSession() != null && player.isAdmin()) {
-        // if (zoneId == -1) {
-        // return getRandomZoneByMapID(mapId);
-        // } else {
-        // return getZoneByMapIDAndZoneID(mapId, zoneId);
-        // }
-        // }
+
         if (isMapOffline(mapId)) {
             return getMapById(mapId).zones.get(0);
         }
@@ -196,7 +190,7 @@ public class MapService {
         Zone zone = null;
         try {
             if (map != null) {
-                zone = map.zones.get(Util.nextInt(0, map.zones.size() - 1));
+                zone = map.zones.get(Util.nextInt(5, map.zones.size() - 1));
                 return zone;
 
             }

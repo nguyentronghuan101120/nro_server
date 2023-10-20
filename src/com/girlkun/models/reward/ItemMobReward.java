@@ -51,6 +51,7 @@ public class ItemMobReward {
             if (mapId != -1 && mapId != zone.map.mapId) {
                 continue;
             }
+          
             if (this.gender != -1 && this.gender != player.gender) {
                 break;
             }
@@ -112,7 +113,6 @@ public class ItemMobReward {
 
                         // System.out.println("\n- END -\n\n");
 
-                        return itemMap;
                     }
 
                 } else {

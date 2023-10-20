@@ -1,6 +1,5 @@
 package com.girlkun.models.boss.list_boss.android;
 
-import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossStatus;
@@ -73,7 +72,3 @@ public class Android19 extends Boss {
 
 }
 
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
- */

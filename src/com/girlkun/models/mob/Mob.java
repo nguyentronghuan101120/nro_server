@@ -4,7 +4,6 @@ import com.girlkun.consts.ConstMap;
 import com.girlkun.consts.ConstMob;
 import com.girlkun.consts.ConstTask;
 import com.girlkun.models.item.Item;
-import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.map.ItemMap;
 
 import java.util.List;

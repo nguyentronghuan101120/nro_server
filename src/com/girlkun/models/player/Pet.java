@@ -20,8 +20,8 @@ import com.girlkun.utils.TimeUtil;
 
 public class Pet extends Player {
 
-    private static final short ARANGE_CAN_ATTACK = 600;
-    private static final short ARANGE_ATT_SKILL1 = 50;
+    private static final short ARANGE_CAN_ATTACK = 1000;
+    private static final short ARANGE_ATT_SKILL1 = 100;
 
     private static final short[][] PET_ID = { { 285, 286, 287 }, { 288, 289, 290 }, { 282, 283, 284 },
             { 304, 305, 303 } };
@@ -114,11 +114,11 @@ public class Pet extends Player {
     }
 
     public void fusion(boolean porata) {
-        if (this.isDie()) {
+        if (this.isDie() && !master.isAdmin()) {
             Service.getInstance().sendThongBao(master, "Không thể thực hiện");
             return;
         }
-        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
+        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION) || master.isAdmin()) {
             if (porata) {
                 master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA;
             } else {
@@ -141,11 +141,11 @@ public class Pet extends Player {
     }
 
     public void fusion2(boolean porata2) {
-        if (this.isDie()) {
+        if (this.isDie() && !master.isAdmin()) {
             Service.getInstance().sendThongBao(master, "Không thể thực hiện");
             return;
         }
-        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
+        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION) || master.isAdmin()) {
             if (porata2) {
                 master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA2;
             } else {
@@ -168,11 +168,11 @@ public class Pet extends Player {
     }
 
     public void fusion3(boolean porata3) {
-        if (this.isDie()) {
+        if (this.isDie() && !master.isAdmin()) {
             Service.getInstance().sendThongBao(master, "Không thể thực hiện");
             return;
         }
-        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
+        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION) || master.isAdmin()) {
             if (porata3) {
                 master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA3;
             } else {
@@ -195,11 +195,11 @@ public class Pet extends Player {
     }
 
     public void fusion4(boolean porata4) {
-        if (this.isDie()) {
+        if (this.isDie() && !master.isAdmin()) {
             Service.getInstance().sendThongBao(master, "Không thể thực hiện");
             return;
         }
-        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
+        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION) || master.isAdmin()) {
             if (porata4) {
                 master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA4;
             } else {
@@ -295,7 +295,7 @@ public class Pet extends Player {
 
             switch (status) {
                 case FOLLOW:
-                    followMaster(100);
+                    followMaster(200);
                     break;
                 case PROTECT:
                     if (useSkill3() || useSkill4() || useSkill5()) {
@@ -312,8 +312,11 @@ public class Pet extends Player {
                                     PlayerService.gI().playerMove(this, mobAttack.location.x + Util.nextInt(-60, 60),
                                             mobAttack.location.y);
                                     SkillService.gI().useSkill(this, playerAttack, mobAttack, null);
-                                    TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
-                                    TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
+                                    if (mobAttack.isDie()) {
+                                        TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
+                                        TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
+                                    }
+
                                 } else {
                                     askPea();
                                 }
@@ -353,8 +356,10 @@ public class Pet extends Player {
                                     PlayerService.gI().playerMove(this, mobAttack.location.x + Util.nextInt(-20, 20),
                                             mobAttack.location.y);
                                     SkillService.gI().useSkill(this, playerAttack, mobAttack, null);
-                                    TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
-                                    TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
+                                    if (mobAttack.isDie()) {
+                                        TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
+                                        TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
+                                    }
                                 } else {
                                     askPea();
                                 }
@@ -364,8 +369,10 @@ public class Pet extends Player {
                             if (this.playerSkill.skillSelect.skillId != -1) {
                                 if (SkillService.gI().canUseSkillWithMana(this)) {
                                     SkillService.gI().useSkill(this, playerAttack, mobAttack, null);
-                                    TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
-                                    TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
+                                    if (mobAttack.isDie()) {
+                                        TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
+                                        TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
+                                    }
                                 }
                             } else {
                                 this.playerSkill.skillSelect = getSkill(1);
@@ -374,8 +381,10 @@ public class Pet extends Player {
                                         PlayerService.gI().playerMove(this,
                                                 mobAttack.location.x + Util.nextInt(-20, 20), mobAttack.location.y);
                                         SkillService.gI().useSkill(this, playerAttack, mobAttack, null);
-                                        TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
-                                        TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
+                                        if (mobAttack.isDie()) {
+                                            TaskService.gI().checkDoneTaskKillMob(master, mobAttack);
+                                            TaskService.gI().checkDoneSideTaskKillMob(master, mobAttack);
+                                        }
                                     } else {
                                         askPea();
                                     }

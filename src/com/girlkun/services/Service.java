@@ -686,6 +686,7 @@ public class Service {
 
             } else if (text.equals("so")) {
                 Input.gI().createFormSenditem1(player);
+                return;
             }
 
             else if (text.startsWith("i ")) {
@@ -699,17 +700,20 @@ public class Service {
                 InventoryServiceNew.gI().sendItemBags(player);
                 Service.gI().sendThongBao(player,
                         "GET " + item.template.name + " [" + item.template.id + "] SUCCESS !");
+                return;
 
             } else if (text.equals("give")) {
                 Input.gI().createFormGiveItem(player);
+                return;
             } else if (text.equals("itembuff")) {
                 Input.gI().createFormGiveItem1(player);
+                return;
             } else if (text.equals("skhbuff")) {
                 Input.gI().createFormGiveItem2(player);
-            } else if (text.equals("dbm")) {
-                TaskService.gI().paySideTask(player);
+                return;
             } else if (text.equals("hsd")) {
                 Service.gI().hsChar(player.pet, player.pet.nPoint.hpMax, player.pet.nPoint.mpMax);
+                return;
             } else if (text.equals("skillvip")) {
                 if (player.gender == 2) {
                     SkillService.gI().learSkillSpecial(player, Skill.LIEN_HOAN_CHUONG);
@@ -721,6 +725,7 @@ public class Service {
                     SkillService.gI().learSkillSpecial(player, Skill.MA_PHONG_BA);
                 }
                 InventoryServiceNew.gI().sendItemBags(player);
+                return;
             } else if (text.startsWith("gtb")) {
 
                 long bossId = Long.parseLong(text.replaceAll("gtb", ""));
@@ -737,15 +742,23 @@ public class Service {
                     ChangeMapService.gI().changeMapYardrat(player, boss.zone, boss.location.x,
                             boss.location.y);
                 }
+                return;
             } else if (text.equals("boss")) {
                 BossManager.gI().showListBoss(player);
+                return;
             } else if (text.equals("c")) {
                 player.isFrezedSkill = !player.isFrezedSkill;
                 Service.gI().releaseCooldownSkill(player);
                 Service.gI().sendThongBao(player, "Frezed skill: " + (player.isFrezedSkill ? "On" : "Off"));
                 return;
 
-            }
+            } 
+            // else if (text.equals("zone")) {
+            //     player.zone.mapInfo(player);
+
+            //     return;
+
+            // }
 
             /// Update user point
             // else if (text.startsWith("hp")) {
