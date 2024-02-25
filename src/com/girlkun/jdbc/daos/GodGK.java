@@ -58,6 +58,7 @@ public class GodGK {
                 }
             }
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
         return ops;
     }

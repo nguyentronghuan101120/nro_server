@@ -1,8 +1,6 @@
 package com.girlkun.server.io;
 
 import java.net.Socket;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Controller;
@@ -10,18 +8,13 @@ import com.girlkun.data.DataGame;
 import com.girlkun.jdbc.daos.GodGK;
 import com.girlkun.models.item.Item;
 import com.girlkun.network.session.Session;
-import com.girlkun.network.session.TypeSession;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Client;
 import com.girlkun.server.Maintenance;
 import com.girlkun.server.Manager;
 import com.girlkun.server.model.AntiLogin;
 import com.girlkun.services.ItemService;
-import com.girlkun.services.MapService;
 import com.girlkun.services.Service;
-import com.girlkun.services.func.ChangeMapService;
-import com.girlkun.utils.Logger;
-import com.girlkun.utils.Util;
 
 import helper.CustomLogger;
 
@@ -104,7 +97,7 @@ public class MySession extends Session {
                 this.itemsReward.add(item);
             }
         } catch (Exception e) {
-
+            e.getStackTrace();
         }
     }
 
@@ -157,7 +150,6 @@ public class MySession extends Session {
         } else {
             Player player = null;
             try {
-                long st = System.currentTimeMillis();
                 this.uu = username;
                 this.pp = password;
                 player = GodGK.login(this, al);
@@ -195,6 +187,7 @@ public class MySession extends Session {
                     CustomLogger.showUserLoginInfo(player);
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 if (player != null) {
                     player.dispose();
                 }

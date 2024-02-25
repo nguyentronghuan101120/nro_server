@@ -1,6 +1,5 @@
 package com.girlkun.models.boss.iboss;
 
-
 public interface IBossOutfit {
 
     short getHead();
@@ -15,25 +14,3 @@ public interface IBossOutfit {
 
     byte getEffFront();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

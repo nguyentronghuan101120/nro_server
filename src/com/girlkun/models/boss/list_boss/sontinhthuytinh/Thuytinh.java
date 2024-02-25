@@ -8,9 +8,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.utils.Util;
 
-
-
- public class Thuytinh extends Boss {
+public class Thuytinh extends Boss {
 
     public Thuytinh() throws Exception {
         super(BossID.THUY_TINH, BossesData.THUY_TINH);
@@ -18,17 +16,17 @@ import com.girlkun.utils.Util;
 
     @Override
     public void active() {
-        super.active(); //To change body of generated methods, choose Tools | Templates.
-       
+        super.active(); // To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
     public void joinMap() {
-        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-        st = System.currentTimeMillis();
+        super.joinMap(); // To change body of generated methods, choose Tools | Templates.
+        System.currentTimeMillis();
     }
-   private long st;
-   @Override
+
+    @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1)) {
@@ -56,4 +54,3 @@ import com.girlkun.utils.Util;
         }
     }
 }
-

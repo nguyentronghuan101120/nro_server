@@ -9,6 +9,7 @@ import com.girlkun.models.boss.list_boss.HuyDiet.Vados;
 import com.girlkun.models.boss.list_boss.NgucTu.CoolerGold;
 import com.girlkun.models.boss.list_boss.Doraemon.Doraemon;
 import com.girlkun.models.boss.list_boss.FideBack.Kingcold;
+import com.girlkun.data.DataGame;
 import com.girlkun.models.boss.list_boss.Mabu;
 import com.girlkun.models.boss.list_boss.SuperXen;
 import com.girlkun.models.boss.list_boss.NgucTu.Cumber;
@@ -52,6 +53,7 @@ import com.girlkun.network.io.Message;
 import com.girlkun.server.ServerManager;
 import com.girlkun.services.ItemMapService;
 import com.girlkun.services.MapService;
+import com.girlkun.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,11 +85,16 @@ public class BossManager implements Runnable {
         this.bosses.remove(boss);
     }
 
+    public List<Boss> getBosses() {
+        return this.bosses;
+    }
+
     public void loadBoss() {
         if (this.loadedBoss) {
             return;
         }
         try {
+
             this.createBoss(BossID.KAMIRIN);
             this.createBoss(BossID.KAMILOC);
             this.createBoss(BossID.KAMI_SOOME);
@@ -142,6 +149,9 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.ANDROID_14);
             // this.createBoss(BossID.SUPER_ANDROID_17);
             this.createBoss(BossID.MABU);
+
+            this.createBoss(-104);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -281,6 +291,7 @@ public class BossManager implements Runnable {
                     return null;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -297,7 +308,7 @@ public class BossManager implements Runnable {
         try {
             msg = new Message(-96);
             msg.writer().writeByte(0);
-            msg.writer().writeUTF("Boss");
+            msg.writer().writeUTF("Danh sách boss");
             msg.writer()
                     .writeByte(
                             (int) bosses.stream()
@@ -307,26 +318,27 @@ public class BossManager implements Runnable {
             for (int i = 0; i < bosses.size(); i++) {
                 Boss boss = this.bosses.get(i);
                 if (MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0])
-                        || MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0])) {
-                    continue;
+                || MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0])) {
+                continue;
                 }
                 msg.writer().writeInt(i);
-                msg.writer().writeInt(i);
+                msg.writer().writeInt(0);
                 msg.writer().writeShort(boss.data[0].getOutfit()[0]);
-                msg.writer().writeShort(boss.data[0].getOutfit()[1]);
                 if (player.getSession().version > 214) {
                     msg.writer().writeShort(-1);
                 }
+                msg.writer().writeShort(boss.data[0].getOutfit()[1]);
+
                 msg.writer().writeShort(boss.data[0].getOutfit()[2]);
                 msg.writer().writeUTF(boss.data[0].getName());
                 if (boss.zone != null) {
                     msg.writer().writeUTF("Sống");
-                    msg.writer().writeUTF("Boss id: "+boss.id+ "\n"+
+                    msg.writer().writeUTF("Boss id: " + boss.id + "\n" +
                             boss.zone.map.mapName + "(" + boss.zone.map.mapId + ") khu " + boss.zone.zoneId + "");
 
                 } else {
                     msg.writer().writeUTF("Chết");
-                    msg.writer().writeUTF("Chết rồi");
+                    msg.writer().writeUTF("Chưa có thông tin");
                 }
             }
             player.sendMessage(msg);
@@ -390,9 +402,11 @@ public class BossManager implements Runnable {
                 long st = System.currentTimeMillis();
                 for (Boss boss : this.bosses) {
                     boss.update();
+
                 }
                 Thread.sleep(150 - (System.currentTimeMillis() - st));
             } catch (Exception ignored) {
+                Logger.logException(DataGame.class, ignored);
             }
 
         }

@@ -7,9 +7,6 @@ import com.girlkun.models.player.Player;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
-/**
- * @Stole By Arriety
- */
 public class NhanBan extends Boss {
 
     public NhanBan(int bossID, BossData bossData, Zone zone) throws Exception {

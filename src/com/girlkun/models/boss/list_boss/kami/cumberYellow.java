@@ -13,7 +13,6 @@ import com.girlkun.services.RewardService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
-
 public class cumberYellow extends Boss {
 
     public cumberYellow() throws Exception {
@@ -26,12 +25,12 @@ public class cumberYellow extends Boss {
                 this.location.y - 24), plKill.id);
         Service.gI().dropItemMap(this.zone, it);
 
-            RewardService.gI().getRewardFromKillBoss(this.zone, plKill.id, this.location.x, this.location.y);
+        RewardService.gI().getRewardFromKillBoss(this.zone, plKill.id, this.location.x, this.location.y);
     }
-   
+
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-        if (Util.isTrue(70, 100) && plAtt != null) {//tỉ lệ hụt của thiên sứ
+        if (Util.isTrue(70, 100) && plAtt != null) {// tỉ lệ hụt của thiên sứ
             Util.isTrue(this.nPoint.tlNeDon, 100000);
             if (Util.isTrue(1, 100)) {
                 this.chat("Ta Chính Là Thần SooMe");
@@ -56,15 +55,12 @@ public class cumberYellow extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage;
-                 if (damage > nPoint.mpMax) {
+                if (damage > nPoint.mpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage; 
-                 if (damage > nPoint.tlNeDon) {
+                if (damage > nPoint.tlNeDon) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage; 
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -76,27 +72,30 @@ public class cumberYellow extends Boss {
             return 0;
         }
     }
-     @Override
+
+    @Override
     public void active() {
-        super.active(); //To change body of generated methods, choose Tools | Templates.
-        if(Util.canDoWithTime(st,900000)){
+        super.active(); // To change body of generated methods, choose Tools | Templates.
+        if (Util.canDoWithTime(st, 900000)) {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
 
     @Override
     public void joinMap() {
-        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-        st= System.currentTimeMillis();
+        super.joinMap(); // To change body of generated methods, choose Tools | Templates.
+        st = System.currentTimeMillis();
     }
+
     private long st;
-     @Override
+
+    @Override
     public void leaveMap() {
         super.leaveMap();
         BossManager.gI().removeBoss(this);
         this.dispose();
     }
-  
+
     @Override
     public void changeToTypePK() {
         super.changeToTypePK();

@@ -2,7 +2,6 @@ package com.girlkun.models.boss.list_boss.HuyDiet;
 
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.Boss;
-import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;

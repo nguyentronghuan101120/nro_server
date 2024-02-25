@@ -1,23 +1,21 @@
 package com.girlkun.models.boss.dhvt;
 
+import com.girlkun.data.DataGame;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.EffectSkillService;
+import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
-/**
- * @author BTH sieu cap vippr0 
- */
 public class ThienXinHang extends BossDHVT {
 
-    private long lastTimePhanThan
-            = System.currentTimeMillis();
+    private long lastTimePhanThan = System.currentTimeMillis();
 
     public ThienXinHang(Player player) throws Exception {
         super(BossID.THIEN_XIN_HANG, BossesData.THIEN_XIN_HANG);
         this.playerAtt = player;
-//        phanThan();
+        // phanThan();
     }
 
     @Override
@@ -30,7 +28,7 @@ public class ThienXinHang extends BossDHVT {
                 phanThan();
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Logger.logException(DataGame.class, ex);
         }
     }
 
@@ -41,7 +39,7 @@ public class ThienXinHang extends BossDHVT {
             new ThienXinHangClone(BossID.THIEN_XIN_HANG_CLONE2, playerAtt);
             new ThienXinHangClone(BossID.THIEN_XIN_HANG_CLONE3, playerAtt);
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.logException(DataGame.class, e);
         }
 
     }

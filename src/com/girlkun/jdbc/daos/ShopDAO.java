@@ -1,5 +1,6 @@
 package com.girlkun.jdbc.daos;
 
+import com.girlkun.data.DataGame;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.shop.ItemShop;
 import com.girlkun.models.shop.Shop;
@@ -12,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class ShopDAO {
 
@@ -38,6 +38,7 @@ public class ShopDAO {
                     ps.close();
                 }
             } catch (SQLException ex) {
+                Logger.logException(DataGame.class, ex);
             }
         } catch (Exception e) {
             Logger.logException(ShopDAO.class, e);
@@ -66,6 +67,7 @@ public class ShopDAO {
                     ps.close();
                 }
             } catch (SQLException ex) {
+                Logger.logException(DataGame.class, ex);
             }
         } catch (Exception e) {
             Logger.logException(ShopDAO.class, e);
@@ -98,6 +100,7 @@ public class ShopDAO {
                     ps.close();
                 }
             } catch (SQLException ex) {
+                Logger.logException(DataGame.class, ex);
             }
         } catch (Exception e) {
             Logger.logException(ShopDAO.class, e);
@@ -120,6 +123,7 @@ public class ShopDAO {
                     ps.close();
                 }
             } catch (SQLException ex) {
+                Logger.logException(DataGame.class, ex);
             }
         } catch (Exception e) {
             Logger.logException(ShopDAO.class, e);

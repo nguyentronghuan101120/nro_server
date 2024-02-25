@@ -8,10 +8,6 @@ import com.girlkun.models.player.Player;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.utils.Util;
 
-/**
- *
- * @author TomC
- */
 
 public class Sontinh extends Boss {
 
@@ -28,10 +24,8 @@ public class Sontinh extends Boss {
     @Override
     public void joinMap() {
         super.joinMap(); // To change body of generated methods, choose Tools | Templates.
-        st = System.currentTimeMillis();
+        System.currentTimeMillis();
     }
-
-    private long st;
 
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {

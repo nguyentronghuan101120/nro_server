@@ -6,7 +6,6 @@ import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
-import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
 import com.girlkun.services.TaskService;
 import com.girlkun.utils.Util;

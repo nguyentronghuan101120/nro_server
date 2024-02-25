@@ -7,15 +7,9 @@ import com.girlkun.models.boss.bdkb.TrungUyXanhLo;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.MapService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Logger;
 
-/**
- *
- * @author BTH
- *
- */
 public class BanDoKhoBauService {
 
     private static BanDoKhoBauService i;

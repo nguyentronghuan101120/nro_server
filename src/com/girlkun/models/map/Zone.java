@@ -206,125 +206,129 @@ public class Zone {
     }
 
     public void pickItem(Player player, int itemMapId) {
-        ItemMap itemMap = getItemMapByItemMapId(itemMapId);
-        if (itemMap != null) {
-            if (itemMap.playerId == player.id || itemMap.playerId == -1) {
-                Item item = ItemService.gI().createItemFromItemMap(itemMap);
-                boolean picked = true;
-                if (!ItemMapService.gI().isNamecBall(item.template.id)) {
-                    picked = InventoryServiceNew.gI().addItemBag(player, item);
-                }
-                if (picked) {
-                    int itemType = item.template.type;
-                    Message msg;
-                    try {
-                        msg = new Message(-20);
-                        msg.writer().writeShort(itemMapId);
-                        switch (itemType) {
-                            case 9:
-                            case 10:
-                            case 34:
-                                msg.writer().writeUTF("");
-                                PlayerService.gI().sendInfoHpMpMoney(player);
-                                break;
-                            default:
-                                switch (item.template.id) {
-                                    case 362:
-                                        Service.gI().sendThongBao(player, "Chỉ là cục đá thôi, nhặt làm gì?");
-                                        break;
-                                    case 353:
-                                    case 354:
-                                    case 355:
-                                    case 356:
-                                    case 357:
-                                    case 358:
-                                    case 359:
-                                        if (System.currentTimeMillis() >= NgocRongNamecService.gI().tOpenNrNamec) {
-                                            if (player.idNRNM == -1) {
-                                                PlayerService.gI().changeAndSendTypePK(player, ConstPlayer.PK_ALL);
-                                                player.idNRNM = item.template.id;
-                                                NgocRongNamecService.gI().mapNrNamec[item.template.id
-                                                        - 353] = player.zone.map.mapId;
-                                                NgocRongNamecService.gI().nameNrNamec[item.template.id
-                                                        - 353] = player.zone.map.mapName;
-                                                NgocRongNamecService.gI().zoneNrNamec[item.template.id
-                                                        - 353] = (byte) player.zone.zoneId;
-                                                NgocRongNamecService.gI().pNrNamec[item.template.id
-                                                        - 353] = player.name;
-                                                NgocRongNamecService.gI().idpNrNamec[item.template.id
-                                                        - 353] = (int) player.id;
-                                                player.lastTimePickNRNM = System.currentTimeMillis();
-                                                Service.gI().sendFlagBag(player);
-                                                msg.writer().writeUTF("Bạn đã nhặt được " + item.template.name);
-                                                msg.writer().writeShort(item.quantity);
-                                                player.sendMessage(msg);
-                                                msg.cleanup();
-                                            } else {
-                                                Service.gI().sendThongBao(player, "Bạn đã mang ngọc rồng trên người");
-                                            }
-                                        } else {
+        try {
+            ItemMap itemMap = getItemMapByItemMapId(itemMapId);
+            if (itemMap != null) {
+                if (itemMap.playerId == player.id || itemMap.playerId == -1) {
+                    Item item = ItemService.gI().createItemFromItemMap(itemMap);
+                    boolean picked = true;
+                    if (!ItemMapService.gI().isNamecBall(item.template.id)) {
+                        picked = InventoryServiceNew.gI().addItemBag(player, item);
+                    }
+                    if (picked) {
+                        int itemType = item.template.type;
+                        Message msg;
+                        try {
+                            msg = new Message(-20);
+                            msg.writer().writeShort(itemMapId);
+                            switch (itemType) {
+                                case 9:
+                                case 10:
+                                case 34:
+                                    msg.writer().writeUTF("");
+                                    PlayerService.gI().sendInfoHpMpMoney(player);
+                                    break;
+                                default:
+                                    switch (item.template.id) {
+                                        case 362:
                                             Service.gI().sendThongBao(player, "Chỉ là cục đá thôi, nhặt làm gì?");
-                                        }
-                                        break;
-                                    case 73:
-                                        msg.writer().writeUTF("");
-                                        msg.writer().writeShort(item.quantity);
-                                        player.sendMessage(msg);
-                                        msg.cleanup();
-                                        break;
-                                    case 74:
-                                        msg.writer().writeUTF("Bạn mới vừa ăn " + item.template.name);
-                                        break;
-                                    case 78:
-                                        msg.writer().writeUTF("Wow, một cậu bé dễ thương!");
-                                        msg.writer().writeShort(item.quantity);
-                                        player.sendMessage(msg);
-                                        msg.cleanup();
-                                        break;
-                                    default:
-                                        if (item.template.type >= 0 && item.template.type < 5) {
-                                            msg.writer().writeUTF(item.template.name + " ngon ngon...");
-                                        } else {
-                                            msg.writer().writeUTF("Bạn mới nhặt được " + item.template.name);
-                                        }
-                                        InventoryServiceNew.gI().sendItemBags(player);
-                                        break;
-                                }
+                                            break;
+                                        case 353:
+                                        case 354:
+                                        case 355:
+                                        case 356:
+                                        case 357:
+                                        case 358:
+                                        case 359:
+                                            if (System.currentTimeMillis() >= NgocRongNamecService.gI().tOpenNrNamec) {
+                                                if (player.idNRNM == -1) {
+                                                    PlayerService.gI().changeAndSendTypePK(player, ConstPlayer.PK_ALL);
+                                                    player.idNRNM = item.template.id;
+                                                    NgocRongNamecService.gI().mapNrNamec[item.template.id
+                                                            - 353] = player.zone.map.mapId;
+                                                    NgocRongNamecService.gI().nameNrNamec[item.template.id
+                                                            - 353] = player.zone.map.mapName;
+                                                    NgocRongNamecService.gI().zoneNrNamec[item.template.id
+                                                            - 353] = (byte) player.zone.zoneId;
+                                                    NgocRongNamecService.gI().pNrNamec[item.template.id
+                                                            - 353] = player.name;
+                                                    NgocRongNamecService.gI().idpNrNamec[item.template.id
+                                                            - 353] = (int) player.id;
+                                                    player.lastTimePickNRNM = System.currentTimeMillis();
+                                                    Service.gI().sendFlagBag(player);
+                                                    msg.writer().writeUTF("Bạn đã nhặt được " + item.template.name);
+                                                    msg.writer().writeShort(item.quantity);
+                                                    player.sendMessage(msg);
+                                                    msg.cleanup();
+                                                } else {
+                                                    Service.gI().sendThongBao(player, "Bạn đã mang ngọc rồng trên người");
+                                                }
+                                            } else {
+                                                Service.gI().sendThongBao(player, "Chỉ là cục đá thôi, nhặt làm gì?");
+                                            }
+                                            break;
+                                        case 73:
+                                            msg.writer().writeUTF("");
+                                            msg.writer().writeShort(item.quantity);
+                                            player.sendMessage(msg);
+                                            msg.cleanup();
+                                            break;
+                                        case 74:
+                                            msg.writer().writeUTF("Bạn mới vừa ăn " + item.template.name);
+                                            break;
+                                        case 78:
+                                            msg.writer().writeUTF("Wow, một cậu bé dễ thương!");
+                                            msg.writer().writeShort(item.quantity);
+                                            player.sendMessage(msg);
+                                            msg.cleanup();
+                                            break;
+                                        default:
+                                            if (item.template.type >= 0 && item.template.type < 5) {
+                                                msg.writer().writeUTF(item.template.name + " ngon ngon...");
+                                            } else {
+                                                msg.writer().writeUTF("Bạn mới nhặt được " + item.template.name);
+                                            }
+                                            InventoryServiceNew.gI().sendItemBags(player);
+                                            break;
+                                    }
 
+                            }
+                            msg.writer().writeShort(item.quantity);
+                            player.sendMessage(msg);
+                            msg.cleanup();
+                            Service.gI().sendToAntherMePickItem(player, itemMapId);
+                            if (!(this.map.mapId >= 21 && this.map.mapId <= 23
+                                    && itemMap.itemTemplate.id == 74
+                                    || this.map.mapId >= 42 && this.map.mapId <= 44
+                                            && itemMap.itemTemplate.id == 78)) {
+                                removeItemMap(itemMap);
+                            }
+                        } catch (Exception e) {
+                            Logger.logException(Zone.class, e);
                         }
-                        msg.writer().writeShort(item.quantity);
-                        player.sendMessage(msg);
-                        msg.cleanup();
-                        Service.gI().sendToAntherMePickItem(player, itemMapId);
-                        if (!(this.map.mapId >= 21 && this.map.mapId <= 23
-                                && itemMap.itemTemplate.id == 74
-                                || this.map.mapId >= 42 && this.map.mapId <= 44
-                                        && itemMap.itemTemplate.id == 78)) {
-                            removeItemMap(itemMap);
+                    } else {
+                        if (!ItemMapService.gI().isBlackBall(item.template.id)) {
+                            String text = "Hành trang không còn chỗ trống";
+                            Service.gI().sendThongBao(player, text);
                         }
-                    } catch (Exception e) {
-                        Logger.logException(Zone.class, e);
                     }
+                    // if (!picked) {
+                    // ItemMap itm = new ItemMap(itemMap);
+                    // itm.x = player.location.x + Util.nextInt(-20, 20);
+                    // itm.y = itm.zone.map.yPhysicInTop(itm.x, player.location.y);
+                    // Service.gI().dropItemMap(player.zone, itm);
+                    // }
                 } else {
-                    if (!ItemMapService.gI().isBlackBall(item.template.id)) {
-                        String text = "Hành trang không còn chỗ trống";
-                        Service.gI().sendThongBao(player, text);
-                    }
+                    Service.gI().sendThongBao(player, "Không thể nhặt vật phẩm của người khác");
                 }
-                // if (!picked) {
-                // ItemMap itm = new ItemMap(itemMap);
-                // itm.x = player.location.x + Util.nextInt(-20, 20);
-                // itm.y = itm.zone.map.yPhysicInTop(itm.x, player.location.y);
-                // Service.gI().dropItemMap(player.zone, itm);
-                // }
             } else {
-                Service.gI().sendThongBao(player, "Không thể nhặt vật phẩm của người khác");
+                Service.gI().sendThongBao(player, "Không thể thực hiện");
             }
-        } else {
-            Service.gI().sendThongBao(player, "Không thể thực hiện");
+            TaskService.gI().checkDoneTaskPickItem(player, itemMap);
+            TaskService.gI().checkDoneSideTaskPickItem(player, itemMap);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        TaskService.gI().checkDoneTaskPickItem(player, itemMap);
-        TaskService.gI().checkDoneSideTaskPickItem(player, itemMap);
     }
 
     public void addItem(ItemMap itemMap) {

@@ -1,19 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.arriety.MaQuaTang;
 
+import com.girlkun.data.DataGame;
 import com.girlkun.models.item.Item.ItemOption;
+import com.girlkun.utils.Logger;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- *
- * @author Administrator
- */
 public class MaQuaTang {
     String code;
     int countLeft;
@@ -24,14 +19,29 @@ public class MaQuaTang {
     Timestamp dateexpired;
 
     public boolean isUsedGiftCode(int idPlayer) {
-        return listIdPlayer.contains(idPlayer);
+        try {
+            return listIdPlayer.contains(idPlayer);
+        } catch (Exception e) {
+
+            Logger.logException(DataGame.class, e);
+            return false;
+        }
     }
 
     public void addPlayerUsed(int idPlayer) {
-        listIdPlayer.add(idPlayer);
+        try {
+            listIdPlayer.add(idPlayer);
+        } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
+        }
     }
 
     public boolean timeCode() {
-        return this.datecreate.getTime() > this.dateexpired.getTime() ? true : false;
+        try {
+            return this.datecreate.getTime() > this.dateexpired.getTime() ? true : false;
+        } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
+            return false;
+        }
     }
 }

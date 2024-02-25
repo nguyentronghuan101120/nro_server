@@ -2097,6 +2097,7 @@ public class NpcFactory {
                                         player.mabuEgg.timeDone = 0;
                                         Service.gI().sendMoney(player);
                                         player.mabuEgg.sendMabuEgg();
+                                        player.mabuEgg.openEgg(player.gender);
                                     } else {
                                         Service.gI().sendThongBao(player,
                                                 "Bạn không đủ vàng để thực hiện, còn thiếu "
@@ -4500,8 +4501,8 @@ public class NpcFactory {
                                     break;
 
                                 // case 7:
-                                //     EffectSkillService.gI().sendEffectPlayer(player, player,
-                                //             EffectSkillService.TURN_ON_EFFECT, EffectSkillService.BLIND_EFFECT);
+                                // EffectSkillService.gI().sendEffectPlayer(player, player,
+                                // EffectSkillService.TURN_ON_EFFECT, EffectSkillService.BLIND_EFFECT);
                             }
                         }
                         break;

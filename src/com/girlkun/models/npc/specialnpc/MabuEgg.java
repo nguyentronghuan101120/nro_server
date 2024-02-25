@@ -8,10 +8,9 @@ import com.girlkun.network.io.Message;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Logger;
 
-
 public class MabuEgg {
 
-//    private static final long DEFAULT_TIME_DONE = 7776000000L;
+    // private static final long DEFAULT_TIME_DONE = 7776000000L;
     private static final long DEFAULT_TIME_DONE = 86400000L;
 
     private Player player;
@@ -27,16 +26,20 @@ public class MabuEgg {
     }
 
     public static void createMabuEgg(Player player) {
-        player.mabuEgg = new MabuEgg(player, System.currentTimeMillis(), DEFAULT_TIME_DONE);
+        try {
+            player.mabuEgg = new MabuEgg(player, System.currentTimeMillis(), DEFAULT_TIME_DONE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendMabuEgg() {
         Message msg;
         try {
-//            Message msg = new Message(-117);
-//            msg.writer().writeByte(100);
-//            player.sendMessage(msg);
-//            msg.cleanup();
+            // Message msg = new Message(-117);
+            // msg.writer().writeByte(100);
+            // player.sendMessage(msg);
+            // msg.cleanup();
 
             msg = new Message(-122);
             msg.writer().writeShort(this.id);
@@ -52,8 +55,13 @@ public class MabuEgg {
     }
 
     public int getSecondDone() {
-        int seconds = (int) ((lastTimeCreate + timeDone - System.currentTimeMillis()) / 1000);
-        return seconds > 0 ? seconds : 0;
+        try {
+            int seconds = (int) ((lastTimeCreate + timeDone - System.currentTimeMillis()) / 1000);
+            return seconds > 0 ? seconds : 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     public void openEgg(int gender) {
@@ -69,6 +77,7 @@ public class MabuEgg {
                 ChangeMapService.gI().changeMapInYard(this.player, this.player.gender * 7, -1, Util.nextInt(300, 500));
                 player.mabuEgg = null;
             } catch (Exception e) {
+                e.printStackTrace();
             }
         } else {
             Service.gI().sendThongBao(player, "Yêu cầu phải có đệ tử");
@@ -82,6 +91,7 @@ public class MabuEgg {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         this.player.mabuEgg = null;
     }
@@ -90,8 +100,8 @@ public class MabuEgg {
         this.timeDone -= ((d * 24 * 60 * 60 * 1000) + (h * 60 * 60 * 1000) + (m * 60 * 1000) + (s * 1000));
         this.sendMabuEgg();
     }
-    
-    public void dispose(){
+
+    public void dispose() {
         this.player = null;
     }
 }

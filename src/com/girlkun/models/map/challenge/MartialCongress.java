@@ -1,6 +1,5 @@
 package com.girlkun.models.map.challenge;
 
-import com.girlkun.consts.ConstMap;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossStatus;
@@ -15,9 +14,7 @@ import com.girlkun.utils.Util;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * @author BTH sieu cap vippr0 
- */
+
 public class MartialCongress {
     @Setter
     @Getter

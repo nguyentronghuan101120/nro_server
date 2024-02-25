@@ -1,15 +1,14 @@
-/*
- * Beo Sờ tu đi ô
-*/
+
 package com.arriety.MaQuaTang;
 
+import com.girlkun.data.DataGame;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Logger;
-import com.girlkun.utils.Util;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,10 +19,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-/**
- *
- * @author Administrator
- */
 public class MaQuaTangManager {
     public String name;
     public final ArrayList<MaQuaTang> listGiftCode = new ArrayList<>();
@@ -46,7 +41,7 @@ public class MaQuaTangManager {
                 MaQuaTang giftcode = new MaQuaTang();
                 ArrayList<Integer> tempListIdPlayer = new ArrayList<>();
                 String tempDBListPlayers = null;
-                giftcode.code = rs.getString("code"); //+ Util.nextInt(0, 0);
+                giftcode.code = rs.getString("code"); // + Util.nextInt(0, 0);
                 giftcode.countLeft = rs.getInt("count_left");
                 giftcode.datecreate = rs.getTimestamp("datecreate");
                 giftcode.dateexpired = rs.getTimestamp("expired");
@@ -70,12 +65,12 @@ public class MaQuaTangManager {
                         jsonobject.clear();
                     }
                 }
-                if(!dbListIdPlayer.isEmpty()){
+                if (!dbListIdPlayer.isEmpty()) {
                     tempDBListPlayers = dbListIdPlayer = removeCharAt(dbListIdPlayer, 0);
                     tempDBListPlayers = dbListIdPlayer = removeCharAt(dbListIdPlayer, dbListIdPlayer.length() - 1);
                     String[] resultTempDBListPlayer = tempDBListPlayers.split(",");
-                    for(String item : resultTempDBListPlayer){
-                        if(!item.isEmpty()){
+                    for (String item : resultTempDBListPlayer) {
+                        if (!item.isEmpty()) {
                             tempListIdPlayer.add(Integer.parseInt(item));
                         }
                     }
@@ -85,45 +80,61 @@ public class MaQuaTangManager {
             }
             con.close();
         } catch (Exception erorlog) {
-            erorlog.printStackTrace();
+            Logger.logException(DataGame.class, erorlog);
         }
     }
-    public void updateGiftCodeListIdPlayer(ArrayList<Integer> listIdPlayers, String code){
+
+    public void updateGiftCodeListIdPlayer(ArrayList<Integer> listIdPlayers, String code) {
         try {
             String sql = "UPDATE giftcode SET listIdPlayers = ? WHERE code = ?";
             ArrayList<Integer> deDupStringList = new ArrayList<>(new HashSet<>(listIdPlayers));
             GirlkunDB.executeUpdate(sql, JSONValue.toJSONString(deDupStringList), code);
-        } catch(Exception e) {
-
+        } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
+
     public void sizeList(Player pl) {
-        Service.gI().sendThongBao(pl, "" + MaQuaTang.class);
+        try {
+            Service.gI().sendThongBao(pl, "" + MaQuaTang.class);
+        } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
+        }
     }
 
     public MaQuaTang checkUseGiftCode(int idPlayer, String code) {
-        for (MaQuaTang giftCode : listGiftCode) {
-            if (giftCode.code.equals(code) && giftCode.countLeft > 0 && !giftCode.isUsedGiftCode(idPlayer)) {
-                giftCode.countLeft -= 1;
-                giftCode.addPlayerUsed(idPlayer);
-                updateGiftCodeListIdPlayer(giftCode.listIdPlayer, code);
-                return giftCode;
+        try {
+            for (MaQuaTang giftCode : listGiftCode) {
+                if (giftCode.code.equals(code) && giftCode.countLeft > 0 && !giftCode.isUsedGiftCode(idPlayer)) {
+                    giftCode.countLeft -= 1;
+                    giftCode.addPlayerUsed(idPlayer);
+                    updateGiftCodeListIdPlayer(giftCode.listIdPlayer, code);
+                    return giftCode;
+                }
             }
+            return null;
+        } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
+            return null;
         }
-        return null;
     }
 
     public void checkInfomationGiftCode(Player p) {
-        StringBuilder sb = new StringBuilder();
-        for (MaQuaTang giftCode : listGiftCode) {
-            sb.append("Code: ").append(giftCode.code).append(", Số lượng: ").append(giftCode.countLeft).append("\b")
-                    .append(", Ngày tạo: ")
-                    .append(giftCode.datecreate).append("Ngày hết hạn").append(giftCode.dateexpired);
-        }
+        try {
+            StringBuilder sb = new StringBuilder();
+            for (MaQuaTang giftCode : listGiftCode) {
+                sb.append("Code: ").append(giftCode.code).append(", Số lượng: ").append(giftCode.countLeft).append("\b")
+                        .append(", Ngày tạo: ")
+                        .append(giftCode.datecreate).append("Ngày hết hạn").append(giftCode.dateexpired);
+            }
 
-        NpcService.gI().createTutorial(p, 5073, sb.toString());
+            NpcService.gI().createTutorial(p, 5073, sb.toString());
+        } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
+        }
     }
-    public static String removeCharAt(String s, int pos){
+
+    public static String removeCharAt(String s, int pos) {
         return s.substring(0, pos) + s.substring(pos + 1);
     }
 }

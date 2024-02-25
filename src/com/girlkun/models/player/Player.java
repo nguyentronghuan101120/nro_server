@@ -208,136 +208,140 @@ public class Player {
     }
 
     public void update() {
-        if (!this.beforeDispose) {
-            try {
-                if (!iDMark.isBan()) {
+        try {
+            if (!this.beforeDispose) {
+                try {
+                    if (!iDMark.isBan()) {
 
-                    if (nPoint != null) {
-                        nPoint.update();
-                    }
-                    if (fusion != null) {
-                        fusion.update();
-                    }
-                    if (effectSkin != null) {
-                        effectSkill.update();
-                    }
-                    if (mobMe != null) {
-                        mobMe.update();
-                    }
-                    if (effectSkin != null) {
-                        effectSkin.update();
-                    }
-                    if (pet != null) {
-                        pet.update();
-                    }
-                    if (newpet != null) {
-                        newpet.update();
-                    }
-                    // Test
-                    // if (newpet1 != null) {
-                    //     newpet1.update();
-                    // }
-                    if (magicTree != null) {
-                        magicTree.update();
-                    }
-                    if (itemTime != null) {
-                        itemTime.update();
-                    }
-                    if (itemTime != null) {
-                        itemTime.update();
-                        if (this.itemTime.isdkhi = false) {
-                            // Service.gI().setNotMonkey(this);
-                            Service.gI().Send_Caitrang(this);
-                            Service.gI().point(this);
-                            PlayerService.gI().sendInfoHpMp(this);
-                            Service.gI().Send_Info_NV(this);
-                            Service.gI().sendInfoPlayerEatPea(this);
+                        if (nPoint != null) {
+                            nPoint.update();
+                        }
+                        if (fusion != null) {
+                            fusion.update();
+                        }
+                        if (effectSkin != null) {
+                            effectSkill.update();
+                        }
+                        if (mobMe != null) {
+                            mobMe.update();
+                        }
+                        if (effectSkin != null) {
+                            effectSkin.update();
+                        }
+                        if (pet != null) {
+                            pet.update();
+                        }
+                        if (newpet != null) {
+                            newpet.update();
+                        }
+                        // Test
+                        // if (newpet1 != null) {
+                        //     newpet1.update();
+                        // }
+                        if (magicTree != null) {
+                            magicTree.update();
+                        }
+                        if (itemTime != null) {
+                            itemTime.update();
+                        }
+                        if (itemTime != null) {
+                            itemTime.update();
+                            if (this.itemTime.isdkhi = false) {
+                                // Service.gI().setNotMonkey(this);
+                                Service.gI().Send_Caitrang(this);
+                                Service.gI().point(this);
+                                PlayerService.gI().sendInfoHpMp(this);
+                                Service.gI().Send_Info_NV(this);
+                                Service.gI().sendInfoPlayerEatPea(this);
+                            }
+                        }
+                        // nguhs.gI().update(this);
+                        BlackBallWar.gI().update(this);
+                        MapMaBu.gI().update(this);
+                        // BanDoKhoBauService.gI().updatePlayer(this);
+                        // DoanhTraiService.gI().updatePlayer(this);
+                        if (!isBoss && this.iDMark.isGotoFuture()
+                                && Util.canDoWithTime(this.iDMark.getLastTimeGoToFuture(), 6000)) {
+                            ChangeMapService.gI().changeMapBySpaceShip(this, 102, -1, Util.nextInt(60, 200));
+                            this.iDMark.setGotoFuture(false);
+                        }
+                        if (this.iDMark.isGoToBDKB() && Util.canDoWithTime(this.iDMark.getLastTimeGoToBDKB(), 6000)) {
+                            ChangeMapService.gI().changeMapBySpaceShip(this, 135, -1, 35);
+                            this.iDMark.setGoToBDKB(false);
+                        }
+                        if (this.iDMark.isGoToKG() && Util.canDoWithTime(this.iDMark.getLastTimeGoToKG(), 6000)) {
+                            ChangeMapService.gI().changeMapBySpaceShip(this, 149, -1, 35);
+                            this.iDMark.setGoToKG(false);
+                        }
+                        if (this.zone != null) {
+                            TrapMap trap = this.zone.isInTrap(this);
+                            if (trap != null) {
+                                trap.doPlayer(this);
+                            }
+                        }
+                        // if (this.isPl() && this.inventory.itemsBody.get(7) != null) {
+                        //     Item it = this.inventory.itemsBody.get(7);
+                        //     if (it != null && it.isNotNullItem() && this.newpet == null && this.newpet1 == null) {
+                        //         switch (it.template.id) {
+                        //             case 942:
+                        //                 PetService.Pet2(this, 966, 967, 968, name);
+                        //                 Service.gI().point(this);
+                        //                 break;
+                        //             case 943:
+                        //                 PetService.Pet2(this, 969, 970, 971, name);
+                        //                 Service.gI().point(this);
+                        //                 break;
+                        //             case 944:
+                        //                 PetService.Pet2(this, 972, 973, 974, name);
+                        //                 Service.gI().point(this);
+                        //                 break;
+                        //             case 967:
+                        //                 PetService.Pet2(this, 1050, 1051, 1052, name);
+                        //                 Service.gI().point(this);
+                        //                 break;
+                        //             case 968:
+                        //                 PetService.Pet2(this, 1183, 1184, 1185, name);
+                        //                 Service.gI().point(this);
+                        //                 break;
+                        //         }
+                        //     }
+                        // } else if (this.isPl() && newpet != null && newpet1 != null
+                        //         && !this.inventory.itemsBody.get(7).isNotNullItem()) {
+                        //     newpet.dispose();
+                        //     newpet = null;
+                        //     newpet1.dispose();
+                        //     newpet1 = null;
+                        // }
+                        if (this.isPl() && this.inventory.itemsBody.get(7) != null) {
+                            Item it = this.inventory.itemsBody.get(7);
+                            if (it != null && it.isNotNullItem() && this.newpet == null) {
+                                PetService.Pet2(this, it.template.head, it.template.body, it.template.leg,
+                                        it.template.name);
+                                Service.getInstance().point(this);
+                            }
+                        } else if (this.isPl() && newpet != null && !this.inventory.itemsBody.get(7).isNotNullItem()) {
+                            newpet.dispose();
+                            newpet = null;
+                        }
+                        if (this.isPl() && isWin && this.zone.map.mapId == 51 && Util.canDoWithTime(lastTimeWin, 2000)) {
+                            ChangeMapService.gI().changeMapBySpaceShip(this, 52, 0, -1);
+                            isWin = false;
+                        }
+                        if (location.lastTimeplayerMove < System.currentTimeMillis() - 30 * 60 * 1000) {
+                            Client.gI().kickSession(getSession());
+                        }
+                    } else {
+                        if (Util.canDoWithTime(iDMark.getLastTimeBan(), 5000)) {
+                            Client.gI().kickSession(session);
                         }
                     }
-                    // nguhs.gI().update(this);
-                    BlackBallWar.gI().update(this);
-                    MapMaBu.gI().update(this);
-                    // BanDoKhoBauService.gI().updatePlayer(this);
-                    // DoanhTraiService.gI().updatePlayer(this);
-                    if (!isBoss && this.iDMark.isGotoFuture()
-                            && Util.canDoWithTime(this.iDMark.getLastTimeGoToFuture(), 6000)) {
-                        ChangeMapService.gI().changeMapBySpaceShip(this, 102, -1, Util.nextInt(60, 200));
-                        this.iDMark.setGotoFuture(false);
-                    }
-                    if (this.iDMark.isGoToBDKB() && Util.canDoWithTime(this.iDMark.getLastTimeGoToBDKB(), 6000)) {
-                        ChangeMapService.gI().changeMapBySpaceShip(this, 135, -1, 35);
-                        this.iDMark.setGoToBDKB(false);
-                    }
-                    if (this.iDMark.isGoToKG() && Util.canDoWithTime(this.iDMark.getLastTimeGoToKG(), 6000)) {
-                        ChangeMapService.gI().changeMapBySpaceShip(this, 149, -1, 35);
-                        this.iDMark.setGoToKG(false);
-                    }
-                    if (this.zone != null) {
-                        TrapMap trap = this.zone.isInTrap(this);
-                        if (trap != null) {
-                            trap.doPlayer(this);
-                        }
-                    }
-                    // if (this.isPl() && this.inventory.itemsBody.get(7) != null) {
-                    //     Item it = this.inventory.itemsBody.get(7);
-                    //     if (it != null && it.isNotNullItem() && this.newpet == null && this.newpet1 == null) {
-                    //         switch (it.template.id) {
-                    //             case 942:
-                    //                 PetService.Pet2(this, 966, 967, 968, name);
-                    //                 Service.gI().point(this);
-                    //                 break;
-                    //             case 943:
-                    //                 PetService.Pet2(this, 969, 970, 971, name);
-                    //                 Service.gI().point(this);
-                    //                 break;
-                    //             case 944:
-                    //                 PetService.Pet2(this, 972, 973, 974, name);
-                    //                 Service.gI().point(this);
-                    //                 break;
-                    //             case 967:
-                    //                 PetService.Pet2(this, 1050, 1051, 1052, name);
-                    //                 Service.gI().point(this);
-                    //                 break;
-                    //             case 968:
-                    //                 PetService.Pet2(this, 1183, 1184, 1185, name);
-                    //                 Service.gI().point(this);
-                    //                 break;
-                    //         }
-                    //     }
-                    // } else if (this.isPl() && newpet != null && newpet1 != null
-                    //         && !this.inventory.itemsBody.get(7).isNotNullItem()) {
-                    //     newpet.dispose();
-                    //     newpet = null;
-                    //     newpet1.dispose();
-                    //     newpet1 = null;
-                    // }
-                    if (this.isPl() && this.inventory.itemsBody.get(7) != null) {
-                        Item it = this.inventory.itemsBody.get(7);
-                        if (it != null && it.isNotNullItem() && this.newpet == null) {
-                            PetService.Pet2(this, it.template.head, it.template.body, it.template.leg,
-                                    it.template.name);
-                            Service.getInstance().point(this);
-                        }
-                    } else if (this.isPl() && newpet != null && !this.inventory.itemsBody.get(7).isNotNullItem()) {
-                        newpet.dispose();
-                        newpet = null;
-                    }
-                    if (this.isPl() && isWin && this.zone.map.mapId == 51 && Util.canDoWithTime(lastTimeWin, 2000)) {
-                        ChangeMapService.gI().changeMapBySpaceShip(this, 52, 0, -1);
-                        isWin = false;
-                    }
-                    if (location.lastTimeplayerMove < System.currentTimeMillis() - 30 * 60 * 1000) {
-                        Client.gI().kickSession(getSession());
-                    }
-                } else {
-                    if (Util.canDoWithTime(iDMark.getLastTimeBan(), 5000)) {
-                        Client.gI().kickSession(session);
-                    }
+                } catch (Exception e) {
+                    e.getStackTrace();
+                    Logger.logException(Player.class, e, "Lỗi tại player: " + this.name);
                 }
-            } catch (Exception e) {
-                e.getStackTrace();
-                Logger.logException(Player.class, e, "Lỗi tại player: " + this.name);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -658,42 +662,47 @@ public class Player {
 
     // --------------------------------------------------------------------------
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-        if (!this.isDie()) {
-            if (plAtt != null) {
-                switch (plAtt.playerSkill.skillSelect.template.id) {
-                    case Skill.KAMEJOKO:
-                    case Skill.MASENKO:
-                    case Skill.ANTOMIC:
-                        if (this.nPoint.voHieuChuong > 0) {
-                            com.girlkun.services.PlayerService.gI().hoiPhuc(this, 0,
-                                    damage * this.nPoint.voHieuChuong / 100);
-                            return 0;
-                        }
+        try {
+            if (!this.isDie()) {
+                if (plAtt != null) {
+                    switch (plAtt.playerSkill.skillSelect.template.id) {
+                        case Skill.KAMEJOKO:
+                        case Skill.MASENKO:
+                        case Skill.ANTOMIC:
+                            if (this.nPoint.voHieuChuong > 0) {
+                                com.girlkun.services.PlayerService.gI().hoiPhuc(this, 0,
+                                        damage * this.nPoint.voHieuChuong / 100);
+                                return 0;
+                            }
+                    }
                 }
-            }
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 100)) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 100)) {
+                    return 0;
+                }
+                damage = this.nPoint.subDameInjureWithDeff(damage);
+                if (!piercing && effectSkill.isShielding) {
+                    if (damage > nPoint.hpMax) {
+                        EffectSkillService.gI().breakShield(this);
+                    }
+                    damage = 1;
+                }
+                if (isMobAttack && this.charms.tdBatTu > System.currentTimeMillis() && damage >= this.nPoint.hp) {
+                    damage = this.nPoint.hp - 1;
+                }
+
+                this.nPoint.subHP(damage);
+                if (isDie()) {
+                    if (this.zone.map.mapId == 112) {
+                        plAtt.pointPvp++;
+                    }
+                    setDie(plAtt);
+                }
+                return damage;
+            } else {
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
-                }
-                damage = 1;
-            }
-            if (isMobAttack && this.charms.tdBatTu > System.currentTimeMillis() && damage >= this.nPoint.hp) {
-                damage = this.nPoint.hp - 1;
-            }
-
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                if (this.zone.map.mapId == 112) {
-                    plAtt.pointPvp++;
-                }
-                setDie(plAtt);
-            }
-            return damage;
-        } else {
+        } catch (Exception e) {
+            e.printStackTrace();
             return 0;
         }
     }

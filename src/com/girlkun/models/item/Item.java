@@ -76,8 +76,6 @@ public class Item {
 
     public static class ItemOption {
 
-        private static Map<String, String> OPTION_STRING = new HashMap<String, String>();
-
         public int param;
 
         public Template.ItemOptionTemplate optionTemplate;

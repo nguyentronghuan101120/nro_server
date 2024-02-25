@@ -1,10 +1,5 @@
 package com.girlkun.consts;
 
-/**
- *
- * @Stole By Arriety
- *
- */
 public class ConstAccount {
 
     public static final byte DEFAUT = -1;

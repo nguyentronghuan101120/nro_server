@@ -1,9 +1,5 @@
 package com.arriety.card;
 
-/**
- *
- * @author Dev Duy Be B Beo Bé Beo Be Beo B Beo Be Beo Béo Beo Be Beo 
- */
 public class OptionCard {
     public int id; 
     public int param;

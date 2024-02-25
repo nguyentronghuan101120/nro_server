@@ -114,29 +114,33 @@ public class Pet extends Player {
     }
 
     public void fusion(boolean porata) {
-        if (this.isDie() && !master.isAdmin()) {
-            Service.getInstance().sendThongBao(master, "Không thể thực hiện");
-            return;
-        }
-        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION) || master.isAdmin()) {
-            if (porata) {
-                master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA;
-            } else {
-                master.fusion.lastTimeFusion = System.currentTimeMillis();
-                master.fusion.typeFusion = ConstPlayer.LUONG_LONG_NHAT_THE;
-                ItemTimeService.gI().sendItemTime(master, master.gender == ConstPlayer.NAMEC ? 3901 : 3790,
-                        Fusion.TIME_FUSION / 1000);
+        try {
+            if (this.isDie() && !master.isAdmin()) {
+                Service.getInstance().sendThongBao(master, "Không thể thực hiện");
+                return;
             }
-            this.status = FUSION;
-            ChangeMapService.gI().exitMap(this);
-            fusionEffect(master.fusion.typeFusion);
-            Service.getInstance().Send_Caitrang(master);
-            master.nPoint.calPoint();
-            master.nPoint.setFullHpMp();
-            Service.getInstance().point(master);
-        } else {
-            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION) || master.isAdmin()) {
+                if (porata) {
+                    master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA;
+                } else {
+                    master.fusion.lastTimeFusion = System.currentTimeMillis();
+                    master.fusion.typeFusion = ConstPlayer.LUONG_LONG_NHAT_THE;
+                    ItemTimeService.gI().sendItemTime(master, master.gender == ConstPlayer.NAMEC ? 3901 : 3790,
+                            Fusion.TIME_FUSION / 1000);
+                }
+                this.status = FUSION;
+                ChangeMapService.gI().exitMap(this);
+                fusionEffect(master.fusion.typeFusion);
+                Service.getInstance().Send_Caitrang(master);
+                master.nPoint.calPoint();
+                master.nPoint.setFullHpMp();
+                Service.getInstance().point(master);
+            } else {
+                Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
+                        + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

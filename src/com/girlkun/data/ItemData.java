@@ -4,22 +4,24 @@ import com.girlkun.models.Template.ItemOptionTemplate;
 import com.girlkun.server.Manager;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.io.MySession;
-
+import com.girlkun.utils.Logger;
 
 public class ItemData {
 
-    //------------------------------------------------------ start update client
+    // ------------------------------------------------------ start update client
     public static void updateItem(MySession session) {
-        updateItemOptionItemplate(session);
-//        int count = 500;
-//        updateItemTemplate(session, count);
-//        updateItemTemplate(session, count, Manager.ITEM_TEMPLATES.size());
+        try {
+            updateItemOptionItemplate(session);
+            // int count = 500;
+            // updateItemTemplate(session, count);
+            // updateItemTemplate(session, count, Manager.ITEM_TEMPLATES.size());
 
-
-
-        updateItemTemplate(session, 750);
-        updateItemTemplate(session, 750, Manager.ITEM_TEMPLATES.size());
-//        updateItemTemplate(session, 1500, Manager.ITEM_TEMPLATES.size());
+            updateItemTemplate(session, 750);
+            updateItemTemplate(session, 750, Manager.ITEM_TEMPLATES.size());
+            // updateItemTemplate(session, 1500, Manager.ITEM_TEMPLATES.size());
+        } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
+        }
     }
 
     private static void updateItemOptionItemplate(MySession session) {
@@ -27,8 +29,8 @@ public class ItemData {
         try {
             msg = new Message(-28);
             msg.writer().writeByte(8);
-            msg.writer().writeByte(DataGame.vsItem); //vcitem
-            msg.writer().writeByte(0); //update option
+            msg.writer().writeByte(DataGame.vsItem); // vcitem
+            msg.writer().writeByte(0); // update option
             msg.writer().writeByte(Manager.ITEM_OPTION_TEMPLATES.size());
             for (ItemOptionTemplate io : Manager.ITEM_OPTION_TEMPLATES) {
                 msg.writer().writeUTF(io.name);
@@ -37,7 +39,7 @@ public class ItemData {
             session.doSendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-
+            Logger.logException(DataGame.class, e);
         }
     }
 
@@ -47,8 +49,8 @@ public class ItemData {
             msg = new Message(-28);
             msg.writer().writeByte(8);
 
-            msg.writer().writeByte(DataGame.vsItem); //vcitem
-            msg.writer().writeByte(1); //reload itemtemplate
+            msg.writer().writeByte(DataGame.vsItem); // vcitem
+            msg.writer().writeByte(1); // reload itemtemplate
             msg.writer().writeShort(count);
             for (int i = 0; i < count; i++) {
                 msg.writer().writeByte(Manager.ITEM_TEMPLATES.get(i).type);
@@ -64,7 +66,7 @@ public class ItemData {
             session.doSendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.logException(DataGame.class, e);
         }
     }
 
@@ -74,8 +76,8 @@ public class ItemData {
             msg = new Message(-28);
             msg.writer().writeByte(8);
 
-            msg.writer().writeByte(DataGame.vsItem); //vcitem
-            msg.writer().writeByte(2); //add itemtemplate
+            msg.writer().writeByte(DataGame.vsItem); // vcitem
+            msg.writer().writeByte(2); // add itemtemplate
             msg.writer().writeShort(start);
             msg.writer().writeShort(end);
             for (int i = start; i < end; i++) {
@@ -92,8 +94,8 @@ public class ItemData {
             session.doSendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.logException(DataGame.class, e);
         }
     }
-    //-------------------------------------------------------- end update client
+    // -------------------------------------------------------- end update client
 }

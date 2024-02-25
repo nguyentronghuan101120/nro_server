@@ -22,14 +22,20 @@ public class Android14 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        int[] itemRan = new int[] { 1142, 382, 383, 384, 1142 };
-        int itemId = itemRan[2];
-        if (Util.isTrue(15, 100)) {
-            ItemMap it = new ItemMap(this.zone, itemId, 17, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), plKill.id);
-            Service.gI().dropItemMap(this.zone, it);
+        try {
+            int[] itemRan = new int[] { 1142, 382, 383, 384, 1142 };
+            int itemId = itemRan[2];
+            if (Util.isTrue(15, 100)) {
+                ItemMap it = new ItemMap(this.zone, itemId, 17, this.location.x,
+                        this.zone.map.yPhysicInTop(this.location.x,
+                                this.location.y - 24),
+                        plKill.id);
+                Service.gI().dropItemMap(this.zone, it);
+            }
+            TaskService.gI().checkDoneTaskKillBoss(plKill, this);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 
     @Override
@@ -56,21 +62,26 @@ public class Android14 extends Boss {
     }
 
     public void callApk13() {
-        if (this.bossAppearTogether == null || this.bossAppearTogether[this.currentLevel] == null) {
-            return;
-        }
-        for (Boss boss : this.bossAppearTogether[this.currentLevel]) {
-            if (boss.id == BossID.ANDROID_13) {
-                boss.changeStatus(BossStatus.RESPAWN);
-            } else if (boss.id == BossID.ANDROID_15) {
-                boss.changeToTypeNonPK();
-                ((Android15) boss).callApk13 = true;
-                ((Android15) boss).recoverHP();
+        try {
+            if (this.bossAppearTogether == null || this.bossAppearTogether[this.currentLevel] == null) {
+                return;
             }
+            for (Boss boss : this.bossAppearTogether[this.currentLevel]) {
+                if (boss.id == BossID.ANDROID_13) {
+                    boss.changeStatus(BossStatus.RESPAWN);
+                } else if (boss.id == BossID.ANDROID_15) {
+                    boss.changeToTypeNonPK();
+                    ((Android15) boss).callApk13 = true;
+                    ((Android15) boss).recoverHP();
+                }
+            }
+            this.changeToTypeNonPK();
+            this.recoverHP();
+            this.callApk13 = true;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        this.changeToTypeNonPK();
-        this.recoverHP();
-        this.callApk13 = true;
     }
 
     public void recoverHP() {
@@ -91,8 +102,3 @@ public class Android14 extends Boss {
     }
 
 }
-
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
- */

@@ -3,10 +3,6 @@ package com.arriety.card;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Dev Duy Peo
- */
 public class RadarCard {
     public short Id;
     public short IconId;

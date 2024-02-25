@@ -4,7 +4,6 @@ import com.girlkun.models.player.Player;
 import com.girlkun.utils.TimeUtil;
 import java.util.Date;
 
-
 public class ClanMember {
 
     public Clan clan;
@@ -66,8 +65,8 @@ public class ClanMember {
     public int getNumDateFromJoinTimeToToday() {
         return (int) TimeUtil.diffDate(new Date(), new Date(this.joinTime * 1000L), TimeUtil.DAY);
     }
-    
-    public void dispose(){
+
+    public void dispose() {
         this.clan = null;
         this.name = null;
     }

@@ -1,10 +1,6 @@
 package com.girlkun.consts;
 
-/**
- *
- * @Stole By Arriety
- *
- */
+
 public class ConstPlayer {
     public static final int[] HEADMONKEY = { 192, 195, 196, 199, 197, 200, 198 };
 

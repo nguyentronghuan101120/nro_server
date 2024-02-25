@@ -1,21 +1,19 @@
 package com.girlkun.models.boss.dhvt;
 
 import com.girlkun.consts.ConstRatio;
+import com.girlkun.data.DataGame;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossData;
 import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.player.Player;
-import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.SkillService;
 import com.girlkun.services.func.ChangeMapService;
+import com.girlkun.utils.Logger;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
 
-/**
- * @author BTH sieu cap vippr0 
- */
 public abstract class BossDHVT extends Boss {
 
     protected Player playerAtt;
@@ -32,31 +30,41 @@ public abstract class BossDHVT extends Boss {
     }
 
     protected void goToXY(int x, int y, boolean isTeleport) {
-        if (!isTeleport) {
-            byte dir = (byte) (this.location.x - x < 0 ? 1 : -1);
-            byte move = (byte) Util.nextInt(50, 100);
-            PlayerService.gI().playerMove(this, this.location.x + (dir == 1 ? move : -move), y);
-        } else {
-            ChangeMapService.gI().changeMapYardrat(this, this.zone, x, y);
+        try {
+            if (!isTeleport) {
+                byte dir = (byte) (this.location.x - x < 0 ? 1 : -1);
+                byte move = (byte) Util.nextInt(50, 100);
+                PlayerService.gI().playerMove(this, this.location.x + (dir == 1 ? move : -move), y);
+            } else {
+                ChangeMapService.gI().changeMapYardrat(this, this.zone, x, y);
+            }
+        } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
     @Override
     public void attack() {
         try {
-//            super.attack();
-//            System.err.println("boss att");
+            // super.attack();
+            // System.err.println("boss att");
             if (Util.canDoWithTime(timeJoinMap, 10000)) {
-                if (playerAtt.location != null && playerAtt != null && playerAtt.zone != null && this.zone != null && this.zone.equals(playerAtt.zone)) {
+                if (playerAtt.location != null && playerAtt != null && playerAtt.zone != null && this.zone != null
+                        && this.zone.equals(playerAtt.zone)) {
                     if (this.isDie()) {
                         return;
                     }
-                    this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                    this.playerSkill.skillSelect = this.playerSkill.skills
+                            .get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                     if (Util.getDistance(this, playerAtt) <= this.getRangeCanAttackWithSkillSelect()) {
                         if (Util.isTrue(15, ConstRatio.PER100) && SkillUtil.isUseSkillChuong(this)) {
-                            goToXY(playerAtt.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 80)), Util.nextInt(10) % 2 == 0 ? playerAtt.location.y : playerAtt.location.y - Util.nextInt(0, 50), false);
+                            goToXY(playerAtt.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 80)),
+                                    Util.nextInt(10) % 2 == 0 ? playerAtt.location.y
+                                            : playerAtt.location.y - Util.nextInt(0, 50),
+                                    false);
                         }
-//                        System.err.println("attack player: " + playerAtt.name + "use skill: " + SkillService.gI().useSkill(this, playerAtt, null));
+                        // System.err.println("attack player: " + playerAtt.name + "use skill: " +
+                        // SkillService.gI().useSkill(this, playerAtt, null));
                         SkillService.gI().useSkill(this, playerAtt, null, null);
                         checkPlayerDie(playerAtt);
                     } else {
@@ -67,7 +75,7 @@ public abstract class BossDHVT extends Boss {
                 }
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Logger.logException(DataGame.class, ex);
         }
     }
 
@@ -89,7 +97,7 @@ public abstract class BossDHVT extends Boss {
 
     @Override
     public void update() {
-//        super.update();
+        // super.update();
         try {
             switch (this.bossStatus) {
                 case RESPAWN:
@@ -105,7 +113,7 @@ public abstract class BossDHVT extends Boss {
                     }
                     break;
                 case ACTIVE:
-//                        this.chatM();
+                    // this.chatM();
                     if (this.playerSkill.prepareTuSat || this.playerSkill.prepareLaze || this.playerSkill.prepareQCKK) {
                         break;
                     } else {
@@ -113,9 +121,9 @@ public abstract class BossDHVT extends Boss {
                     }
                     break;
             }
-//            }
+            // }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.logException(DataGame.class, e);
         }
     }
 
@@ -125,10 +133,11 @@ public abstract class BossDHVT extends Boss {
 
     @Override
     public void die(Player plKill) {
-//        if (plKill != null) {
-//            reward(plKill);
-//            ServerNotify.gI().notify(plKill.name + " vừa tiêu diệt được " + this.name + ", ghê chưa ghê chưa..");
-//        }
+        // if (plKill != null) {
+        // reward(plKill);
+        // ServerNotify.gI().notify(plKill.name + " vừa tiêu diệt được " + this.name +
+        // ", ghê chưa ghê chưa..");
+        // }
         this.changeStatus(BossStatus.DIE);
     }
 

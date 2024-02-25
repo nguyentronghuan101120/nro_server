@@ -41,25 +41,31 @@ public class Black extends Boss {
     }
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-        if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
-                this.chat("Xí hụt");
+        try {
+            if (!this.isDie()) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
+                    this.chat("Xí hụt");
+                    return 0;
+                }
+                damage = this.nPoint.subDameInjureWithDeff(damage/7);
+                if (!piercing && effectSkill.isShielding) {
+                    if (damage > nPoint.hpMax) {
+                        EffectSkillService.gI().breakShield(this);
+                    }
+                    damage = damage/2;
+                }
+                this.nPoint.subHP(damage);
+                if (isDie()) {
+                    this.setDie(plAtt);
+                    die(plAtt);
+                }
+                return damage;
+            } else {
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage/7);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
-                }
-                damage = damage/2;
-            }
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return damage;
-        } else {
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
             return 0;
         }
     }

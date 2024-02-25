@@ -1,18 +1,13 @@
 package com.girlkun.models.boss.list_boss.android;
 
-import com.girlkun.consts.ConstMob;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossManager;
-import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.map.ItemMap;
-import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.PetService;
 import com.girlkun.services.Service;
-import com.girlkun.services.TaskService;
 import com.girlkun.utils.Util;
 
 public class SuperAndroid17 extends Boss {
@@ -68,10 +63,8 @@ public class SuperAndroid17 extends Boss {
     @Override
     public void joinMap() {
         super.joinMap(); // To change body of generated methods, choose Tools | Templates.
-        st = System.currentTimeMillis();
+        System.currentTimeMillis();
     }
-
-    private long st;
 
     @Override
     public void leaveMap() {

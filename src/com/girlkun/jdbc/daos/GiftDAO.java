@@ -1,5 +1,6 @@
 package com.girlkun.jdbc.daos;
 
+import com.girlkun.data.DataGame;
 import com.girlkun.models.player.Player;
 import com.girlkun.utils.Logger;
 import java.sql.Connection;
@@ -47,6 +48,7 @@ public class GiftDAO {
                     ps.close();
                 }
             } catch (SQLException ex) {
+                Logger.logException(DataGame.class, ex);
             }
         }
     }

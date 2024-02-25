@@ -1,16 +1,13 @@
 package com.girlkun.models.boss.list_boss.Mabu12h;
 
 import com.girlkun.models.boss.Boss;
-import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
-import com.girlkun.server.Manager;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
-import java.util.Random;
 
 public class MabuBoss extends Boss {
 
@@ -51,11 +48,9 @@ public class MabuBoss extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage;
                  if (damage > nPoint.mpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {

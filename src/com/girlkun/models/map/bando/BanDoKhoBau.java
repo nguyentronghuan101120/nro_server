@@ -1,27 +1,17 @@
 package com.girlkun.models.map.bando;
 
-import com.girlkun.models.boss.bdkb.TrungUyXanhLo;
 import com.girlkun.models.clan.Clan;
 import com.girlkun.models.map.TrapMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.ItemTimeService;
-import com.girlkun.services.MapService;
-import com.girlkun.services.Service;
 import com.girlkun.services.func.ChangeMapService;
-import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author BTH public static final int MAX_AVAILABLE = 50;
- *
- * 
- */
 public class BanDoKhoBau {
 
     public static final long POWER_CAN_GO_TO_DBKB = 2000000000;
@@ -30,8 +20,6 @@ public class BanDoKhoBau {
     public static final int MAX_AVAILABLE = 50;
     public static final int AVAILABLE = 200; // số lượng bdkb trong server
     public static final int TIME_BAN_DO_KHO_BAU = 1800000;
-
-    private Player player;
 
     static {
         BAN_DO_KHO_BAUS = new ArrayList<>();
@@ -91,6 +79,7 @@ public class BanDoKhoBau {
 
     // kết thúc bản đồ kho báu
     public void finish() {
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         List<Player> plOutDT = new ArrayList();
         for (Zone zone : zones) {
             List<Player> players = zone.getPlayers();

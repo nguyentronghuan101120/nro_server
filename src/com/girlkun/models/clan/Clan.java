@@ -22,7 +22,6 @@ import java.sql.PreparedStatement;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-
 public class Clan {
 
     public static int NEXT_ID = 0;
@@ -56,14 +55,13 @@ public class Clan {
     public Player playerOpenBanDoKhoBau;
     public BanDoKhoBau banDoKhoBau;
 
-    //public final List<ClanMember> members;
-    //public final List<Player> membersInGame;
+    // public final List<ClanMember> members;
+    // public final List<Player> membersInGame;
     public long timeOpenKhiGas;
     public Player playerOpenKhiGas;
     public KhiGas khigas;
     public Object Gas;
-    
-    
+
     public Clan() {
         this.id = NEXT_ID++;
         this.name = "";
@@ -148,6 +146,7 @@ public class Clan {
             }
             msg.cleanup();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -170,6 +169,7 @@ public class Clan {
     }
 
     public List<ClanMessage> getCurrClanMessages() {
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         List<ClanMessage> list = new ArrayList();
         if (this.clanMessages.size() <= 20) {
             list.addAll(this.clanMessages);
@@ -224,19 +224,19 @@ public class Clan {
         return null;
     }
 
-    //load db danh sách member
+    // load db danh sách member
     public void addClanMember(ClanMember cm) {
         this.members.add(cm);
     }
 
-    //thêm vào khi player tạo mới clan or mới vào clan
+    // thêm vào khi player tạo mới clan or mới vào clan
     public void addClanMember(Player player, byte role) {
         ClanMember cm = new ClanMember(player, this, role);
         this.members.add(cm);
         player.clanMember = cm;
     }
 
-    //xóa khi member rời clan or bị kích
+    // xóa khi member rời clan or bị kích
     public void removeClanMember(ClanMember cm) {
         this.members.remove(cm);
         cm.dispose();
@@ -268,6 +268,7 @@ public class Clan {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void insert() {
         JSONArray dataArray = new JSONArray();
         JSONObject dataObject = new JSONObject();
@@ -318,6 +319,7 @@ public class Clan {
 
     }
 
+    @SuppressWarnings("unchecked")
     public void update() {
         JSONArray dataArray = new JSONArray();
         JSONObject dataObject = new JSONObject();

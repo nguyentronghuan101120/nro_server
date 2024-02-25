@@ -122,10 +122,8 @@ public class SuperXen extends Boss {
     @Override
     public void joinMap() {
         super.joinMap(); // To change body of generated methods, choose Tools | Templates.
-        st = System.currentTimeMillis();
+        System.currentTimeMillis();
     }
-
-    private long st;
 
     @Override
     public void leaveMap() {

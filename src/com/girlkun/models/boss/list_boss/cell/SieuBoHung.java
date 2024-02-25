@@ -3,8 +3,6 @@ import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.*;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
-import com.girlkun.server.Manager;
-import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
 import com.girlkun.services.TaskService;
 import com.girlkun.utils.Util;

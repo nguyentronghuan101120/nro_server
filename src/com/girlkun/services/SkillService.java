@@ -76,7 +76,7 @@ public class SkillService {
             case 3:
 
                 useSkillAlone(player);
-                if (player.isFrezedSkill ) {
+                if (player.isFrezedSkill) {
                     Service.gI().releaseCooldownSkill(player);
 
                 }
@@ -84,7 +84,7 @@ public class SkillService {
             case 4:
 
                 userSkillSpecial(player, message);
-                if (player.isFrezedSkill ) {
+                if (player.isFrezedSkill) {
                     Service.gI().releaseCooldownSkill(player);
 
                 }
@@ -461,6 +461,7 @@ public class SkillService {
             message.writer().writeShort(curSkill.skillId);
             player.sendMessage(message);
             message.cleanup();
+            Service.gI().sendThongBao(player, "Done");
         } catch (Exception e) {
             Logger.logException(SkillService.class, e);
 

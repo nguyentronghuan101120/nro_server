@@ -6,11 +6,7 @@ import com.girlkun.models.map.Zone;
 import com.girlkun.server.Manager;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
-// đây
 
-/**
- * @author BTH sieu cap vippr0
- */
 public class Referee1 extends Player {
 
     private long lastTimeChat;

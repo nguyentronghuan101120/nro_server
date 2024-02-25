@@ -1,7 +1,6 @@
 
 package com.girlkun.models.boss.list_boss.kami;
 
-import java.util.Random;
 
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
@@ -10,12 +9,10 @@ import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
-import com.girlkun.server.Manager;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.RewardService;
 import com.girlkun.services.Service;
-import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 public class kamiLoc extends Boss {

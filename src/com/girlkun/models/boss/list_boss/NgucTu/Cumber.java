@@ -11,10 +11,6 @@ import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 import java.util.Random;
 
-/**
- *
- * @Stole By Arriety
- */
 public class Cumber extends Boss {
 
     public Cumber() throws Exception {

@@ -1,5 +1,6 @@
 package com.girlkun.jdbc.daos;
 
+import com.girlkun.data.DataGame;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.item.ItemTime;
@@ -13,7 +14,6 @@ import com.girlkun.services.MapService;
 import com.girlkun.utils.Logger;
 
 import helper.CustomLogger;
-import helper.Helper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,6 +30,7 @@ import org.json.simple.JSONValue;
 
 public class PlayerDAO {
 
+    @SuppressWarnings("unchecked")
     public static boolean createNewPlayer(int userId, String name, byte gender, int hair) {
         try {
             JSONArray dataArray = new JSONArray();
@@ -222,8 +223,6 @@ public class PlayerDAO {
             dataArray.clear();
 
             String mabuEgg = dataArray.toJSONString();
-            String billEgg = dataArray.toJSONString();
-
             dataArray.add(System.currentTimeMillis()); // bùa trí tuệ
             dataArray.add(System.currentTimeMillis()); // bùa mạnh mẽ
             dataArray.add(System.currentTimeMillis()); // bùa da trâu
@@ -329,9 +328,9 @@ public class PlayerDAO {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void updatePlayer(Player player) {
         if (player.iDMark.isLoadedAllDataPlayer()) {
-            long st = System.currentTimeMillis();
             try {
                 JSONArray dataArray = new JSONArray();
 
@@ -1016,6 +1015,7 @@ public class PlayerDAO {
             try {
                 ps.close();
             } catch (Exception e) {
+                Logger.logException(DataGame.class, e);
             }
         }
     }
@@ -1035,7 +1035,6 @@ public class PlayerDAO {
             }
         }
         PreparedStatement ps = null;
-        ResultSet rs = null;
         try (Connection con = GirlkunDB.getConnection();) {
             ps = con.prepareStatement("update account set reward = ? where id = ?");
             ps.setString(1, dataItemReward);
@@ -1048,6 +1047,7 @@ public class PlayerDAO {
             try {
                 ps.close();
             } catch (Exception e) {
+                Logger.logException(DataGame.class, e);
             }
         }
     }
@@ -1086,8 +1086,10 @@ public class PlayerDAO {
                     ps.close();
                 }
             } catch (SQLException ex) {
+                Logger.logException(DataGame.class, ex);
             }
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
             return false;
         }
         return lastTimeLogout > lastTimeLogin;
@@ -1120,7 +1122,7 @@ public class PlayerDAO {
             // UPDATE NRSD
             conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.logException(DataGame.class, e);
         }
     }
 

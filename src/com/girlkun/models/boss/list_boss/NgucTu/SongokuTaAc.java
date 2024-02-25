@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.girlkun.models.boss.list_boss.NgucTu;
 
 import com.girlkun.models.boss.Boss;
@@ -15,10 +11,7 @@ import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 import java.util.Random;
 
-/**
- *
- *@Stole By Arriety
- */
+
 public class SongokuTaAc extends Boss {
 
     public SongokuTaAc() throws Exception {

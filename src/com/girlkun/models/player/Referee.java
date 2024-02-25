@@ -1,32 +1,16 @@
 package com.girlkun.models.player;
 
-import com.girlkun.models.shop.ShopServiceNew;
 import com.girlkun.services.MapService;
-import com.girlkun.consts.ConstMap;
 import com.girlkun.models.map.Map;
 import com.girlkun.models.map.Zone;
 import com.girlkun.server.Manager;
-import com.girlkun.services.MapService;
-import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 // đây
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * @author BTH sieu cap vippr0
- */
 public class Referee extends Player {
 
     private long lastTimeChat;
-    private Player playerTarget;
-
-    private long lastTimeTargetPlayer;
-    private long timeTargetPlayer = 5000;
-    private long lastZoneSwitchTime;
-    private long zoneSwitchInterval;
-    private List<Zone> availableZones;
 
     public void initReferee() {
         init();
@@ -93,8 +77,8 @@ public class Referee extends Player {
                     pl.location.y = 264;
                     joinMap(z, pl);
                     z.setReferee(pl);
-                 }         
-            }else if (m.mapId == 14) {
+                }
+            } else if (m.mapId == 14) {
                 for (Zone z : m.zones) {
                     Referee pl = new Referee();
                     pl.name = "Kun";
@@ -113,4 +97,3 @@ public class Referee extends Player {
         }
     }
 }
-

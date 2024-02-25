@@ -1,9 +1,7 @@
 package com.girlkun.models.boss.list_boss.android;
 
-import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
-import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
@@ -22,14 +20,21 @@ public class Android15 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        int[] itemRan = new int[] { 1142, 382, 383, 384, 1142 };
-        int itemId = itemRan[2];
-        if (Util.isTrue(15, 100)) {
-            ItemMap it = new ItemMap(this.zone, itemId, 17, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), plKill.id);
-            Service.gI().dropItemMap(this.zone, it);
+        try {
+            int[] itemRan = new int[] { 1142, 382, 383, 384, 1142 };
+            int itemId = itemRan[2];
+            if (Util.isTrue(15, 100)) {
+                ItemMap it = new ItemMap(this.zone, itemId, 17, this.location.x,
+                        this.zone.map.yPhysicInTop(this.location.x,
+                                this.location.y - 24),
+                        plKill.id);
+                Service.gI().dropItemMap(this.zone, it);
+            }
+            TaskService.gI().checkDoneTaskKillBoss(plKill, this);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 
     @Override
@@ -58,8 +63,3 @@ public class Android15 extends Boss {
         PlayerService.gI().hoiPhuc(this, this.nPoint.hpMax, 0);
     }
 }
-
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
- */

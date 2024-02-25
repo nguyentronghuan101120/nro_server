@@ -1,7 +1,6 @@
 package com.girlkun.models.boss.list_boss.HuyDiet;
 
 import com.girlkun.models.boss.Boss;
-import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.EffectSkillService;

@@ -1,7 +1,6 @@
 package com.girlkun.models.boss.list_boss.Mabu12h;
 
 import com.girlkun.models.boss.Boss;
-import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;

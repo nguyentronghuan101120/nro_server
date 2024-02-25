@@ -23,11 +23,13 @@ import com.girlkun.utils.Logger;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@SuppressWarnings("unchecked")
 public class DataGame {
 
     public static byte vsData = 80;
@@ -38,6 +40,7 @@ public class DataGame {
 
     public static String LINK_IP_PORT = "NRO NRO server:localhost:14445:0,0,0";
     private static final String MOUNT_NUM = "733:1,734:2,735:3,743:4,744:5,746:6,795:7,849:8,897:9,920:10,1143:11,1141:15";
+    @SuppressWarnings("rawtypes")
     public static final Map MAP_MOUNT_NUM = new HashMap();
 
     static {
@@ -47,10 +50,6 @@ public class DataGame {
             short num = (short) (Short.parseShort(data[1]) + 30000);
             MAP_MOUNT_NUM.put(data[0], num);
         }
-    }
-
-    private DataGame() {
-
     }
 
     public static void sendVersionGame(MySession session) {
@@ -63,9 +62,9 @@ public class DataGame {
             msg.writer().writeByte(vsItem);
             msg.writer().writeByte(0);
 
-            long[] smtieuchuan = {1000L, 3000L, 15000L, 40000L, 90000L, 170000L, 340000L, 700000L,
+            long[] smtieuchuan = { 1000L, 3000L, 15000L, 40000L, 90000L, 170000L, 340000L, 700000L,
                     1500000L, 15000000L, 150000000L, 1500000000L, 5000000000L, 10000000000L, 40000000000L,
-                    50010000000L, 60010000000L, 70010000000L, 80010000000L, 100010000000L};
+                    50010000000L, 60010000000L, 70010000000L, 80010000000L, 100010000000L };
             msg.writer().writeByte(smtieuchuan.length);
             for (int i = 0; i < smtieuchuan.length; i++) {
                 msg.writer().writeLong(smtieuchuan[i]);
@@ -73,10 +72,11 @@ public class DataGame {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
-    //vcData
+    // vcData
     public static void updateData(MySession session) {
         byte[] dart = FileIO.readFile("data/girlkun/update_data/dart");
         byte[] arrow = FileIO.readFile("data/girlkun/update_data/arrow");
@@ -105,10 +105,11 @@ public class DataGame {
             session.doSendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
-    //vcMap
+    // vcMap
     public static void updateMap(MySession session) {
         Message msg;
         try {
@@ -142,7 +143,7 @@ public class DataGame {
         }
     }
 
-    //vcSkill
+    // vcSkill
     public static void updateSkill(MySession session) {
         Message msg;
         try {
@@ -150,7 +151,7 @@ public class DataGame {
 
             msg.writer().writeByte(7);
             msg.writer().writeByte(vsSkill);
-            msg.writer().writeByte(0); //count skill option
+            msg.writer().writeByte(0); // count skill option
 
             msg.writer().writeByte(Manager.NCLASS.size());
             for (NClass nClass : Manager.NCLASS) {
@@ -182,7 +183,7 @@ public class DataGame {
                             msg.writer().writeUTF(skill.moreInfo);
                         }
                     } else {
-                        //Thêm 2 skill trống 105, 106
+                        // Thêm 2 skill trống 105, 106
                         msg.writer().writeByte(skillTemp.skillss.size() + 2);
                         for (Skill skill : skillTemp.skillss) {
                             msg.writer().writeShort(skill.skillId);
@@ -232,7 +233,7 @@ public class DataGame {
         }
     }
 
-    //--------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
     public static void sendEffectTemplate(MySession session, int id) {
         Message msg;
         try {
@@ -242,17 +243,20 @@ public class DataGame {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
-public static void effData(MySession session, int id, int... idtemp) {
+
+    public static void effData(MySession session, int id, int... idtemp) {
         int idT = id;
-        if(idtemp.length > 0 && idtemp[0] != 0){
+        if (idtemp.length > 0 && idtemp[0] != 0) {
             idT = idtemp[0];
         }
         Message msg;
         try {
             byte[] effData = FileIO.readFile("data/girlkun/effect/x" + session.zoomLevel + "/data/DataEffect_" + idT);
-            byte[] effImg = FileIO.readFile("data/girlkun/effect/x" + session.zoomLevel + "/img/ImgEffect_" + idT+".png");
+            byte[] effImg = FileIO
+                    .readFile("data/girlkun/effect/x" + session.zoomLevel + "/img/ImgEffect_" + idT + ".png");
             msg = new Message(-66);
             msg.writer().writeShort(id);
             msg.writer().writeInt(effData.length);
@@ -263,8 +267,10 @@ public static void effData(MySession session, int id, int... idtemp) {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
+
     public static void sendItemBGTemplate(MySession session, int id) {
         Message msg;
         try {
@@ -289,6 +295,7 @@ public static void effData(MySession session, int id, int... idtemp) {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
@@ -303,6 +310,7 @@ public static void effData(MySession session, int id, int... idtemp) {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
@@ -317,18 +325,16 @@ public static void effData(MySession session, int id, int... idtemp) {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
-
-    private static List<Integer> list = new ArrayList<>();
-
     public static void requestMobTemplate(MySession session, int id) {
-//        if (list.contains(id)) {
-//            return;
-//        } else {
-//            list.add(id);
-//        }
+        // if (list.contains(id)) {
+        // return;
+        // } else {
+        // list.add(id);
+        // }
         Message msg;
         try {
             byte[] mob = FileIO.readFile("data/girlkun/mob/x" + session.zoomLevel + "/" + id);
@@ -338,6 +344,7 @@ public static void effData(MySession session, int id, int... idtemp) {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
@@ -349,6 +356,7 @@ public static void effData(MySession session, int id, int... idtemp) {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
@@ -367,40 +375,48 @@ public static void effData(MySession session, int id, int... idtemp) {
                 }
             }
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
     public static void mainzz(String[] args) throws Exception {
-        List<String> list = new ArrayList<>();
-        File folder = new File("C:\\Users\\admin\\Desktop\\nro qltk java by girlkun\\girlkun\\map\\tile_map_data");
-//        for (File f : folder.listFiles()) {
-//            list.add(f.getName());
-//        }
-        folder = new File("C:\\Users\\admin\\Desktop\\cbro\\data\\girlkun\\map\\tile_map_dataz");
-        for (File f : folder.listFiles()) {
-            if (!list.contains(f.getName())) {
-                DataInputStream dis = new DataInputStream(new FileInputStream(f));
-                dis.readByte();
-                int w = dis.readByte();
-                int h = dis.readByte();
-                byte[] data = new byte[w * h];
-                for (int i = 0; i < data.length; i++) {
-                    data[i] = dis.readByte();
+        try {
+            List<String> list = new ArrayList<>();
+            File folder = new File("C:\\Users\\admin\\Desktop\\nro qltk java by girlkun\\girlkun\\map\\tile_map_data");
+            // for (File f : folder.listFiles()) {
+            // list.add(f.getName());
+            // }
+            folder = new File("C:\\Users\\admin\\Desktop\\cbro\\data\\girlkun\\map\\tile_map_dataz");
+            for (File f : folder.listFiles()) {
+                if (!list.contains(f.getName())) {
+                    DataInputStream dis = new DataInputStream(new FileInputStream(f));
+                    dis.readByte();
+                    int w = dis.readByte();
+                    int h = dis.readByte();
+                    byte[] data = new byte[w * h];
+                    for (int i = 0; i < data.length; i++) {
+                        data[i] = dis.readByte();
+                    }
+                    dis.close();
+                    DataOutputStream dos = new DataOutputStream(new FileOutputStream(
+                            "C:\\Users\\admin\\Desktop\\cbro\\data\\girlkun\\map\\tile_map_data\\" + f.getName()));
+                    dos.writeByte(w);
+                    dos.writeByte(h);
+                    for (int i = 0; i < data.length; i++) {
+                        dos.writeByte(data[i]);
+                    }
+                    dos.flush();
+                    dos.close();
                 }
-                dis.close();
-                DataOutputStream dos = new DataOutputStream(new FileOutputStream("C:\\Users\\admin\\Desktop\\cbro\\data\\girlkun\\map\\tile_map_data\\" + f.getName()));
-                dos.writeByte(w);
-                dos.writeByte(h);
-                for (int i = 0; i < data.length; i++) {
-                    dos.writeByte(data[i]);
-                }
-                dos.flush();
-                dos.close();
             }
+        } catch (FileNotFoundException e) {
+            Logger.logException(DataGame.class, e);
+        } catch (IOException e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
-    //data vẽ map
+    // data vẽ map
     public static void sendMapTemp(MySession session, int id) {
         Message msg;
         try {
@@ -414,7 +430,7 @@ public static void effData(MySession session, int id, int... idtemp) {
         }
     }
 
-    //head-avatar
+    // head-avatar
     public static void sendHeadAvatar(Message msg) {
         try {
             msg.writer().writeShort(Manager.HEAD_AVATARS.size());
@@ -423,6 +439,7 @@ public static void effData(MySession session, int id, int... idtemp) {
                 msg.writer().writeShort(ha.avatarId);
             }
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
@@ -438,10 +455,11 @@ public static void effData(MySession session, int id, int... idtemp) {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
-    //download data res --------------------------------------------------------
+    // download data res --------------------------------------------------------
     public static void sendVersionRes(ISession session) {
         Message msg;
         try {
@@ -451,6 +469,7 @@ public static void effData(MySession session, int id, int... idtemp) {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
@@ -463,6 +482,7 @@ public static void effData(MySession session, int id, int... idtemp) {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
 
@@ -502,6 +522,7 @@ public static void effData(MySession session, int id, int... idtemp) {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(DataGame.class, e);
         }
     }
     /**
