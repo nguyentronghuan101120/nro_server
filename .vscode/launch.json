@@ -1,0 +1,70 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "CBRO",
+            "request": "launch",
+            "mainClass": "cbro.CBRO",
+            "projectName": "nro_server_70e7f023"
+        },
+        {
+            "type": "java",
+            "name": "ConstTask",
+            "request": "launch",
+            "mainClass": "com.girlkun.consts.ConstTask",
+            "projectName": "nro_server_70e7f023"
+        },
+        {
+            "type": "java",
+            "name": "Test",
+            "request": "launch",
+            "mainClass": "com.girlkun.consts.Test",
+            "projectName": "nro_server_70e7f023"
+        },
+        {
+            "type": "java",
+            "name": "ServerManager",
+            "request": "launch",
+            "mainClass": "com.girlkun.server.ServerManager",
+            "projectName": "nro_server_70e7f023"
+        },
+        {
+            "type": "java",
+            "name": "TaskService",
+            "request": "launch",
+            "mainClass": "com.girlkun.services.TaskService",
+            "projectName": "nro_server_70e7f023"
+        },
+        {
+            "type": "java",
+            "name": "GifSequenceWriter",
+            "request": "launch",
+            "mainClass": "com.girlkun.utils.GifSequenceWriter",
+            "projectName": "nro_server_70e7f023"
+        },
+        {
+            "type": "java",
+            "name": "ImageUtil",
+            "request": "launch",
+            "mainClass": "com.girlkun.utils.ImageUtil",
+            "projectName": "nro_server_70e7f023"
+        },
+        {
+            "type": "java",
+            "name": "ImageUtil2",
+            "request": "launch",
+            "mainClass": "com.girlkun.utils.ImageUtil2",
+            "projectName": "nro_server_70e7f023"
+        }
+    ]
+}

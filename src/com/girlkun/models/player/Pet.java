@@ -103,7 +103,7 @@ public class Pet extends Player {
             case FOLLOW:
                 return "Ok con theo sư phụ";
             case PROTECT:
-                return "Á..À!!Mày Dám Đánh Sư Phụ Tao À, con sẽ bảo vệ sư phụ";
+                return "Con sẽ bảo vệ sư phụ";
             case ATTACK:
                 return "Ok sư phụ, Thích Thì Đấm, Đụng Thì Chạm";
             case GOHOME:

@@ -19,15 +19,8 @@ import com.girlkun.server.Manager;
 import com.girlkun.network.io.Message;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TaskService {
-
-    /**
-     * Làm cùng số người trong bang
-     */
-    private static final byte NMEMBER_DO_TASK_TOGETHER = 1;
 
     private static com.girlkun.services.TaskService i;
 
